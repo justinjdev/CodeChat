@@ -120,7 +120,7 @@ class CommandThread(threading.Thread):
 
         Init threading for a given chat to process commands.
 
-        :param host: Whichever host is requesting processing.
+        :param host: Whichever host is processing requests (self).
 
         :param port: Whichever port we're accepting sockets on.
 
