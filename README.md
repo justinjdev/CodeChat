@@ -1,1 +1,4 @@
-# CodeChat
+### CodeChat
+
+- [ ] Code
+- [ ] Chat
