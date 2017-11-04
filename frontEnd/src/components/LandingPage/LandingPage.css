@@ -3,7 +3,7 @@ body {
 
 .landing-page {
   background: pink;
-  background-image: url(./../img/landing-page.png);
+  background-image: url(../../img/landing-page.png);
   background-size: cover; }
 
 .landing-cta {

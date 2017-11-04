@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
-import './styles/App.css'
-import Chat from './components/Chat'
-import LandingPage from './components/LandingPage'
+import './App.css'
+import Chat from '../Chat/Chat'
+import LandingPage from '../LandingPage/LandingPage'
 
 class App extends Component {
   render() {

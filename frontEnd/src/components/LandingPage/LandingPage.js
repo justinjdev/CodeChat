@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import '../styles/LandingPage.css';
+import './LandingPage.css';
 
 class LandingPage extends Component {
 
