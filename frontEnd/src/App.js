@@ -1,10 +1,11 @@
 import React, {Component} from 'react'
-import './App.css'
-import Chat from './Chat'
+import './styles/App.css'
+import Chat from './components/Chat'
+import LandingPage from './components/LandingPage'
 
 class App extends Component {
   render() {
-    return (<Chat/>)
+    return (<LandingPage/>)
   }
 }
 

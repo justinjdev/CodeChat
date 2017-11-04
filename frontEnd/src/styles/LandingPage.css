@@ -1,0 +1,11 @@
+body {
+  height: 100%; }
+
+.landing-page {
+  background: pink;
+  background-image: url(./../img/landing-page.png);
+  background-size: cover; }
+
+.landing-cta {
+  color: white;
+  text-align: center; }
