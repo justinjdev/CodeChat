@@ -5,6 +5,7 @@ body{
     background: pink;
     background-image: url(../../img/landing-page.png);
     background-size: cover;
+    height:100vh;  // 100% of viewport height
 }
 
 .landing-cta{
