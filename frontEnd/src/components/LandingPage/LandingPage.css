@@ -4,7 +4,8 @@ body {
 .landing-page {
   background: pink;
   background-image: url(../../img/landing-page.png);
-  background-size: cover; }
+  background-size: cover;
+  height: 100vh; }
 
 .landing-cta {
   color: white;
