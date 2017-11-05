@@ -1,9 +1,8 @@
-#!/usr/bin/env node
+'use strict'
 
 const express = require('express')
 const app = express()
 const http = require('http')
-
 
 
 app.set('port', process.env.PORT || 3000)
