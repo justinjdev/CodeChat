@@ -1,17 +1,12 @@
-'use strict'
+'use strict' //pls
 
 const express = require('express')
 const app = express()
 const http = require('http')
 
 
-app.set('port', process.env.PORT || 3000)
-app.set('views', __dirname + '/views')
-app.use(express.static(__dirname + '/public'))
+app.set('port', process.env.PORT || 8080)
 
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/views/index.html')
-})
 
 let server = app.listen(app.get('port'), () => {
   console.log('Node app is running on port', app.get('port'))
@@ -44,7 +39,9 @@ io.on('connection', (socket) => {
   // when they connect to the server, default to lobby channel
   socket.join('Lobby')
   // when they join, emit the message 'joinResult'
-  socket.emit('joinResult', {room: 'Lobby'}) //let the client know that it's defaulted to the lobby
+  socket.emit('joinResult', {
+    room: 'Lobby'
+  }) //let the client know that it's defaulted to the lobby
 
   /**
    * when the socket connection disconnects then you remove the nickname and name used from the list of names used
@@ -62,6 +59,9 @@ io.on('connection', (socket) => {
   socket.emit('nameResult', { //then tell the client that the namechange was successful and go for it
     success: true,
     name: name
+  })
+  socket.emit('message', {
+    message: `Welcome ${name}`
   })
   namesUsed.push(name) //add new nickname to the names used list, (note: no way to remove from the list)
   guestNumber += 1
@@ -98,7 +98,9 @@ io.on('connection', (socket) => {
   socket.on('join', (room) => {
     socket.leave(room.previousRoom)
     socket.join(room.newRoom)
-    socket.emit('joinResult', {room: room.newRoom})
+    socket.emit('joinResult', {
+      room: room.newRoom
+    })
 
   })
 
