@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const http = require('https')
 
-app.set('port', process.env.PORT || 3000)
+app.set('port', process.env.PORT || 8080)
 
 let server = app.listen(app.get('port'), () => {
   console.log('Node app is running on port', app.get('port'))
