@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import './MainPage.css'
+import Chat from '../Chat/Chat'
 
 class MainPage extends Component {
     render() {
@@ -14,7 +15,7 @@ class MainPage extends Component {
                         <p>channels</p>
                     </div>
                     <div className="main">
-                        <p>chat</p>
+                        <Chat/>
                     </div>
                     <div className="right-sidebar">
                         <p>active</p>

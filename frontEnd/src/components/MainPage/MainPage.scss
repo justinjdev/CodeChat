@@ -4,7 +4,6 @@
     background-color: grey;
     height: 100vh;
 
-
     .header{
         background-color: blue;
         flex: 1;
@@ -15,7 +14,7 @@
     .content{
         display: flex;
         flex-direction: row;
-        flex: 8;
+        flex: 9;
 
         .left-sidebar{
             background-color: green;
@@ -24,6 +23,8 @@
         .main{
             background-color: yellow;
             flex: 4;
+
+            margin: 10px;
         }
         .right-sidebar{
             background-color: red;
@@ -33,7 +34,7 @@
 
     .footer{
         background-color: purple;
-        flex: 1;
+        flex: 2;
         text-align: center;
         align-content: center;
     }

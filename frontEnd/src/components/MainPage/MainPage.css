@@ -11,18 +11,19 @@
   .main-page .content {
     display: flex;
     flex-direction: row;
-    flex: 8; }
+    flex: 9; }
     .main-page .content .left-sidebar {
       background-color: green;
       flex: 1; }
     .main-page .content .main {
       background-color: yellow;
-      flex: 4; }
+      flex: 4;
+      margin: 10px; }
     .main-page .content .right-sidebar {
       background-color: red;
       flex: 1; }
   .main-page .footer {
     background-color: purple;
-    flex: 1;
+    flex: 2;
     text-align: center;
     align-content: center; }
