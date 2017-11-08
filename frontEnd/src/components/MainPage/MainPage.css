@@ -1,0 +1,28 @@
+.main-page {
+  display: flex;
+  flex-direction: column;
+  background-color: grey;
+  height: 100vh; }
+  .main-page .header {
+    background-color: blue;
+    flex: 1;
+    align-content: center;
+    text-align: center; }
+  .main-page .content {
+    display: flex;
+    flex-direction: row;
+    flex: 8; }
+    .main-page .content .left-sidebar {
+      background-color: green;
+      flex: 1; }
+    .main-page .content .main {
+      background-color: yellow;
+      flex: 4; }
+    .main-page .content .right-sidebar {
+      background-color: red;
+      flex: 1; }
+  .main-page .footer {
+    background-color: purple;
+    flex: 1;
+    text-align: center;
+    align-content: center; }

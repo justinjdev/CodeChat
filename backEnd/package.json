@@ -1,0 +1,11 @@
+{
+  "name": "codechat-node-server",
+  "version": "0.1.0",
+  "description": "backend node application for codeChat's messaging application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Cameron & Avery",
+  "license": "ISC"
+}
