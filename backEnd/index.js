@@ -22,7 +22,7 @@ io.on('connection', socket => {
         console.log(socket.id, 'disconnected')
     })
     socket.on('message', message => {
-        console.log(message)
+        console.log(message.text)
         if (message.text[0] === '/') {
             parser.readInput(message)
         } else {
