@@ -1,4 +1,4 @@
-class Command:
+class Command_Item:
     def __init__(self, item=None):
         self.__item = item
         self.__next = None
