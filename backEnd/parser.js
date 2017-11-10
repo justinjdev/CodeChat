@@ -9,6 +9,23 @@ module.exports = class Parser {
                 break
             case 'nick':
                 break
+            case 'python':
+                break
+            case 'java':
+                break
+            case 'javascript':
+                break
+            case 'bunny':
+                return(`
+                (\  /)
+                (0.0)
+               c(uu)
+                UU
+                `)
+                break
+            case 'shrug':
+                return(`¯\\_(ツ)_/¯`)
+            break
             default:
                 message = 'Unrecognized Command.'
                 break
