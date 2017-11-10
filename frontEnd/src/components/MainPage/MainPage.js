@@ -12,6 +12,9 @@ class MainPage extends Component {
                 </div>
                 <div className="content">
                     <div className="left-sidebar">
+                        <div className="profile-icon">
+                            <p>D.B.</p>
+                        </div>
                         <p>channels</p>
                     </div>
                     <div className="main">
