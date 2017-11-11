@@ -11,6 +11,7 @@ import threading
 import sys
 import subprocess
 import os
+import configparser
 from Command_Queue import *
 
 
@@ -62,9 +63,10 @@ class Command:
     	pass
 # end Command
 
-class Command_Thread(threading.Thread):
+class CommandThread(threading.Thread):
 
     # This class is passed a new connection to receive commands on.
+    # Need a timeout
 
     def __init__(self, conn: socket.socket):
         r"""
@@ -74,7 +76,7 @@ class Command_Thread(threading.Thread):
         :param conn: a `socket` connection
 
         """
-        super(Command_Thread, self).__init__()
+        super(ATtiny85 , self).__init__()
         self.__conn = conn
         self.__in_queue = Command_Queue('inqueue')
         self.__out_queue = Command_Queue('outqueue')
@@ -112,21 +114,12 @@ class Command_Thread(threading.Thread):
 			self.__conn.send(self.__command_queue.dequeue())
 		self.__con.close()
 
-    # def close(self):
-    #     r"""
-    #
-    #     Will close the socket connection upon response.
-    #
-    #     :return: None
-    #
-    #     """
-    #     self.__conn.close()
 # end class server
 
 
 class Server(threading.Thread):
 
-    def __init__(self, host=socket.gethostname(), port=3001):
+    def __init__(self, host=socket.gethostname(), port=3001, whitelist:list):
         r"""
 
         Init threading for a given chat to process commands.
@@ -146,7 +139,7 @@ class Server(threading.Thread):
         
         #empty queue
         
-        self.__host, self.__port = host, port
+        self.__host, self.__port, self.__whitelist = host, port, whitelist
 
     def run(self):
         r"""
@@ -156,12 +149,12 @@ class Server(threading.Thread):
         :return: 
 
         """
-        self.__s.listen()
+        self.__s.listen(5)
         while True:
             conn, address = self.__s.accept()
-            srv = Server(conn)
-            srv.listen()
-            logging.DEBUG('Command processed for host {}'.format(address[0]))
+            if address in whitelist:
+				CommandThread(conn).listen()
+				logging.DEBUG('Command processed for host {}'.format(address[0]))
             
 	def close(self):
 		try:
@@ -173,20 +166,12 @@ class Server(threading.Thread):
 
 
 def main():
-    # need to decide on a port
-    # default set to 1999
+    config = configparser.ConfigParser()
+    config.read('server-settings.ini')
     g_host = socket.gethostname()
-    g_port = 3001
-    my_socket_stuff = CommandThread(g_host, g_port)
+    g_port = config['DEFAULT']['port']
+    my_socket_stuff = Server(g_host, g_port, config['DEFAULT']['allowed'])
     my_socket_stuff.run()
 
-    ''' I'm going to loop through periodically to send responses
-    while True:
-        try:
-            pass
-        except KeyboardInterrupt:
-            logging.DEBUG('Exiting via KBI')
-            sys.exit()
-	'''
 if __name__ == '__main__':
     main()
