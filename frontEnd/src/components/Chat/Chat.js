@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import io from 'socket.io-client'
 
-const socket = io('localhost:8080')
+const socket = io('https://ezchatrooms.herokuapp.com/')
 
 class Chat extends Component {
     constructor(props) {
