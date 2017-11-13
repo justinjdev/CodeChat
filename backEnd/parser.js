@@ -1,3 +1,9 @@
+const DBC = require('./DBController') //connects to database
+const dbc = new DBC(io)
+
+const Abstraction = require('./Abstraction') //connects to sandbox
+const abstraction = new Abstraction(io)
+
 module.exports = class Parser {
     readInput(message) {
         let words = message.text.split(' ')
