@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import './MainPage.css'
 import Chat from '../Chat/Chat'
+import Channels from '../Channels/Channels'
 
 class MainPage extends Component {
     render() {
@@ -16,6 +17,7 @@ class MainPage extends Component {
                             <p>D.B.</p>
                         </div>
                         <p>channels</p>
+                        <Channels/>
                     </div>
                     <div className="main">
                         <Chat/>
