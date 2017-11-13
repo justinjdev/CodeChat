@@ -17,7 +17,7 @@ module.exports = class Parser {
                 break
             case 'bunny':
                 return(`
-                (\  /)
+                (\\  /)
                 (0.0)
                c(uu)
                 UU
