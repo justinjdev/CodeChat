@@ -1,3 +1,4 @@
+'use strict'
 module.exports = class Socket {
     constructor(io) {
         this.listenOnIO();

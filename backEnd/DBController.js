@@ -1,10 +1,10 @@
 'use strict'
 
 const dbCommandFile = require('./DBCommands') //connects to PSQL
-const dbcommands = new dbCommandFile(io)
+const dbcommands = new dbCommandFile()
 
 const redisController = require('./redisController') //connects to redis
-const redisController = new redisController(io)
+const redisController = new redisController()
 
 
         /**
@@ -16,8 +16,8 @@ module.exports = class DBC {
         /**
      * run command to connect to the PostgreSQL Database
      */
-    connect() {  
-        dbcommands.connectDB() 
+    connect() {
+        dbcommands.connectDB()
 }
 /**
      * If the input is a 'message', then send the message() to DBCOmmands and redisCOntroller
@@ -32,7 +32,7 @@ module.exports = class DBC {
         let message = req.query.message
 
         if (command === 'listUsers') {  // not sure what were comparing the command to
-            console.log('list') 
+            console.log('list')
             dbcommands                  // check the command
                 .listUsers()
                 .then(resolve => { //we should send it to abstraction somehow
@@ -135,8 +135,8 @@ module.exports = class DBC {
                                 .json({status: 'Error', error: error})
                         })
                 })
-                
-        } 
+
+        }
     }
 
     /**
