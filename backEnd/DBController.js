@@ -1,14 +1,14 @@
 'use strict'
 
-const DBCommands = require('./DBCommands') //connects to PSQL
-const DBCommands = new DBCommands(io)
+const dbCommandFile = require('./DBCommands') //connects to PSQL
+const dbcommands = new dbCommandFile(io)
 
 const redisController = require('./redisController') //connects to redis
 const redisController = new redisController(io)
 
 
         /**
-     * needs to be edited alot
+     * still work in progress
      */
 
 
@@ -20,21 +20,22 @@ module.exports = class DBC {
         dbcommands.connectDB() 
 }
 /**
-     * If the command is 'message', then send the db command of message()
-     *      which resolves into an object listing the database
+     * If the input is a 'message', then send the message() to DBCOmmands and redisCOntroller
+     *      which resolves into a message saving into both DB
+     * If the input is 'command', then send the command() to Abstraction
+     *      which resolves into a String Object to send to sandbox
      * @param {Request} req
      * @param {Response} res
      */
     get(req, res) {
         let command = req.query.cmd
-        let username = req.query.username
-        let foodname = req.query.foodname
+        let message = req.query.message
 
-        if (command === 'listUsers') {
-            console.log('list')
-            dbcommands
+        if (command === 'listUsers') {  // not sure what were comparing the command to
+            console.log('list') 
+            dbcommands                  // check the command
                 .listUsers()
-                .then(resolve => {
+                .then(resolve => { //we should send it to abstraction somehow
                     console.log(resolve)
                     res
                         .status(200)
@@ -80,7 +81,7 @@ module.exports = class DBC {
     }
 
     /**
-     * for now this command just creates a user need to refactor or split to something else
+     * this command just creates a user
      * @param {Request} req
      * @param {Response} res
      */
@@ -89,9 +90,6 @@ module.exports = class DBC {
         let command = req.query.cmd
         let username = req.query.username
         let password = req.query.password
-        let newItem = req.query.item
-        let oldItem = req.query.oldItem
-        let checked = req.query.checked
 
         if (command === 'register') {
             console.log('register')
@@ -120,53 +118,11 @@ module.exports = class DBC {
                     .status(404)
                     .json({status: 'Not Exist', error: error})
             })
-        } else if (command === 'addItem') {
-            console.log("new Item: ", newItem)
-            // First Check to make sure that food is in the Database:
+        } else if (command === 'edit') {
             dbcommands
-                .getItemInList({foodname: newItem})
-                .then(() => {
-                    let addItem = dbcommands.insert({command: 'newItem', username: username, newItem: newItem})
-                    addItem.then(resolve => {
-                        console.log(resolve)
-                        res
-                            .status(200)
-                            .json({status: 'successful add', items: resolve})
-                    }).catch(error => {
-                        res
-                            .status(500)
-                            .json({status: 'Error', error: error})
-                    })
-                })
-                .catch(error => {
-                    console.log("OMG THERE'S AN ERROR!!! 😵")
-                    // Need to embed thens inside thens to make sure it only pushes it if there are
-                    // no errors....
-                    dbcommands
-                        .insert({command: 'addFood', newItem: newItem})
-                        .then(() => {
-                            console.log("okay now we've added it to the foods table, next is to add it to the list.")
-                            let addItem = dbcommands.insert({command: 'newItem', username: username, newItem: newItem})
-                            addItem.then(resolve => {
-                                console.log(resolve)
-                                res
-                                    .status(200)
-                                    .json({status: 'successful add', items: resolve})
-                            }).catch(error => {
-                                res
-                                    .status(500)
-                                    .json({status: 'Error', error: error})
-                            })
-                        })
-                    console.error(error)
-                })
-
-        }  else if (command === 'edit') {
-            dbcommands
-                .getItemInList({foodname: newItem})
                 .then(() => {
                     dbcommands
-                        .editItem({username: username, newItem: newItem, oldItem: oldItem, checked: checked})
+                        .editItem({username: username, password: password})
                         .then(resolve => {
                             console.log(resolve)
                             res
@@ -179,51 +135,8 @@ module.exports = class DBC {
                                 .json({status: 'Error', error: error})
                         })
                 })
-                .catch(error => {
-                    console.log("OMG THERE'S AN ERROR!!! 😵")
-                    // Need to embed thens inside thens to make sure it only pushes it if there are
-                    // no errors....
-                    dbcommands
-                        .insert({command: 'addFood', newItem: newItem})
-                        .then(() => {
-                            dbcommands
-                                .editItem({username: username, newItem: newItem, oldItem: oldItem, checked: checked})
-                                .then(resolve => {
-                                    console.log(resolve)
-                                    res
-                                        .status(200)
-                                        .json({status: 'successful add', items: resolve})
-                                })
-                                .catch(error => {
-                                    res
-                                        .status(500)
-                                        .json({status: 'Error', error: error})
-                                })
-                        })
-                    console.error(error)
-                })
-        } else if (command === 'editFoods') {
-            let foodname = req.query.foodname
-            let category = req.query.category
-            let type = req.query.type
-            let expiration = req.query.expiration
-            let storage = req.query.storage
-
-            dbcommands
-                .updateFoodDetails({foodname: foodname, category: category, type: type, expiration: expiration, storage: storage})
-                .then(data => {
-                    console.log(data)
-                    res
-                        .status(200)
-                        .json({status: 'successful edit', items: data})
-                })
-                .catch(error => {
-                    console.error(error)
-                    res
-                        .status(500)
-                        .json({status: 'Error', error: error})
-                })
-        }
+                
+        } 
     }
 
     /**
@@ -234,28 +147,11 @@ module.exports = class DBC {
     delete(req, res) {
         let cmd = req.query.cmd
         let username = req.query.username
-        let item = req.query.item
         console.log("deleting in link")
         console.log("username:", username)
         if (cmd === "delUser") {
             dbcommands
                 .delete(username)
-                .then(resolve => {
-                    console.log("resolve", resolve)
-                    if (resolve) {
-                        res
-                            .status(200)
-                            .json({status: 'success'})
-                    }
-                })
-                .catch(error => {
-                    res
-                        .status(500)
-                        .json({status: 'Error', error: error})
-                })
-        } else if (cmd === "delItem") {
-            dbcommands
-                .deleteListItem({item: item, username: username})
                 .then(resolve => {
                     console.log("resolve", resolve)
                     if (resolve) {
