@@ -76,7 +76,7 @@ class CommandThread(threading.Thread):
         :param conn: a `socket` connection
 
         """
-        super(ATtiny85 , self).__init__()
+        super(CommandThread , self).__init__()
         self.__conn = conn
         self.__in_queue = Command_Queue('inqueue')
         self.__out_queue = Command_Queue('outqueue')
