@@ -9,7 +9,7 @@ class MainPage extends Component {
         return (
             <div className="main-page">
                 <div className="header">
-                    <h3>{"<CODE CHAT/>"}</h3>
+                    <h3>{"<CODE CHAT>"}</h3>
                 </div>
                 <div className="content">
                     <div className="left-sidebar">
@@ -26,9 +26,9 @@ class MainPage extends Component {
                         <p>active</p>
                     </div>
                 </div>
-                {/* <div className="footer">
-                    <p>footer | more footer | other footer</p>
-                </div> */}
+                <div className="footer">
+                    <h3>{"</CODE CHAT>"}</h3>
+                </div>
             </div>
         );
     }

@@ -1,3 +1,5 @@
+@import './../../colors.scss';
+
 .main-page{
     display: flex;
     flex-direction: column;
@@ -5,7 +7,7 @@
     height: 100vh;
 
     .header{
-        background-color: #56CCF2;
+        background-color: $header-background;
         flex: 1;
         align-content: center;
         text-align: center;
@@ -48,10 +50,10 @@
         }
     }
 
-    // .footer{
-    //     background-color: purple;
-    //     flex: 2;
-    //     text-align: center;
-    //     align-content: center;
-    // }
+    .footer{
+        background-color: $footer-background;
+        flex: 1;
+        text-align: center;
+        align-content: center;
+    }
 }
