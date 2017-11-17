@@ -9,7 +9,7 @@ let server = app.listen(app.get('port'), () => {
 })
 
 const io = require('socket.io').listen(server) //listen to own server
-const socketio = require('socket.io-client')('http://localhost:3003') //listen to justin server
+const socketio = require('socket.io-client')('http://localhost:3001') //listen to justin server
 
 const Parser = require('./parser')
 const parser = new Parser(io)
