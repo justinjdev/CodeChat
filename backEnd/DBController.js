@@ -3,8 +3,8 @@
 const dbCommandFile = require('./DBCommands') //connects to PSQL
 const dbcommands = new dbCommandFile()
 
-const redisController = require('./redisController') //connects to redis
-const redisController = new redisController()
+const redisControlFile = require('./redisController') //connects to redis
+const redisController = new redisControlFile()
 
 
         /**

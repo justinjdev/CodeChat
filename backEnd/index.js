@@ -31,7 +31,6 @@ io.on('connection', socket => { //listen to self
         } else {
             message.nick = "A user"
             message.id = socket.id
-            console.log('broadcast room:', message.room)
             socket
                 .broadcast
                 .to(message.room)

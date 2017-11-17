@@ -8,6 +8,7 @@ const abstraction = new Abstraction()
 
 module.exports = class Parser {
     readInput(message) {
+        console.log(message)
         let words = message
             .text
             .split(' ')
