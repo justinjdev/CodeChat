@@ -18,36 +18,48 @@ module.exports = class Parser {
         switch (command) {
             case 'join':
                 console.log("join command")
-                return({text:"join command"})
+                message.text = "join command"
+                return(message)
                 break;
             case 'nick':
                 console.log("nick command")
-                return({text: "nickname command"})
+                message.text = "nick command"
+                return(message)
                 break
             case 'python':
                 // console.log("python command")
-                return({text:"python command"})
+                message.text = "python command"
+                return(message)
                 break
             case 'python':
+                message.text = "python command"
+                return(message)
                 break
             case 'java':
+                message.text = "java command"
+                return(message)
                 break
             case 'javascript':
+                message.text = "javascript command"
+                return(message)
                 break
             case 'bunny':
-                return({text:`
-                (\\  /)
-                (0.0)
-               c(uu)
-                UU
-                `})
+                message.text = `
+                        (\\  /)
+                        (0.0)
+                        c(uu)
+                        UU
+                        `
+                return(message)
                 break
             case 'shrug':
-                return({text:`¯\\_(ツ)_/¯`})
+            message.text = `¯\\_(ツ)_/¯`
+                return(message)
             break
             default:
                 console.log("unrecognized command")
-                return({text:"unrecognized command"})
+                message.text = "unrecognized command"
+                return(message)
                 // message.text = 'Unrecognized Command.'
                 break
         }
