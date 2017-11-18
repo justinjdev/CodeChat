@@ -53,10 +53,14 @@ module.exports = class Socket {
                     if (message.text === '') { // do nothing
                     } else {
                         if (message.text[0] === '/') {
-                           this. parser
+                            this
+                                .parser
                                 .readInput(message)
                                 .then(res => {
-                                    socket.broadcast.to('Lobby').emit('message',res)
+                                    socket
+                                        .broadcast
+                                        .to('Lobby')
+                                        .emit('message', res)
                                 })
                         } else {
                             message.nick = "A user"
@@ -64,9 +68,7 @@ module.exports = class Socket {
                             socket
                                 .broadcast
                                 .to(message.room)
-                                .emit('message', {
-                                    text: socket.id + ": " + message.text
-                                })
+                                .emit('message', message)
                         }
                     }
                 })
