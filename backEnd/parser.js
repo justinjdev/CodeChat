@@ -7,7 +7,7 @@ const Abstraction = require('./Abstraction') //connects to sandbox //TODO: Don't
 const abstraction = new Abstraction()
 
 module.exports = class Parser {
-    readInput(message) {
+    async readInput(message) {
         console.log(message)
         let words = message
             .text
@@ -18,12 +18,15 @@ module.exports = class Parser {
         switch (command) {
             case 'join':
                 console.log("join command")
-                break
+                return({text:"join command"})
+                break;
             case 'nick':
                 console.log("nick command")
+                return({text: "nickname command"})
                 break
             case 'python':
-                console.log("python command")
+                // console.log("python command")
+                return({text:"python command"})
                 break
             case 'python':
                 break
@@ -32,18 +35,19 @@ module.exports = class Parser {
             case 'javascript':
                 break
             case 'bunny':
-                return(`
+                return({text:`
                 (\\  /)
                 (0.0)
                c(uu)
                 UU
-                `)
+                `})
                 break
             case 'shrug':
-                return(`¯\\_(ツ)_/¯`)
+                return({text:`¯\\_(ツ)_/¯`})
             break
             default:
                 console.log("unrecognized command")
+                return({text:"unrecognized command"})
                 // message.text = 'Unrecognized Command.'
                 break
         }
