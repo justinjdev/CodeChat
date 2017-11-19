@@ -1,25 +1,23 @@
 'use strict'
 
-const dbCommandFile = require('./DBCommands') //connects to PSQL
-const dbcommands = new dbCommandFile()
+const postgresControlFile = require('./PostgresController') //connects to PSQL
+const postgresController = new postgresControlFile()
 
 const redisControlFile = require('./redisController') //connects to redis
 const redisController = new redisControlFile()
 
-
-        /**
+/**
      * still work in progress
      */
 
-
 module.exports = class DBC {
-        /**
+    /**
      * run command to connect to the PostgreSQL Database
      */
     connect() {
         dbcommands.connectDB()
-}
-/**
+    }
+    /**
      * If the input is a 'message', then send the message() to DBCOmmands and redisCOntroller
      *      which resolves into a message saving into both DB
      * If the input is 'command', then send the command() to Abstraction
@@ -31,9 +29,9 @@ module.exports = class DBC {
         let command = req.query.cmd
         let message = req.query.message
 
-        if (command === 'listUsers') {  // not sure what were comparing the command to
+        if (command === 'listUsers') { // not sure what were comparing the command to
             console.log('list')
-            dbcommands                  // check the command
+            dbcommands // check the command
                 .listUsers()
                 .then(resolve => { //we should send it to abstraction somehow
                     console.log(resolve)
@@ -79,6 +77,19 @@ module.exports = class DBC {
                 })
         }
     }
+    save(message) {
+        redisController.cacheMessage(message)
+    }
+    async getCachedMessages(roomName) {
+        let messages
+        try {
+            messages = await redisController.getCachedMessages(roomName)
+            return messages
+
+        } catch (error) {
+            console.error("ERROR: ",error)
+        }
+    }
 
     /**
      * this command just creates a user
@@ -119,22 +130,21 @@ module.exports = class DBC {
                     .json({status: 'Not Exist', error: error})
             })
         } else if (command === 'edit') {
-            dbcommands
-                .then(() => {
-                    dbcommands
-                        .editItem({username: username, password: password})
-                        .then(resolve => {
-                            console.log(resolve)
-                            res
-                                .status(200)
-                                .json({status: 'successful edit', items: resolve})
-                        })
-                        .catch(error => {
-                            res
-                                .status(500)
-                                .json({status: 'Error', error: error})
-                        })
-                })
+            dbcommands.then(() => {
+                dbcommands
+                    .editItem({username: username, password: password})
+                    .then(resolve => {
+                        console.log(resolve)
+                        res
+                            .status(200)
+                            .json({status: 'successful edit', items: resolve})
+                    })
+                    .catch(error => {
+                        res
+                            .status(500)
+                            .json({status: 'Error', error: error})
+                    })
+            })
 
         }
     }

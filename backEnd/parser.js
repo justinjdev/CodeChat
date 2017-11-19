@@ -17,51 +17,59 @@ module.exports = class Parser {
             .toLowerCase()
         switch (command) {
             case 'join':
-                console.log("join command")
-                message.text = "join command"
-                return(message)
-                break;
+                {
+                    message.text = "join command"
+                    return (message)
+                    break
+                }
             case 'nick':
-                console.log("nick command")
-                message.text = "nick command"
-                return(message)
-                break
+                {
+                    message.text = "nick command"
+                    return (message)
+                    break
+                }
             case 'python':
-                // console.log("python command")
-                message.text = "python command"
-                return(message)
-                break
-            case 'python':
-                message.text = "python command"
-                return(message)
-                break
+                { // console.log("python command")
+                    message.text = "python command"
+                    return (message)
+                    break
+                }
             case 'java':
-                message.text = "java command"
-                return(message)
-                break
+                {
+                    message.text = "java command"
+                    return (message)
+                    break
+                }
             case 'javascript':
-                message.text = "javascript command"
-                return(message)
-                break
+                {
+                    message.text = "javascript command"
+                    return (message)
+                    break
+                }
             case 'bunny':
-                message.text = `
+                {
+                    message.text = `
                         (\\  /)
                         (0.0)
-                        c(uu)
+                       c(uu)
                         UU
                         `
-                return(message)
-                break
+                    return (message)
+                    break
+                }
             case 'shrug':
-            message.text = `¯\\_(ツ)_/¯`
-                return(message)
-            break
+                {
+                    message.text = `¯\\_(ツ)_/¯`
+                    return (message)
+                    break
+                }
             default:
-                console.log("unrecognized command")
-                message.text = "unrecognized command"
-                return(message)
-                // message.text = 'Unrecognized Command.'
-                break
+                {
+                    console.log("Unrecognized Command")
+                    message.text = "Unrecognized Command"
+                    return (message)
+                    break
+                }
         }
     }
 }
