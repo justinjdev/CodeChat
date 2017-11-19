@@ -1,6 +1,6 @@
 'use strict'
 
-const postgresControlFile = require('./PostgresController') //connects to PSQL
+const postgresControlFile = require('./postgresController') //connects to PSQL
 const postgresController = new postgresControlFile()
 
 const redisControlFile = require('./redisController') //connects to redis
