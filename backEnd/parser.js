@@ -15,10 +15,11 @@ module.exports = class Parser {
         let command = words[0]
             .substring(1, words[0].length)
             .toLowerCase()
+        let argument = words.slice(1).join(' ')
         switch (command) {
             case 'join':
                 {
-                    message.text = "join command"
+                    message.text = "join command " + argument
                     return (message)
                     break
                 }
@@ -60,6 +61,12 @@ module.exports = class Parser {
             case 'shrug':
                 {
                     message.text = `¯\\_(ツ)_/¯`
+                    return (message)
+                    break
+                }
+            case 'help':
+                {
+                    message.text = `Chat commands: Change nickname: /nick [username], Join/create room: /join [room name]`
                     return (message)
                     break
                 }
