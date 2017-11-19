@@ -10,7 +10,7 @@ const redisController = new redisControlFile()
      * still work in progress
      */
 
-module.exports = class DBC {
+module.exports = class DBController {
     /**
      * run command to connect to the PostgreSQL Database
      */
