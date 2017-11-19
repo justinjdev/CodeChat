@@ -1,0 +1,217 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.5.9
+-- Dumped by pg_dump version 9.5.9
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: postgres; Type: COMMENT; Schema: -; Owner: postgres
+--
+
+COMMENT ON DATABASE postgres IS 'default administrative connection database';
+
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+--
+-- Name: adminpack; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS adminpack WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION adminpack; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION adminpack IS 'administrative functions for PostgreSQL';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: Channel; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE "Channel" (
+    ch_id integer NOT NULL,
+    ch_name character varying
+);
+
+
+ALTER TABLE "Channel" OWNER TO postgres;
+
+--
+-- Name: Message; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE "Message" (
+    m_id integer NOT NULL,
+    ch_id integer,
+    u_id integer,
+    m_text character varying,
+    "isCode" boolean,
+    m_response character varying,
+    m_time integer,
+    "hasInputs" boolean
+);
+
+
+ALTER TABLE "Message" OWNER TO postgres;
+
+--
+-- Name: Users; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE "Users" (
+    u_id integer NOT NULL,
+    u_email character varying,
+    u_pass character varying,
+    u_username character varying,
+    u_firstname character varying,
+    u_lastname character varying,
+    u_bio character varying(140)
+);
+
+
+ALTER TABLE "Users" OWNER TO postgres;
+
+--
+-- Name: Users_In_Channel; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE "Users_In_Channel" (
+    u_id integer NOT NULL,
+    ch_id integer NOT NULL
+);
+
+
+ALTER TABLE "Users_In_Channel" OWNER TO postgres;
+
+--
+-- Data for Name: Channel; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY "Channel" (ch_id, ch_name) FROM stdin;
+1	Python
+2	Java
+3	C++
+4	JavaScript
+15	somePrivateChannel
+13	C
+\.
+
+
+--
+-- Data for Name: Message; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY "Message" (m_id, ch_id, u_id, m_text, "isCode", m_response, m_time, "hasInputs") FROM stdin;
+7777	1	12	/python\\n\\tprint('Hello World')	t	Hello World\\n	1509729506	f
+4444	1	4321	/python print('Sup')	t	Sup\\n	1509729435	f
+5555	2	42	/java System.out.println(5 + 3);	t	8\\n	1509729500	f
+9523	1	12	/python(2, 123)\\n x = input('int1')\\n y = input('int2')\\n print(x + y)	t	int1\\nint2\\n125	1555555555	t
+3333	3	1234	Sup man I likes to code yes plz burris PAASSS	f	\N	1509729428	f
+6666	1	25	/python peent('YOLO Swiiiigs')	t	<Traceback error>	1509729505	f
+\.
+
+
+--
+-- Data for Name: Users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY "Users" (u_id, u_email, u_pass, u_username, u_firstname, u_lastname, u_bio) FROM stdin;
+12	emailYes@gmail.com	hackMe	Burris_666	David	Burris	I have like so many smartness and F's for everyone. Especially The Kernel, that trash.
+24	spongebob@nick.com	imready	spongebob	Spongebob	Squarepants	Live in Bikini Bottom. Am a Junior developer here to learn stuffs.
+25	patrick@nick.com	wherestheleak	ima_star	Patrick	Star	Like really, where's the leak?
+42	yoloswag@gmail.com	insertPasswordHere(:	YoloSwaggins	Pan	Kakes	Keep it secret, keep it sayf.
+1234	thedankest@mails.com	password	Dr. Dank	Frank	Dank	Sup homies, names Frank Dank and am quite dank. Code is dank, CodeChat is dank, all is dank.
+4321	yeye123@mails.com	swaglord	Dat_Boi	John	Johnson	new bio
+\.
+
+
+--
+-- Data for Name: Users_In_Channel; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY "Users_In_Channel" (u_id, ch_id) FROM stdin;
+1234	3
+4321	1
+42	2
+12	1
+12	2
+24	2
+25	1
+\.
+
+
+--
+-- Name: pk_channel; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY "Channel"
+    ADD CONSTRAINT pk_channel PRIMARY KEY (ch_id);
+
+
+--
+-- Name: pk_connection; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY "Users_In_Channel"
+    ADD CONSTRAINT pk_connection PRIMARY KEY (u_id, ch_id);
+
+
+--
+-- Name: pk_message; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY "Message"
+    ADD CONSTRAINT pk_message PRIMARY KEY (m_id);
+
+
+--
+-- Name: pk_user; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY "Users"
+    ADD CONSTRAINT pk_user PRIMARY KEY (u_id);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
