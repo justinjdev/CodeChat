@@ -2,10 +2,12 @@
   display: flex;
   flex-direction: column;
   height: 100%; }
-  .chat .messages-list {
+  .chat .chat-window {
     flex: 10;
     margin-top: 0;
     overflow: auto; }
+  .chat .messages-list {
+    list-style: none; }
   .chat .chat-input {
     flex: 2;
     display: flex; }

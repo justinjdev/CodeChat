@@ -67,11 +67,13 @@ class Chat extends Component {
     render() {
         return (
             <div className="chat">
+            <div className="chat-window">
                 <ul className="messages-list">
                     {this.state.messagesList.map((message,index)=>{
                         return <li key={index}>{message}</li>
                     })}
                 </ul>
+                </div>
                 <form className="chat-input" onSubmit={this.submitHandler}>
                     <input
                         className="input"

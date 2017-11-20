@@ -4,11 +4,13 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-
-    .messages-list{
+    .chat-window{
         flex: 10;
         margin-top: 0;
         overflow: auto;
+    }
+    .messages-list{
+        list-style: none;
     }
 
     .chat-input{
