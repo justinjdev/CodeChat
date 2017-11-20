@@ -1,3 +1,5 @@
+@import './../../colors.scss';
+
 .main-page{
     display: flex;
     flex-direction: column;
@@ -5,7 +7,7 @@
     height: 100vh;
 
     .header{
-        background-color: #56CCF2;
+        background-color: $header-background;
         flex: 1;
         align-content: center;
         text-align: center;
@@ -20,23 +22,40 @@
             background-color: #4d4d4d;
             flex: 1;
             box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.25);
+            
+            .profile-icon{
+                margin: 25px auto;
+                width: 100px;
+                height: 100px;
+                background-color: #56CCF2;
+                border-radius: 50%;
+                align-content: center;
+                box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.25);
+                
+                display: flex;
+                p{
+                    margin: auto;
+                }
+            }
         }
         .main{
             flex: 4;
-
             margin: 10px;
+
+            display: flex;
+            flex-direction: column;
         }
         .right-sidebar{
             background-color: #4d4d4d;
             flex: 1;
-            box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.25);
+            box-shadow: -5px 0px 10px rgba(0, 0, 0, 0.25);
         }
     }
 
-    // .footer{
-    //     background-color: purple;
-    //     flex: 2;
-    //     text-align: center;
-    //     align-content: center;
-    // }
+    .footer{
+        background-color: $footer-background;
+        flex: 1;
+        text-align: center;
+        align-content: center;
+    }
 }

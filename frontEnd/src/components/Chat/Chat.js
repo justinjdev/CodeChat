@@ -1,7 +1,10 @@
 import React, {Component} from 'react'
 import io from 'socket.io-client'
 
-const socket = io('localhost:8080')
+import './Chat.css'
+
+const socket = io('https://ezchatrooms.herokuapp.com/')
+// const socket = io('localhost:8080')
 
 class Chat extends Component {
     constructor(props) {
@@ -65,20 +68,31 @@ class Chat extends Component {
     render() {
         return (
             <div className="chat">
-                <h1>
-                    Chat Room
-                </h1>
-                <ul className="messagesList">
-                    {this.state.messagesList.map((message,index)=>{
-                        return <li key={index}>{message}</li>
-                    })}
-                </ul>
-                <form className="chatInput" onSubmit={this.submitHandler}>
-                    <input
+                <div className="chat-window">
+                    <ul className="messages-list">
+                        {this.state.messagesList.map((message,index)=>{
+                            return <li key={index}>{message}</li>
+                        })}
+                    </ul>
+                </div>
+                <form className="chat-input" onSubmit={this.submitHandler}>
+                    <textarea
+                        className="input"
                         type="text"
+                        rows="1"
                         onChange={this.textChangeHandler}
                         value={this.state.chatInput}
                         required/>
+                        <div className="submit-buttons">
+                        <input
+                            className="submit"
+                            type="submit"
+                            value="Send"/>
+                        <input
+                            className="clear"
+                            type="submit"
+                            value="Clear"/>
+                            </div>
                 </form>
             </div>
         )
