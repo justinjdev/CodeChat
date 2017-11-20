@@ -6,14 +6,6 @@ const postgresController = new postgresControlFile()
 const redisControlFile = require('./redisController') //connects to redis
 const redisController = new redisControlFile()
 
-/**
-     * still work in progress
-     */
-
-     // save and restore things from database
-     // 
-
-
 module.exports = class DBC {
     
     save(message) {
@@ -29,4 +21,12 @@ module.exports = class DBC {
             console.error("ERROR: ",error)
         }
     }
+    //save and restore messages to/from postgres
+
+    //check logininfo with postgres
+
+    //check registerinfo with prostgres
+
+    //save commands from virtulization to postgres
+
 }

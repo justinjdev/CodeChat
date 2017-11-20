@@ -25,7 +25,7 @@ module.exports = class Parser {
                 }
             case 'nick':
                 {
-                    message.text = "nick command"
+                    message.text = "nick command" + argument
                     return (message)
                     break
                 }
