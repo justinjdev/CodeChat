@@ -29,7 +29,9 @@
           margin: auto; }
     .main-page .content .main {
       flex: 4;
-      margin: 10px; }
+      margin: 10px;
+      display: flex;
+      flex-direction: column; }
     .main-page .content .right-sidebar {
       background-color: #4d4d4d;
       flex: 1;

@@ -40,8 +40,10 @@
         }
         .main{
             flex: 4;
-
             margin: 10px;
+
+            display: flex;
+            flex-direction: column;
         }
         .right-sidebar{
             background-color: #4d4d4d;
