@@ -1,0 +1,23 @@
+.chat {
+  display: flex;
+  flex-direction: column;
+  height: 100%; }
+  .chat .messages-list {
+    flex: 10;
+    margin-top: 0;
+    overflow: auto; }
+  .chat .chat-input {
+    flex: 2;
+    display: flex; }
+    .chat .chat-input .input {
+      flex: 10; }
+    .chat .chat-input .submit-buttons {
+      flex: 2;
+      display: flex;
+      flex-direction: column; }
+      .chat .chat-input .submit-buttons .submit {
+        flex: 1;
+        background-color: #56ccf2; }
+      .chat .chat-input .submit-buttons .clear {
+        flex: 1;
+        background-color: #f25670; }

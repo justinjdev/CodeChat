@@ -16,4 +16,4 @@
     .channels ul li a {
       text-decoration: none;
       color: #F3F3F3;
-      margin: auto; }
+      flex-grow: 1; }
