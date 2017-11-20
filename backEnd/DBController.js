@@ -9,7 +9,6 @@ const redisController = new redisControlFile()
 <<<<<<< HEAD
 module.exports = class DBC {
     
-=======
 /**
      * still work in progress
      */
