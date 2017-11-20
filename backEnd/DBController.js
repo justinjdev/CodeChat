@@ -22,7 +22,16 @@ module.exports = class DBController {
             return messages
 
         } catch (error) {
-            console.error("ERROR: ",error)
+            console.error("ERROR: ", error)
+        }
+    }
+    async postgresTest() {
+        let test
+        try {
+            test = await postgresController.testDB()
+            return
+        } catch (error) {
+            console.error(error)
         }
     }
 }
