@@ -11,6 +11,7 @@ class LandingPage extends Component {
         </div>
     );
   }
+  
 }
 
 export default LandingPage;
