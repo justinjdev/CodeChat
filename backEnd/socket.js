@@ -23,11 +23,11 @@ module.exports = class Socket {
             this.getCachedMessages('Lobby', socket)
             // when they join, emit the message 'joinResult'
             socket.emit('joinResult', {room: 'Lobby'}) //let the client know that it's defaulted to the lobby
-            socket.emit('nickRequest', "nickname pls")
-            socket.on('nickReply', nickname => {
-                id = socket.id
-                nicknames.id = nickname
-            })
+            // socket.emit('nickRequest', "nickname pls")
+            // socket.on('nickReply', nickname => {
+            //     id = socket.id
+            //     nicknames.id = nickname
+            // })
             /**
             * when the socket connection disconnects then you remove the nickname and name used from the list of names used
             */
