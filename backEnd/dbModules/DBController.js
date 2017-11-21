@@ -30,8 +30,7 @@ module.exports = class DBController {
             console.error(error)
         }
     }
-
-    async  registerUser(u_id, u_email, u_password, u_username, u_firstname, u_lastname){
+    async registerUser(u_id, u_email, u_password, u_username, u_firstname, u_lastname) {
         let registerUserAttempt
         try {
             registerUserAttempt = await postgresController.insertUserRecord(u_id, u_email, u_password, u_username, u_firstname, u_lastname)
@@ -40,8 +39,6 @@ module.exports = class DBController {
             console.error(error)
         }
     }
-    // save and restore messages to/from postgres check logininfo with postgres
-    // check registerinfo with prostgres save commands from virtulization to
-    // postgres
-
 }
+// save and restore messages to/from postgres check logininfo with postgres
+// check registerinfo with prostgres save commands from virtulization to postgres
