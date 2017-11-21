@@ -35,15 +35,18 @@ module.exports = class PostgresController {
 }
 
 //1) insert a New User record (registers with website)
-    insert_New_User(u_id, u_email, u_pass, u_username, u_firstname, u_lastname, u_bio) {
+
+    //insert_New_User is not defined
+
+    /*
+    insert_New_User(u_id, u_email, u_pass, u_username, u_firstname, u_lastname, u_bio)
 		{
     client
 		.any(`INSERT INTO "Users"(u_username", "u_pass", "u_email", "u_id", "u_firstname", "u_lastname", "u_bio") VALUES ('${u_username}', '${u_pass}', '${u_email}',  '${u_id}', '${u_firstname}", '${U_lastname}', '${u_bio}') returning u_username`)
         .then(() => {
             reslove("Successful Insert of new user.")
         })
-		}
-	}
+		}*/
 	/* insert message into DB, not finished.
 	insert_Message(m_id, ch_id, u_id, message_text, isCode, m_response, time, hasInputs){
 		Client
