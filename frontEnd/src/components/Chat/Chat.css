@@ -1,12 +1,11 @@
 .chat {
   display: flex;
   flex-direction: column;
-  max-height: 78vh;
-  flex: 1; }
+  height: 100%; }
   .chat .chat-window {
     flex: 10;
     margin: 0px 0 10px;
-    overflow: auto; }
+    overflow-y: scroll; }
     .chat .chat-window .messages-list {
       list-style: none;
       padding: 0;
