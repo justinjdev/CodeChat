@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import './MainPage.css'
-import './../../../node_modules/bootstrap-grid/dist/grid.min.css'
+import 'bootstrap-grid/dist/grid.min.css'
 import Chat from '../Chat/Chat'
 import Channels from '../Channels/Channels'
 
