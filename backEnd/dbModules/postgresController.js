@@ -13,7 +13,7 @@ module.exports = class PostgresController {
 
 	//will connect to DB
     connectBD() {
-        client.connect((err) = > {
+        client.connect((err) => {
             if(err) {
                 console.error('connection error', err.stack)
             } else {
