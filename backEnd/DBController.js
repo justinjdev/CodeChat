@@ -30,12 +30,5 @@ module.exports = class DBController {
             console.error(error)
         }
     }
-    //save and restore messages to/from postgres
-
-    //check logininfo with postgres
-
-    //check registerinfo with prostgres
-
-    //save commands from virtulization to postgres
 
 }
