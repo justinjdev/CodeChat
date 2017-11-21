@@ -40,5 +40,6 @@ module.exports = class DBController {
         }
     }
 }
+//avery will finish this on wednesday
 // save and restore messages to/from postgres check logininfo with postgres
 // check registerinfo with prostgres save commands from virtulization to postgres
