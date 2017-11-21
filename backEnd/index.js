@@ -13,5 +13,5 @@ const io = require('socket.io').listen(server) //listen to own server
 const socketio = require('socket.io-client')('localhost:3001') //listen to justin server
 
 
-const socketjs = require('./socket')
+const socketjs = require('./socketModules/socket')
 const socketjsnew = new socketjs(io)

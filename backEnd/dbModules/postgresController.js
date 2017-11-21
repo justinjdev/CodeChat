@@ -7,7 +7,5 @@ const connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/
 const client = pgp(connectionString)
 
 module.exports = class PostgresController {
-    async testDB() {
-
-    }
+    async testDB() {}
 }

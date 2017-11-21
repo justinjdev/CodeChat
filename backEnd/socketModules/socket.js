@@ -1,6 +1,6 @@
 'use strict'
 
-const DBcontroller = require('./DBController')
+const DBcontroller = require('../dbModules/DBController')
 const dbcontroller = new DBcontroller()
 const Parser = require('./parser')
 
@@ -9,7 +9,6 @@ module.exports = class Socket {
         this.nicknames = {}
         this.listenOnIO(io) //actually start listening on the sockets because for some reason it doesn't work without getting called.
         this.parser = new Parser(io)
-
     }
     /**
     * @param {object} socket
@@ -23,11 +22,8 @@ module.exports = class Socket {
             this.getCachedMessages('Lobby', socket)
             // when they join, emit the message 'joinResult'
             socket.emit('joinResult', {room: 'Lobby'}) //let the client know that it's defaulted to the lobby
-            // socket.emit('nickRequest', "nickname pls")
-            // socket.on('nickReply', nickname => {
-            //     id = socket.id
-            //     nicknames.id = nickname
-            // })
+            // socket.emit('nickRequest', "nickname pls") socket.on('nickReply', nickname =>
+            // {     id = socket.id     nicknames.id = nickname })
             /**
             * when the socket connection disconnects then you remove the nickname and name used from the list of names used
             */
@@ -39,6 +35,8 @@ module.exports = class Socket {
                 user: "Server",
                 text: `Welcome ${name}`
             })
+            // TODO: implement gets the sockets/users from room const clients =
+            // io.sockets.clients('Lobby'); // all users from room `Lobby`
 
             /**
             *  If the SPECIFIC SOCKET sends join, then it leaves object: previous room and

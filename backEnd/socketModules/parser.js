@@ -1,10 +1,10 @@
 'use strict'
 
-const DBC = require('./DBController') //connects to database
-const dbc = new DBC()
+// const DBC = require('./DBController') //connects to database
+// const dbc = new DBC()
 
-const Abstraction = require('./Abstraction') //connects to sandbox //TODO: Don't forget abstraction is just a working name. It'll have to be named something else.
-const abstraction = new Abstraction()
+// const Abstraction = require('./Abstraction') //connects to sandbox //TODO: Don't forget abstraction is just a working name. It'll have to be named something else.
+// const abstraction = new Abstraction()
 
 module.exports = class Parser {
     async readInput(message) {
