@@ -4,11 +4,7 @@ import io from 'socket.io-client'
 import './Chat.css'
 
 // const socket = io('https://ezchatrooms.herokuapp.com/')
-<<<<<<< HEAD
 const socket = io('localhost:8080')
-=======
-const socket = io('192.168.1.83:8080')
->>>>>>> a90a1407e3d52756d6f3c693dfc539ea914a6159
 
 class Chat extends Component {
     constructor(props) {
@@ -34,8 +30,6 @@ class Chat extends Component {
         //get the messages from server and put in messagesList
     }
     componentDidMount() {
-<<<<<<< HEAD
-=======
         console.log('did mount')
         socket.on('cachedMessages', (msgs)=>{
             for(let i in msgs){
@@ -44,7 +38,6 @@ class Chat extends Component {
             }
         })
 
->>>>>>> a90a1407e3d52756d6f3c693dfc539ea914a6159
 
         socket.on("message", (message) => {
             console.log(message)
@@ -62,12 +55,9 @@ class Chat extends Component {
                 }
             }
         })
-<<<<<<< HEAD
 
 
         const clearButton = document.querySelector('.clear')
-=======
->>>>>>> a90a1407e3d52756d6f3c693dfc539ea914a6159
     }
     submitHandler(event) {
         event.preventDefault()
@@ -79,15 +69,10 @@ class Chat extends Component {
             nick: 'bobert'
         }
 
-<<<<<<< HEAD
         //   socket.emit('question', 'do you think so?', function (answer) {});
 
         socket.emit('message', messageObject,(answer)=>{
             console.log(answer)
-=======
-        socket.emit('message', messageObject, (answer)=>{
-            console.log("do the thing")
->>>>>>> a90a1407e3d52756d6f3c693dfc539ea914a6159
         })
 
         this.printMessage(messageObject)

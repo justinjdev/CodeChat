@@ -13,7 +13,7 @@
       overflow-y: auto; } }
   .main-page .header {
     height: 7vh;
-    background-color: #56ccf2;
+    background-color: purple;
     align-content: center;
     text-align: center; }
   .main-page .content {
@@ -25,7 +25,7 @@
         margin: 25px auto;
         width: 100px;
         height: 100px;
-        background-color: #56ccf2;
+        background-color: purple;
         border-radius: 50%;
         align-content: center; }
     .main-page .content .main {
@@ -35,6 +35,6 @@
       background-color: #4d4d4d; }
   .main-page .footer {
     height: 7vh;
-    background-color: #56ccf2;
+    background-color: purple;
     text-align: center;
     align-content: center; }

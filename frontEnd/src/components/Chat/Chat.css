@@ -17,7 +17,7 @@
         word-wrap: break-word;
         white-space: pre-wrap; }
         .chat .chat-window .messages-list .message .message-sender {
-          color: #56ccf2; }
+          color: purple; }
         .chat .chat-window .messages-list .message .message-text {
           margin-left: 10px; }
       .chat .chat-window .messages-list .local-user {
