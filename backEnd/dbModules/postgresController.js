@@ -1,3 +1,5 @@
+import { error } from 'util';
+
 'use strict'
 
 //stevan & sabian queries
@@ -65,12 +67,11 @@ module.exports = class PostgresController {
         //not tested
         insert_channel(ch_id, type){
             return new Promise((resolve, reject) => {
-
-        client
-            .any(`INSERT INTO "Channel"("ch_id", "type") VALUES ('${ch_id}', '${type}') returning type`)
-            .then(ch_id => {
-                resolve(ch_id)
-        })
+            client
+                .any(`INSERT INTO "Channel"("ch_id", "type") VALUES ('${ch_id}', '${type}') returning type`)
+                .then(ch_id => {
+                    resolve(ch_id)
+            })
             .catch(error => {
                 reject(error)
         })
@@ -130,10 +131,10 @@ module.exports = class PostgresController {
 
     //7)change a username
         //not tested - Most likely horribly wrong
-        change_username(u_id, new_name){
+        change_username(u_id, new_username){
             return new Promise((resolve, reject) => {
-                console.log(`UPDATE "public"."${Users}" SET '${u_id}', '${u_username}'='${new_name}' RETURNING "u_username"`)
-                .any(`UPDATE "public"."${Users}" SET '${u_id}', '${u_username}'='${new_name}' RETURNING "u_username"`)
+                console.log(`UPDATE "public"."${Users}" SET '${u_id}', '${u_username}'='${new_username}' RETURNING "u_username"`)
+                .any(`UPDATE "public"."${Users}" SET '${u_id}', '${u_username}'='${new_username}' RETURNING "u_username"`)
                 .then(data => {
                     resolve(data)
                 })
@@ -143,6 +144,79 @@ module.exports = class PostgresController {
             })
         }
 
+    //8)change a channel name
+        //not tested
+        change_channelname(ch_id, new_channelname){
+            return new Promise((resolve, reject) => {
+                console.log(`UPDATE "public"."${Channels}" SET '${ch_id}', '${ch_name}'='${new_channelname}' RETURNING "ch_name"`)
+                .any(`UPDATE "public"."${Channels}" SET '${ch_id}', '${ch_name}'='${new_channelname}' RETURNING "ch_name"`)
+                .then(data =>{
+                    reslove(data)
+            })
+                .catch(error => {
+                    reject(error)
+                })
+            })
+        }
 
+    //9)change a user bio
+        //not tested
+        change_userBio(u_id, new_userbio){
+            return new Promise((resolve, reject) => {
+                console.log(`UPDATE "public"."${Users}" SET '${u_id}', '${u_bio}'='${new_userbio}' RETURNING "u_bio"`)
+                .any(`UPDATE "public"."${Users}" SET '${u_id}', '${u_bio}'='${new_userbio}' RETURNING "u_bio"`)
+                .then(data =>{
+                    reslove(data)
+            })
+                .catch(error => {
+                    reject(error)
+                })
+            })
+        }
 
+    //10)user search function
+        //not tested
+        search(m_id, ch_id, u_id, keyword_list){
+            return new Promise((resolve, reject) => {
+                client
+                    .any(`SELECT * FROM ${m_id} ORDER BY u_id,ch_id;`)
+                    .then(data => {
+                    if (data.length > 0) {
+                        resolve(data)
+                    } else {
+                        reject(error)
+                    }
+                })
+            })
+        }
+
+    //11)delete a channel
+        //not tested
+        delete_channel(ch_id){
+            return new Promise((resolve, reject) => {
+                console.log(`DELETE "public"."${Channels}" WHERE '${ch_id}'`) // not sure how to set up a delete function
+                .any(`DELETE "public"."${Channels}" WHERE '${ch_id}'`)// not sure ..^
+                .then(data =>{
+                    reslove(data)
+            })
+                .catch(error => {
+                    reject(error)
+                })
+            })
+        }
+
+    //12)delete a user from a channel
+        //not tested
+        delete_user_from_channel(ch_id, u_id){
+            return new Promise((resolve, reject) => {
+                console.log(`DELETE "public"."${Users}" WHERE '${ch_id, u_id}'`) // not sure how to set up a delete function
+                .any(`DELETE "public"."${Users}" WHERE '${ch_id, u_id}'`)// not sure ..^
+                .then(data =>{
+                    reslove(data)
+            })
+                .catch(error => {
+                    reject(error)
+                })
+            })
+        }
 }
