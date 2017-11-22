@@ -3,8 +3,8 @@ import io from 'socket.io-client'
 
 import './Chat.css'
 
-const socket = io('https://ezchatrooms.herokuapp.com/')
-// const socket = io('localhost:8080')
+// const socket = io('https://ezchatrooms.herokuapp.com/')
+const socket = io('localhost:8080')
 
 class Chat extends Component {
     constructor(props) {
@@ -30,6 +30,7 @@ class Chat extends Component {
         //get the messages from server and put in messagesList
     }
     componentDidMount() {
+
         socket.on("message", (message) => {
             console.log(message)
             this.printMessage(message)
@@ -46,7 +47,7 @@ class Chat extends Component {
             }
         })
 
-        
+
         const clearButton = document.querySelector('.clear')
     }
     submitHandler(event) {
@@ -59,7 +60,11 @@ class Chat extends Component {
             nick: 'bobert'
         }
 
-        socket.emit('message', messageObject)
+        //   socket.emit('question', 'do you think so?', function (answer) {});
+
+        socket.emit('message', messageObject,(answer)=>{
+            console.log(answer)
+        })
 
         this.printMessage(messageObject)
 
