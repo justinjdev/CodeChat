@@ -51,8 +51,7 @@ module.exports = class Socket {
                 socket.emit('joinResult', {room: room.newRoom})
             })
 
-            socket.on('message', (message, response) => {
-                response(200)
+            socket.on('message', message => {
                 dbcontroller.save(message)
                 console.log(message)
                 // remove invalid messages
