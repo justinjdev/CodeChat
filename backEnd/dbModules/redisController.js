@@ -14,11 +14,11 @@ module.exports = class redisController {
         let room = message.room
         //get length of the specific room name
         redisClient.llen(`${room}`, (err, len) => {
-            if (len >= 50) {    // if length is > 20 (it's initialized at 1) then just get rid of the old one
-                redisClient.lpop(`${room}`)
+            if (len >= 20) { //if length is > 20 (it's initialized at 1) then just get rid of the old one
+                redisClient.rpop(`${room}`)
             }
         })
-        redisClient.rpush(`${room}`, JSON.stringify(message))
+        redisClient.lpush(`${room}`, JSON.stringify(message))
     }
     async getCachedMessages(roomName) {
         redisClient.LRANGE(`${roomName}`, 0, -1, (err, messages) => {

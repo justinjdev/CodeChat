@@ -18,9 +18,6 @@ class Chat extends Component {
         this.submitHandler = this
             .submitHandler
             .bind(this)
-        this.clearHandler = this
-            .clearHandler
-            .bind(this);
         this.textChangeHandler = this
             .textChangeHandler
             .bind(this)
@@ -34,20 +31,6 @@ class Chat extends Component {
             console.log(message)
             this.printMessage(message)
         })
-
-        const textArea = document.querySelector('.input')
-        const submitButton = document.querySelector('.submit')
-        textArea.addEventListener("keydown", (event) =>{
-            if(event.keyCode === 13){
-                if(!event.shiftKey){
-                    event.preventDefault()
-                    submitButton.click()
-                }
-            }
-        })
-
-        
-        const clearButton = document.querySelector('.clear')
     }
     submitHandler(event) {
         event.preventDefault()
@@ -65,9 +48,6 @@ class Chat extends Component {
 
         this.setState({chatInput: ''})
         console.log(messageObject)
-    }
-    clearHandler(event){
-        this.setState({chatInput: ''})
     }
 
     printMessage(message) {
@@ -91,7 +71,7 @@ class Chat extends Component {
                 <div className="chat-window">
                     <ul className="messages-list">
                         {this.state.messagesList.map((message,index)=>{
-                            return <li className="message" key={index}>{message}</li>
+                            return <li key={index}>{message}</li>
                         })}
                     </ul>
                 </div>
@@ -103,17 +83,16 @@ class Chat extends Component {
                         onChange={this.textChangeHandler}
                         value={this.state.chatInput}
                         required/>
-                    <div className="submit-buttons">
-                        <button
+                        <div className="submit-buttons">
+                        <input
                             className="submit"
                             type="submit"
-                            value="Send">Send</button>
-                        <button
+                            value="Send"/>
+                        <input
                             className="clear"
-                            type="reset"
-                            onClick={this.clearHandler}
-                            value="Clear">Clear</button>
-                    </div>
+                            type="submit"
+                            value="Clear"/>
+                            </div>
                 </form>
             </div>
         )
