@@ -3,13 +3,12 @@
 .chat{
     display: flex;
     flex-direction: column;
-    max-height: 78vh;
-    flex: 1;
+    height: 100%;
 
     .chat-window{
         flex: 10;
         margin: 0px 0 10px;
-        overflow: auto;
+        overflow-y:scroll;
         // position: relative;
 
         .messages-list{
@@ -17,7 +16,7 @@
             padding: 0;
             margin: 0;
             
-            li{
+            .message{
                 border-bottom: 1px solid $message-border-color;
                 background-color: $message-background;
 
