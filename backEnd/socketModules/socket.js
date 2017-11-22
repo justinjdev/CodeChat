@@ -51,8 +51,8 @@ module.exports = class Socket {
                 socket.emit('joinResult', {room: room.newRoom})
             })
 
-            socket.on('message', (message, response) => {
-                response(200)
+            socket.on('message', (message, response) => { // now sends an acknowledgement with response
+                response(200) // acknowledgement
                 dbcontroller.save(message)
                 console.log(message)
                 // remove invalid messages
@@ -67,8 +67,8 @@ module.exports = class Socket {
                                 console.log(res)
                                 socket
                                     .broadcast
-                                    .to('Lobby') //room name
-                                    .emit('message', res) //message name and res is the object being sent
+                                    .to('Lobby') // room name
+                                    .emit('message', res) // message name and res is the object being sent
                             })
                     } else {
                         message.nick = message.nick || "A User"
