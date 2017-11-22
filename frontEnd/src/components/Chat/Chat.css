@@ -16,13 +16,24 @@
         padding: 10px;
         word-wrap: break-word;
         white-space: pre-wrap; }
+        .chat .chat-window .messages-list .message .message-sender {
+          color: #56ccf2; }
+        .chat .chat-window .messages-list .message .message-text {
+          margin-left: 10px; }
+      .chat .chat-window .messages-list .local-user {
+        text-align: right; }
   .chat .chat-input {
     flex: 2;
     display: flex; }
     .chat .chat-input .input {
       flex: 10;
       border: 0;
-      resize: none; }
+      resize: none;
+      background-color: #3f3f3f;
+      color: #f3f3f3;
+      font-family: sans-serif;
+      padding: 5px;
+      box-shadow: none; }
     .chat .chat-input .submit-buttons {
       flex: 2;
       display: flex;
@@ -30,8 +41,14 @@
       .chat .chat-input .submit-buttons .submit {
         flex: 1;
         background-color: #56ccf2;
-        border: 0; }
+        border: 0;
+        color: #f3f3f3;
+        font-family: sans-serif;
+        font-size: 14pt; }
       .chat .chat-input .submit-buttons .clear {
         flex: 1;
         background-color: #f25670;
-        border: 0; }
+        border: 0;
+        color: #f3f3f3;
+        font-family: sans-serif;
+        font-size: 14pt; }
