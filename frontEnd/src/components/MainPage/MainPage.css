@@ -20,22 +20,19 @@
     height: 86vh; }
     .main-page .content .left-sidebar {
       height: 100%;
-      background-color: #4d4d4d;
-      box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.25); }
+      background-color: #4d4d4d; }
       .main-page .content .left-sidebar .profile-icon {
         margin: 25px auto;
         width: 100px;
         height: 100px;
-        background-color: #56CCF2;
+        background-color: #56ccf2;
         border-radius: 50%;
-        align-content: center;
-        box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.25); }
+        align-content: center; }
     .main-page .content .main {
       height: 100%; }
     .main-page .content .right-sidebar {
       height: 100%;
-      background-color: #4d4d4d;
-      box-shadow: -5px 0px 10px rgba(0, 0, 0, 0.25); }
+      background-color: #4d4d4d; }
   .main-page .footer {
     height: 7vh;
     background-color: #56ccf2;
