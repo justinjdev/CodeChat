@@ -2,7 +2,7 @@
   background-color: #3a3a3a;
   height: 100vh;
   overflow: hidden; }
-  .main-page .col-md-2, .main-page .col-md-8 {
+  .main-page .col-md-1, .main-page .col-md-2, .main-page .col-md-8, .main-page .col-md-9 {
     padding: 0; }
   .main-page .centered-text {
     display: flex; }
@@ -13,7 +13,7 @@
       overflow-y: auto; } }
   .main-page .header {
     height: 7vh;
-    background-color: purple;
+    background-color: #56ccf2;
     align-content: center;
     text-align: center; }
   .main-page .content {
@@ -25,7 +25,7 @@
         margin: 25px auto;
         width: 100px;
         height: 100px;
-        background-color: purple;
+        background-color: #56ccf2;
         border-radius: 50%;
         align-content: center; }
     .main-page .content .main {
@@ -35,6 +35,6 @@
       background-color: #4d4d4d; }
   .main-page .footer {
     height: 7vh;
-    background-color: purple;
+    background-color: #56ccf2;
     text-align: center;
     align-content: center; }
