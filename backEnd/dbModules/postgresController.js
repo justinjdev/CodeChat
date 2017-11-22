@@ -46,7 +46,7 @@ module.exports = class PostgresController {
                 })
         }
     }
-    /2)insert message into DB, not finished.
+    // 2)insert message into DB, not finished.
         //not tested
         insert_message(m_id, ch_id, u_id, message_text, isCode, m_response, m_time, hasInputs){
             return new Promise((resolve, reject) => {
@@ -61,7 +61,7 @@ module.exports = class PostgresController {
             })
         }
 
-    //3)insert a channel record when a channel is created
+    // 3)insert a channel record when a channel is created
         //not tested
         insert_channel(ch_id, type){
             return new Promise((resolve, reject) => {
@@ -70,10 +70,10 @@ module.exports = class PostgresController {
             .any(`INSERT INTO "Channel"("ch_id", "type") VALUES ('${ch_id}', '${type}') returning type`)
             .then(ch_id => {
                 resolve(ch_id)
-        })	
+        })
             .catch(error => {
                 reject(error)
-        })	
+        })
     })
         }
 
@@ -116,13 +116,13 @@ module.exports = class PostgresController {
         //not tested
         user_channel_query(ch_id){
             return new Promise((resolve, reject) => {
-                client 
+                client
                     .any(`SELECT * FROM ${Users_In_Channel} ORDER BY u_id,ch_id;`)
                     .then(data => {
                     if (data.length > 0) {
                         resolve(data)
                     } else {
-                        reject(error) 
+                        reject(error)
                     }
                 })
             })
@@ -144,5 +144,5 @@ module.exports = class PostgresController {
         }
 
 
-    
+
 }
