@@ -3,8 +3,10 @@ import io from 'socket.io-client'
 
 import './Chat.css'
 
-// const socket = io('https://ezchatrooms.herokuapp.com/')
-const socket = io('localhost:8080')
+// const socket = io('https://ezchatrooms.herokuapp.com/') //old test, maybe remove it?
+// const socket = io('localhost:8080') // local computer
+const socket = io('104.131.129.223:8080') // servers
+
 
 class Chat extends Component {
     constructor(props) {
