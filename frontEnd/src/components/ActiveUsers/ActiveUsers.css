@@ -1,0 +1,9 @@
+.active-users .users-list {
+  padding: 0; }
+  .active-users .users-list .active-user {
+    margin: 10px auto;
+    width: 50px;
+    height: 50px;
+    background-color: #56ccf2;
+    border-radius: 50%;
+    align-content: center; }

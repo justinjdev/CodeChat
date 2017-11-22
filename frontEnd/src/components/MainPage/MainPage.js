@@ -4,6 +4,7 @@ import './MainPage.css'
 import 'bootstrap-grid/dist/grid.min.css'
 import Chat from '../Chat/Chat'
 import Channels from '../Channels/Channels'
+import ActiveUsers from '../ActiveUsers/ActiveUsers'
 
 class MainPage extends Component {
     render() {
@@ -17,14 +18,14 @@ class MainPage extends Component {
                             <div className="profile-icon centered-text">
                                 <p>D.B.</p>
                             </div>
-                            <p>channels</p>
                             <Channels/>
                         </div>
-                        <div className="main col-md-8 col-xs-9">
+                        <div className="main col-md-9 col-xs-10">
                             <Chat/>
                         </div>
-                        <div className="right-sidebar col-md-2 col-xs-12">
+                        <div className="right-sidebar col-md-1 col-xs-12">
                             <p>active</p>
+                            <ActiveUsers/>
                         </div>
                     </div>
                     <div className="footer row centered-text">
