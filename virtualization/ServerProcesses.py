@@ -1,7 +1,7 @@
 #
 # Python 3.5+
 #
-# *** I'm probably spawning too many threads
+# *** This might even work
 #
 
 import json
@@ -11,10 +11,12 @@ import threading
 import sys
 import subprocess
 import os
+import configparser
+from Command_Queue import *
 
 
 class Command:
-    def __init__(self, data: str):
+    def __init__(self, host, port, data: str):
         r"""
 
         For a given command, loads data into object
@@ -22,8 +24,6 @@ class Command:
         :param data: the `stringified` JS object
 
         """
-        global host
-        global port
         self.__in_data = json.loads(data)
         logging.debug('Incoming data: {} from host {} on port {}'.format(self.__in_data, host, port))
         del data
@@ -32,7 +32,6 @@ class Command:
         r"""
 
         Writes incoming code to a file if necessary.
-        Currently only within the cwd which is stupid.
         Decide on a default loc eg `~./codechat/`
 
         :param fname: Name of file to be written.
@@ -51,18 +50,23 @@ class Command:
         r"""
 
         Will process whatever information is held within `__in_data`
+        Calls create_file.
 
         :return: Code output as a string.
 
         """
         # tbc
         # subprocess.call()
-        return "JUICE"
+        return subprocess.check_out('python', [file])
+        
+    def __del__(self):
+    	pass
 # end Command
 
-class Server(threading.Thread):
+class CommandThread(threading.Thread):
 
-    # Decide where socket closing should be
+    # This class is passed a new connection to receive commands on.
+    # Need a timeout
 
     def __init__(self, conn: socket.socket):
         r"""
@@ -72,9 +76,10 @@ class Server(threading.Thread):
         :param conn: a `socket` connection
 
         """
-        super(Server, self).__init__()
+        super(CommandThread , self).__init__()
         self.__conn = conn
-        self.__data = str()  # although '' is technically faster
+        self.__in_queue = Command_Queue('inqueue')
+        self.__out_queue = Command_Queue('outqueue')
 
     def listen(self):
         r"""
@@ -85,9 +90,11 @@ class Server(threading.Thread):
 
         """
         while True:
-            self.__data = self.__conn.recv(1024)
-            Command(self.__data)
-
+            data = self.__conn.recv(1024)
+            if data:
+            	self.__out_queue.enqueue(Command(data).process())
+            self.reply()
+			
     def reply(self, response):
         r"""
 
@@ -98,24 +105,21 @@ class Server(threading.Thread):
         :return: None
 
         """
-        self.__conn.send(response)
+        if not self.__command_queue.is_empty():
+        	self.__conn.send(self.__command_queue.dequeue())
         # self.close()
 
-    # def close(self):
-    #     r"""
-    #
-    #     Will close the socket connection upon response.
-    #
-    #     :return: None
-    #
-    #     """
-    #     self.__conn.close()
+	def __del__(self):
+		while not self.__command_queue.is_empty():
+			self.__conn.send(self.__command_queue.dequeue())
+		self.__con.close()
+
 # end class server
 
 
-class CommandThread(threading.Thread):
+class Server(threading.Thread):
 
-    def __init__(self, host, port=1999):
+    def __init__(self, host=socket.gethostname(), port=3001, whitelist:list):
         r"""
 
         Init threading for a given chat to process commands.
@@ -125,56 +129,49 @@ class CommandThread(threading.Thread):
         :param port: Whichever port we're accepting sockets on.
 
         """
-        super(CommandThread, self).__init__()
-        # these are not private -
-        # they aren't used again once they would become accessible
-        # and I want to reference them from a scope class :)
-        self.host = host
-        self.port = port
+        super(Server, self).__init__()
         try:
             self.__s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.__s.bind((host, port))
-            # connection backlog
-            # so we can handle 6 total requests - 1 currently processing and 5 waiting
-            # self.__s.listen(5)
         except socket.error:
             logging.DEBUG('Failed to create connection with {} on port {}'.format(host, port))
             sys.exit()
+        
+        #empty queue
+        
+        self.__host, self.__port, self.__whitelist = host, port, whitelist
 
     def run(self):
         r"""
 
         Start listening on a given socket.
 
-        :return:
+        :return: 
 
         """
         self.__s.listen(5)
         while True:
             conn, address = self.__s.accept()
-            srv = Server(conn)
-            srv.listen()
-            logging.DEBUG('Command processed for host {}'.format(address[0]))
-        # I probably need a clean way to end this
+            if address in whitelist:
+				CommandThread(conn).listen()
+				logging.DEBUG('Command processed for host {}'.format(address[0]))
+            
+	def close(self):
+		try:
+			self.__s.close()
+		except socket.error:
+			logging.DEBUG('Failed to close connection for main server socket for host: {}, port: {}!'.format(self.__host. self.__port))
 
 # end CommandThread
 
 
 def main():
-    # need to decide on a port
-    # default set to 1999
+    config = configparser.ConfigParser()
+    config.read('server-settings.ini')
     g_host = socket.gethostname()
-    g_port = 1999
-    get_conns = CommandThread(g_host, g_port)
-    get_conns.run()
-
-    # I'm going to loop through periodically to send responses
-    while True:
-        try:
-            pass
-        except KeyboardInterrupt:
-            logging.DEBUG('Exiting via KBI')
-            sys.exit()
+    g_port = config['DEFAULT']['port']
+    my_socket_stuff = Server(g_host, g_port, config['DEFAULT']['allowed'])
+    my_socket_stuff.run()
 
 if __name__ == '__main__':
     main()

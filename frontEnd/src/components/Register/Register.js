@@ -36,7 +36,7 @@ class Register extends Component {
              onChange = {(event,newValue) => this.setState({last_name:newValue})}
              />
            <br/>
-      
+
            <TextField
              hintText="Username"
              floatingLabelText="Codechat Alias"

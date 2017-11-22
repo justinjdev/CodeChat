@@ -11,6 +11,11 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.2",
-    "socket.io": "^2.0.4"
+    "socket.io": "^2.0.4",
+    "redis": "^2.7.1",
+    "bcrypt": "^1.0.3",
+    "bluebird": "^3.5.1",
+    "pg-promise": "^6.10.1",
+    "pg": "^7.3.0"
   }
 }

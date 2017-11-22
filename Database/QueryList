@@ -1,0 +1,169 @@
+----------------------------------------------------------------------------------------------------------------------------
+1)  insert a User record (when a user registers)
+2)  insert a Message record (when a message/code is sent)
+3)  insert a Channel record (when a new channel is created)
+4)  insert a Users_In_Channel record (when a user joins a channel)
+5)  get list of all User emails (used to determine if an email has already been registered)
+6)  get the list of all usernames currently in a channel (to display in the GUI so people can see who is in channel)
+7)  change a username (in case a user wants to change their username)
+8)  change a channel name (in case a user wants to change the name of a private channel or admin the name of general channel)
+9)  change a user bio (when a user wants to change their bio)
+10) user search function (specify 1. a category (Message, User, Channel), 2. then keyword(s))
+11) delete a channel (when admin wants to delete a channel or a user wants to delete a private channel)
+12) delete a user from a channel (when a user leaves a channel)
+----------------------------------------------------------------------------------------------------------------------------
+
+1) insert a User record (when a user registers)
+
+	general:
+		insert into Users values (u_id, u_email, u_password, u_username, u_firstname, u_lastname);
+
+	examples:
+		insert into "Users" values (435, 'somemail@email.com', 'somepass', 'a_username', 'Firstname', 'Last');
+
+	notes:
+		<none>
+
+2) insert a Message record (when a message/code is sent)
+
+	general:
+		case 1) insert into Message values (m_id, ch_id, u_id, 'message_text', isCode, null, time, hasInputs);
+
+		case 2) insert into Message values (m_id, ch_id, u_id, 'message_text', isCode, null, time, hasInputs);
+				update Message set m_response = 'sandbox_response' where m_id = INTEGER;
+
+	examples:
+		case 1) insert into "Message" values (7779, 4, 7777, 'yas', FALSE, null, 1509729506, FALSE);
+
+		case 2) insert into "Message" values (1234, 6, 8989, '/python\n\tprint(''Hello World'')', TRUE, null, 1509729506, FALSE);
+				update "Message" set m_response = 'Hello World' where m_id = 7777;
+
+	notes:
+		-no matter what, when inserting a message into DB, the m_response field is null, the sandbox is what will change it from null
+		-if the isCode field is false, then do not send to sandbox
+		-if the isCode field is true, then send to sandbox and perform the update query on m_response using the returned sandbox string
+		-if isCode is true, then the backend must also check if there is inputs, if there is, then set hasInputs to true, false otherwise
+		-the escape sequence for a single quote (') is two single quotes (''), example of this above in the python "Hello World"
+
+3) insert a Channel record (when a new channel is created)
+
+	general:
+		insert into Channel values (ch_id, 'language')
+
+	examples:
+		insert into "Channel" values (55, 'Ada');
+
+	notes:
+		-this will be a function used by admins to create a new supported language channel, and also users to make private channel
+
+4) insert a Users_In_Channel record (when a user joins a channel)
+
+	general:
+		insert into Users_In_Channel (u_id, ch_id);
+
+	examples:
+		insert into "Users_In_Channel" values (1, 12);
+
+	notes:
+		<none>
+
+5) get list of all User emails (used to determine if an email has already been registered)
+
+	general:
+		select u_email from Users order by u_email;
+
+	examples:
+		select u_email from "Users" order by u_email;
+
+	notes:
+		-returns all emails in ascending order
+		-for some reason, you need quotes around table names here and for all other queries for it to work
+
+6) get the list of all usernames currently in a channel (to display in the GUI so people can see who is in channel)
+
+		general:
+			select u_username from Users natural join Users_In_Channel where ch_id = INTEGER;
+
+		examples:
+			select u_username from "Users" natural join "Users_In_Channel" where ch_id = 1;
+
+		notes:
+			-the above example lists all of the users who are in channel with id of 1
+
+7) change a username (in case a user wants to change their username)
+
+	general:
+		update Users set u_username = 'new_name' where u_id = INTEGER;
+
+	examples:
+		update "Users" set u_username = 'Dat_Boi' where u_id = 4321;
+
+	notes:
+		<none>
+
+8) change a channel name (in case a user wants to change the name of a private channel or admin the name of general channel)
+
+		general:
+			update Channel set ch_name = 'new_name' where ch_id = INTEGER;
+
+		examples:
+			update "Channel" set ch_name = 'Ada' where ch_id = 14;
+
+		notes:
+			<none>
+
+9) change a user bio (when a user wants to change their bio)
+
+	general:
+		update Users set u_bio = 'new_bio' where u_id = INTEGER;
+
+	examples:
+		update "Users" set u_bio = 'I changed my name' where u_id = 4321;
+
+	notes:
+		<none>
+
+10) user search function (can specify 1. a category (Message, User, Channel), 2. then keyword(s))
+
+	general:
+		case 1) select * from TABLE_NAME where ATTRIBUTE_NAME like '%keyword_list%';
+		case 2) select * from TABLE_NAME where ATTRIBUTE_NAME like 'keyword';
+
+	examples:
+		case 1) select * from "Message" where m_text like '%python print%';
+		case 2) select * from "Users" where u_username like 'Dat_Boi';
+		case 2) select * from "Channel" where ch_name like 'C';
+
+	notes:
+		-case 1 is to search loosely by inputting a list of keyword(s) that appear anywhere sequentially in a table
+		-case 2 is to search strictly by inputting a list of keyword(s) and looking for a table with just those words and nothing more
+		-this search returns entire tuples, so all information is available
+
+11) delete a channel (when admin wants to delete a channel or a user wants to delete a private channel)
+
+	general:
+		delete from Channel where ch_id = INTEGER;
+		delete from Users_In_Channel where ch_id = INTEGER;
+		delete from Message where ch_id = INTEGER;
+
+	examples:
+		delete from "Channel" where ch_id = 99;
+		delete from "Users_In_Channel" where ch_id = 99;
+		delete from "Message" where ch_id = 99;
+
+	notes:
+		-the ch_id is the same for all three operations
+		-all three operations happen one after another in order to completely remove all traces of a channel from DB
+		-because you must 1. delete the channel, 2. delete the messages in the channel, 3. remove the users from that channel
+
+12) delete a user from a channel (when a user leaves a channel)
+
+	general:
+		delete from Users_In_Channel where ch_id = INTEGER and u_id = INTEGER;
+
+	examples:
+		delete from "Users_In_Channel" where ch_id = 1 and u_id = 25;
+
+	notes:
+		-must specify which channel and which user
+		-the user will be removed from the channel, and every message that they sent will remain for the life of the channel
