@@ -13,29 +13,23 @@
     flex-direction: row;
     flex: 11; }
     .main-page .content .left-sidebar {
-      background-color: #4d4d4d;
-      flex: 1;
-      box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.25); }
+      height: 100%;
+      background-color: #4d4d4d; }
       .main-page .content .left-sidebar .profile-icon {
         margin: 25px auto;
         width: 100px;
         height: 100px;
-        background-color: #56CCF2;
+        background-color: #56ccf2;
         border-radius: 50%;
-        align-content: center;
-        box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.25);
-        display: flex; }
-        .main-page .content .left-sidebar .profile-icon p {
-          margin: auto; }
+        align-content: center; }
     .main-page .content .main {
       flex: 4;
       margin: 10px;
       display: flex;
       flex-direction: column; }
     .main-page .content .right-sidebar {
-      background-color: #4d4d4d;
-      flex: 1;
-      box-shadow: -5px 0px 10px rgba(0, 0, 0, 0.25); }
+      height: 100%;
+      background-color: #4d4d4d; }
   .main-page .footer {
     background-color: #56ccf2;
     flex: 1;

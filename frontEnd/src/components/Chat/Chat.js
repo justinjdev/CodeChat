@@ -3,8 +3,8 @@ import io from 'socket.io-client'
 
 import './Chat.css'
 
-const socket = io('https://ezchatrooms.herokuapp.com/')
-// const socket = io('localhost:8080')
+// const socket = io('https://ezchatrooms.herokuapp.com/')
+const socket = io('192.168.1.83:8080')
 
 class Chat extends Component {
     constructor(props) {
@@ -27,9 +27,28 @@ class Chat extends Component {
         //get the messages from server and put in messagesList
     }
     componentDidMount() {
+        console.log('did mount')
+        socket.on('cachedMessages', (msgs)=>{
+            for(let i in msgs){
+                console.log(JSON.parse(msgs[i]))
+                this.printMessage(JSON.parse(msgs[i]))
+            }
+        })
+
+
         socket.on("message", (message) => {
             console.log(message)
             this.printMessage(message)
+        })
+        const textArea = document.querySelector('.input')
+        const submitButton = document.querySelector('.submit')
+        textArea.addEventListener("keydown", (event) =>{
+            if(event.keyCode === 13){
+                if(!event.shiftKey){
+                    event.preventDefault()
+                    submitButton.click()
+                }
+            }
         })
     }
     submitHandler(event) {
@@ -42,7 +61,9 @@ class Chat extends Component {
             nick: 'bobert'
         }
 
-        socket.emit('message', messageObject)
+        socket.emit('message', messageObject, (answer)=>{
+            console.log("do the thing")
+        })
 
         this.printMessage(messageObject)
 
@@ -54,7 +75,7 @@ class Chat extends Component {
         const oldList = this.state.messagesList
         const newList = [
             ...oldList,
-            message.text
+            message
         ] //...oldList creates a new array in a new memory address with the contents of the old array
 
         this.setState({messagesList: newList})
@@ -71,7 +92,14 @@ class Chat extends Component {
                 <div className="chat-window">
                     <ul className="messages-list">
                         {this.state.messagesList.map((message,index)=>{
-                            return <li key={index}>{message}</li>
+                            return <li className="message" key={index}>
+                            <div className="message-sender">
+                            {message.nick}
+                            </div>
+                            <div className="message-text">
+                            {message.text}
+                            </div>
+                            </li>
                         })}
                     </ul>
                 </div>
