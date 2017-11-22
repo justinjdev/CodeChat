@@ -8,7 +8,7 @@ import SignIn from '../SignIn/SignPage'
 
 class App extends Component {
   render() {
-    return (<SignIn/>)
+    return (<MainPage/>)
   }
 }
 
