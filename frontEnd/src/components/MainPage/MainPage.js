@@ -14,16 +14,16 @@ class MainPage extends Component {
                             <h3>{"<CODE CHAT>"}</h3>
                     </div>
                     <div className="content row">
-                        <div className="left-sidebar col-md-2 col-xs-3">
+                        <div className="left-sidebar col-xs-2">
                             <div className="profile-icon centered-text">
                                 <p>D.B.</p>
                             </div>
                             <Channels/>
                         </div>
-                        <div className="main col-md-9 col-xs-10">
+                        <div className="main col-xs-9">
                             <Chat/>
                         </div>
-                        <div className="right-sidebar col-md-1 col-xs-12">
+                        <div className="right-sidebar col-xs-1">
                             <p>active</p>
                             <ActiveUsers/>
                         </div>

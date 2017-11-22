@@ -57,9 +57,6 @@ class Chat extends Component {
                 }
             }
         })
-
-
-        const clearButton = document.querySelector('.clear')
     }
     submitHandler(event) {
         event.preventDefault()
