@@ -30,12 +30,13 @@ module.exports = class DBController {
             console.error(error)
         }
     }
+
     //1) insert a user record
     async registerUser(u_id, u_email, u_password, u_username, u_firstname, u_lastname, u_bio) {
         let registerUserAttempt
         try {
             registerUserAttempt = await postgresController.insert_New_User(u_id, u_email, u_password, u_username, u_firstname, u_lastname, u_bio)
-            // returns if sucessfull in postgress
+            return "Succsessfully added User"
         } catch (error) {
             console.error(error)
         }

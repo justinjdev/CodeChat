@@ -31,19 +31,19 @@ module.exports = class Parser {
                 }
             case 'python':
                 { // console.log("python command")
-                    message.text = "python command"
+                    message.text = "python command" + argument
                     return (message)
                     break
                 }
             case 'java':
                 {
-                    message.text = "java command"
+                    message.text = "java command" + argument
                     return (message)
                     break
                 }
             case 'javascript':
                 {
-                    message.text = "javascript command"
+                    message.text = "javascript command" + argument
                     return (message)
                     break
                 }
@@ -66,7 +66,11 @@ module.exports = class Parser {
                 }
             case 'help':
                 {
-                    message.text = `Chat commands: Change nickname: /nick [username], Join/create room: /join [room name]`
+                    message.text = `
+                        Chat commands: 
+                        Change nickname: /nick [username], 
+                        Join or Create room: /join [room name]
+                        `
                     return (message)
                     break
                 }

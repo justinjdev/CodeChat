@@ -1,5 +1,3 @@
-import { error } from 'util';
-
 'use strict'
 
 //stevan & sabian queries
@@ -44,7 +42,10 @@ module.exports = class PostgresController {
             client
                 .any(`INSERT INTO "Users"(u_username", "u_pass", "u_email", "u_id", "u_firstname", "u_lastname", "u_bio") VALUES ('${u_username}', '${u_pass}', '${u_email}',  '${u_id}', '${u_firstname}", '${U_lastname}', '${u_bio}') returning u_username`)
                 .then(() => {
-                    reslove("Successful Insert of new user.")
+                    resolve("Successful Insert of new user.")
+                })
+                .catch(error => {
+                    reject(error)
                 })
         }
     }
@@ -126,6 +127,9 @@ module.exports = class PostgresController {
                         reject(error)
                     }
                 })
+                .catch(error => {
+                    reject(error)
+                })
             })
         }
 
@@ -151,7 +155,7 @@ module.exports = class PostgresController {
                 console.log(`UPDATE "public"."${Channels}" SET '${ch_id}', '${ch_name}'='${new_channelname}' RETURNING "ch_name"`)
                 .any(`UPDATE "public"."${Channels}" SET '${ch_id}', '${ch_name}'='${new_channelname}' RETURNING "ch_name"`)
                 .then(data =>{
-                    reslove(data)
+                    resolve(data)
             })
                 .catch(error => {
                     reject(error)
@@ -166,7 +170,7 @@ module.exports = class PostgresController {
                 console.log(`UPDATE "public"."${Users}" SET '${u_id}', '${u_bio}'='${new_userbio}' RETURNING "u_bio"`)
                 .any(`UPDATE "public"."${Users}" SET '${u_id}', '${u_bio}'='${new_userbio}' RETURNING "u_bio"`)
                 .then(data =>{
-                    reslove(data)
+                    resolve(data)
             })
                 .catch(error => {
                     reject(error)
@@ -186,9 +190,12 @@ module.exports = class PostgresController {
                     } else {
                         reject(error)
                     }
+                    })
                 })
-            })
-        }
+                .catch(error => {
+                    reject(error)
+                })
+            }
 
     //11)delete a channel
         //not tested
@@ -197,13 +204,14 @@ module.exports = class PostgresController {
                 console.log(`DELETE "public"."${Channels}" WHERE '${ch_id}'`) // not sure how to set up a delete function
                 .any(`DELETE "public"."${Channels}" WHERE '${ch_id}'`)// not sure ..^
                 .then(data =>{
-                    reslove(data)
-            })
+                    resolve(data)
+                })
                 .catch(error => {
                     reject(error)
                 })
             })
         }
+
 
     //12)delete a user from a channel
         //not tested
@@ -212,11 +220,11 @@ module.exports = class PostgresController {
                 console.log(`DELETE "public"."${Users}" WHERE '${ch_id, u_id}'`) // not sure how to set up a delete function
                 .any(`DELETE "public"."${Users}" WHERE '${ch_id, u_id}'`)// not sure ..^
                 .then(data =>{
-                    reslove(data)
+                    resolve(data)
             })
                 .catch(error => {
                     reject(error)
                 })
             })
         }
-}
+    }
