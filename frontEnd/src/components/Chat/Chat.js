@@ -3,8 +3,8 @@ import io from 'socket.io-client'
 
 import './Chat.css'
 
-// const socket = io('https://ezchatrooms.herokuapp.com/')
-const socket = io('192.168.1.83:8080')
+const socket = io('https://ezchatrooms.herokuapp.com/')
+// const socket = io('localhost:8080')
 
 class Chat extends Component {
     constructor(props) {
@@ -18,6 +18,9 @@ class Chat extends Component {
         this.submitHandler = this
             .submitHandler
             .bind(this)
+        this.clearHandler = this
+            .clearHandler
+            .bind(this);
         this.textChangeHandler = this
             .textChangeHandler
             .bind(this)
@@ -27,19 +30,11 @@ class Chat extends Component {
         //get the messages from server and put in messagesList
     }
     componentDidMount() {
-        console.log('did mount')
-        socket.on('cachedMessages', (msgs)=>{
-            for(let i in msgs){
-                console.log(JSON.parse(msgs[i]))
-                this.printMessage(JSON.parse(msgs[i]))
-            }
-        })
-
-
         socket.on("message", (message) => {
             console.log(message)
             this.printMessage(message)
         })
+
         const textArea = document.querySelector('.input')
         const submitButton = document.querySelector('.submit')
         textArea.addEventListener("keydown", (event) =>{
@@ -50,6 +45,9 @@ class Chat extends Component {
                 }
             }
         })
+
+        
+        const clearButton = document.querySelector('.clear')
     }
     submitHandler(event) {
         event.preventDefault()
@@ -61,21 +59,22 @@ class Chat extends Component {
             nick: 'bobert'
         }
 
-        socket.emit('message', messageObject, (answer)=>{
-            console.log("do the thing")
-        })
+        socket.emit('message', messageObject)
 
         this.printMessage(messageObject)
 
         this.setState({chatInput: ''})
         console.log(messageObject)
     }
+    clearHandler(event){
+        this.setState({chatInput: ''})
+    }
 
     printMessage(message) {
         const oldList = this.state.messagesList
         const newList = [
             ...oldList,
-            message
+            message.text
         ] //...oldList creates a new array in a new memory address with the contents of the old array
 
         this.setState({messagesList: newList})
@@ -92,14 +91,7 @@ class Chat extends Component {
                 <div className="chat-window">
                     <ul className="messages-list">
                         {this.state.messagesList.map((message,index)=>{
-                            return <li className="message" key={index}>
-                            <div className="message-sender">
-                            {message.nick}
-                            </div>
-                            <div className="message-text">
-                            {message.text}
-                            </div>
-                            </li>
+                            return <li className="message" key={index}>{message}</li>
                         })}
                     </ul>
                 </div>
@@ -111,16 +103,17 @@ class Chat extends Component {
                         onChange={this.textChangeHandler}
                         value={this.state.chatInput}
                         required/>
-                        <div className="submit-buttons">
-                        <input
+                    <div className="submit-buttons">
+                        <button
                             className="submit"
                             type="submit"
-                            value="Send"/>
-                        <input
+                            value="Send">Send</button>
+                        <button
                             className="clear"
-                            type="submit"
-                            value="Clear"/>
-                            </div>
+                            type="reset"
+                            onClick={this.clearHandler}
+                            value="Clear">Clear</button>
+                    </div>
                 </form>
             </div>
         )

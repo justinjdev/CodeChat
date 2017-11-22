@@ -1,50 +1,67 @@
 @import './../../colors.scss';
 
 .main-page{
-    display: flex;
-    flex-direction: column;
+
+    .col-md-2, .col-md-8{
+        padding: 0;
+    }
+
+    .centered-text{
+        display: flex;
+
+        p, h1, h2, h3, h4, h5, h6, h7, a{
+            margin: auto;
+        }
+    }
+
     background-color: #3a3a3a;
     height: 100vh;
+    overflow: hidden; 
+
+    @media (max-width: 990px){
+
+        overflow-y: auto;
+    }
 
     .header{
         height: 7vh;
-        background-color: $accent-color;
+        background-color: $header-background;
         align-content: center;
         text-align: center;
     }
 
     .content{
-        display: flex;
-        flex-direction: row;
-        flex: 11;
-
+        height: 86vh;
+        
         .left-sidebar{
+            height: 100%;
             background-color: #4d4d4d;
+            box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.25);
             
             .profile-icon{
                 margin: 25px auto;
                 width: 100px;
                 height: 100px;
-                background-color: $accent-color;
+                background-color: #56CCF2;
                 border-radius: 50%;
                 align-content: center;
+                box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.25);
             }
         }
         .main{
-            flex: 4;
-            margin: 10px;
-
-            display: flex;
-            flex-direction: column;
+            height: 100%;
+            // padding: 10px;
         }
         .right-sidebar{
+            height: 100%;
             background-color: #4d4d4d;
+            box-shadow: -5px 0px 10px rgba(0, 0, 0, 0.25);
         }
     }
 
     .footer{
         height: 7vh;
-        background-color: $accent-color;
+        background-color: $footer-background;
         text-align: center;
         align-content: center;
     }

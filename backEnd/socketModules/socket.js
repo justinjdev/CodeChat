@@ -67,8 +67,8 @@ module.exports = class Socket {
                                 console.log(res)
                                 socket
                                     .broadcast
-                                    .to('Lobby')
-                                    .emit('message', res)
+                                    .to('Lobby') //room name
+                                    .emit('message', res) //message name and res is the object being sent
                             })
                     } else {
                         message.nick = message.nick || "A User"

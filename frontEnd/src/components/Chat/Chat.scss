@@ -3,39 +3,26 @@
 .chat{
     display: flex;
     flex-direction: column;
-    max-height: 78vh;
-    flex: 1;
+    height: 100%;
 
     .chat-window{
         flex: 10;
         margin: 0px 0 10px;
-        overflow: auto;
+        overflow-y:scroll;
         // position: relative;
 
         .messages-list{
             list-style: none;
             padding: 0;
             margin: 0;
-
             
-            li{
+            .message{
                 border-bottom: 1px solid $message-border-color;
                 background-color: $message-background;
 
                 padding: 10px;
                 word-wrap: break-word;
                 white-space: pre-wrap;
-
-                .message-sender{
-                    color: $accent-color;
-                }
-                .message-text{
-                    margin-left: 10px;
-                }
-            }
-
-            .local-user{
-                text-align: right;
             }
         }
     }
@@ -48,11 +35,6 @@
             flex: 10;
             border: 0;            
             resize: none;
-            background-color: $message-background;
-            color: $main-text-color;
-            font-family: sans-serif;
-            padding: 5px;
-            box-shadow: none;
         }
         .submit-buttons{
             flex: 2;
@@ -63,17 +45,11 @@
                     flex: 1;
                     background-color: $main-accent;
                     border: 0;
-                    color: $main-text-color;
-                    font-family: sans-serif;
-                    font-size: 14pt;
                 }
                 .clear{
                     flex: 1;
                     background-color: $main-destructive;
-                    border: 0;
-                    color: $main-text-color;
-                    font-family: sans-serif;
-                    font-size: 14pt;
+                    border: 0;                    
                 }
 
         }
