@@ -15,6 +15,7 @@
             list-style: none;
             padding: 0;
             margin: 0;
+
             
             .message{
                 border-bottom: 1px solid $message-border-color;
@@ -23,6 +24,17 @@
                 padding: 10px;
                 word-wrap: break-word;
                 white-space: pre-wrap;
+
+                .message-sender{
+                    color: $accent-color;
+                }
+                .message-text{
+                    margin-left: 10px;
+                }
+            }
+
+            .local-user{
+                text-align: right;
             }
         }
     }
@@ -35,6 +47,11 @@
             flex: 10;
             border: 0;            
             resize: none;
+            background-color: $message-background;
+            color: $main-text-color;
+            font-family: sans-serif;
+            padding: 5px;
+            box-shadow: none;
         }
         .submit-buttons{
             flex: 2;
@@ -45,11 +62,17 @@
                     flex: 1;
                     background-color: $main-accent;
                     border: 0;
+                    color: $main-text-color;
+                    font-family: sans-serif;
+                    font-size: 14pt;
                 }
                 .clear{
                     flex: 1;
                     background-color: $main-destructive;
-                    border: 0;                    
+                    border: 0;
+                    color: $main-text-color;
+                    font-family: sans-serif;
+                    font-size: 14pt;
                 }
 
         }
