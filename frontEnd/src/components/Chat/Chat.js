@@ -67,8 +67,7 @@ class Chat extends Component {
         console.log(messageObject)
     }
     clearHandler(event){
-        this.setState({chatInput: ''})        
-        console.log("reset")
+        this.setState({chatInput: ''})
     }
 
     printMessage(message) {
@@ -92,7 +91,7 @@ class Chat extends Component {
                 <div className="chat-window">
                     <ul className="messages-list">
                         {this.state.messagesList.map((message,index)=>{
-                            return <li key={index}>{message}</li>
+                            return <li className="message" key={index}>{message}</li>
                         })}
                     </ul>
                 </div>
@@ -112,7 +111,7 @@ class Chat extends Component {
                         <button
                             className="clear"
                             type="reset"
-                            onClick={(e) => this.clearHandler(e)}
+                            onClick={this.clearHandler}
                             value="Clear">Clear</button>
                     </div>
                 </form>
