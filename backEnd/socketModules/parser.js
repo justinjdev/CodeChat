@@ -3,7 +3,6 @@
 const VC = require('./virtualizationCommands')
 const virtulization = new VC() //connects to justin
 
-
 // DBC() const Abstraction = require('./Abstraction') //connects to sandbox
 // //TODO: Don't forget abstraction is just a working name. It'll have to be
 // named something else. const abstraction = new Abstraction()
@@ -41,11 +40,12 @@ module.exports = class Parser {
             case 'python':
                 { // console.log("python command")
                     message.text = "python command" + argument
-                    message.text = argument 
+                    message.text = argument
                     let messages
                     try {
-                        messages = await virtulization.virtulizeLanguage(argument)
-                    }catch(error){
+                        messages = await virtulization.language(argument)
+                        return messages
+                    } catch (error) {
                         console.error("ERROR: ", error)
                     }
                     // return (message)
@@ -54,7 +54,8 @@ module.exports = class Parser {
             case 'java':
                 {
                     message.text = "java command" + argument
-                    message.text = argument 
+                    return (message)
+                    message.text = argument
                     let messages
                     try {
                         messages = await virtulization.virtulizeLanguage(argument)
@@ -67,7 +68,8 @@ module.exports = class Parser {
             case 'javascript':
                 {
                     message.text = "javascript command" + argument
-                    message.text = argument 
+                    return (message)
+                    message.text = argument
                     let messages
                     try {
                         messages = await virtulization.virtulizeLanguage(argument)
