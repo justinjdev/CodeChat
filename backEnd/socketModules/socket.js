@@ -67,7 +67,6 @@ module.exports = class Socket {
                 socket.emit('joinResult', {room: room.newRoom})
             })
             socket.on('message', (message, response) => {
-                response(200) // acknowledgement
                 dbcontroller.save(message)
                 console.log(message)
                 // remove invalid messages
@@ -90,7 +89,7 @@ module.exports = class Socket {
                     } else {
                         message.nick = message.nick || "A User"
                         message.id = socket.id
-                        res(message)
+                        response(message)
                         socket
                             .broadcast
                             .to(message.room)
