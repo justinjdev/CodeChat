@@ -81,6 +81,7 @@ module.exports = class Socket {
                                 console.log('response')
                                 console.log(res)
                                 this.nicknames[socket.id] = res.newNick
+                                response(res)
                                 socket
                                     .broadcast
                                     .to('Lobby') // room name
@@ -89,6 +90,7 @@ module.exports = class Socket {
                     } else {
                         message.nick = message.nick || "A User"
                         message.id = socket.id
+                        res(message)
                         socket
                             .broadcast
                             .to(message.room)
@@ -151,7 +153,7 @@ module.exports = class Socket {
             .io
             .sockets
             . in(roomName) // room name
-            .emit('userList', userList)
+            .emit('userList', this.nicknames[userList])
     }
     async getRooms() {
         let clients = Object.keys(this.io.sockets.sockets)
