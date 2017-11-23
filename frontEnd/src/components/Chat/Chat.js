@@ -41,10 +41,7 @@ class Chat extends Component {
         })
 
 
-        socket.on("message", (message) => {
-            console.log(message)
-            this.printMessage(message)
-        })
+        
 
 
         const textArea = document.querySelector('.input')
@@ -56,10 +53,12 @@ class Chat extends Component {
                     submitButton.click()
                 }
             }
+            console.log(event.keyCode)
+            if(event.keyCode === 9){
+                event.preventDefault()
+                this.setState({chatInput: event.target.value + "\t"})
+            }
         })
-
-
-        const clearButton = document.querySelector('.clear')
     }
     submitHandler(event) {
         event.preventDefault()
@@ -73,14 +72,19 @@ class Chat extends Component {
 
         //   socket.emit('question', 'do you think so?', function (answer) {});
 
+        //TODO why wont this on message work????
         socket.emit('message', messageObject,(answer)=>{
-            console.log(answer)
+            console.log(messageObject)
+            this.printMessage(messageObject)
+            
+            // socket.on("message", (message) => {
+            //     console.log(message)
+            //     this.printMessage(message)
+            // })
         })
 
-        this.printMessage(messageObject)
-
         this.setState({chatInput: ''})
-        console.log(messageObject)
+        
     }
     clearHandler(event){
         this.setState({chatInput: ''})

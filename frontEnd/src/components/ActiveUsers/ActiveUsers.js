@@ -1,8 +1,29 @@
 import React, { Component } from 'react';
+import io from 'socket.io-client'
 
 import './ActiveUsers.css';
 
+const socket = io('104.131.129.223:8080') // servers
+
 class ActiveUsers extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            room: 'Lobby',
+            usersList: []
+        }
+
+        
+    }
+    componentDidMount() {
+        console.log('did mount')
+        socket.on('userList', (users)=>{
+            for(let i in users){
+                this.printMessage(JSON.parse(users[i]))
+            }
+        })
+    }
+
     render() {
         return (
             <div className="active-users">

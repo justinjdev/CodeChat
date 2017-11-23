@@ -2,9 +2,10 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-//import uploadScreen from 'uploadScreen';
-import React, { Component } from 'react';
 
+import React, { Component } from 'react';
+import './SignPage.css';
+//import GoogleLogin from 'react-google-login';
 
 class Login extends Component {
 constructor(props){
@@ -15,18 +16,17 @@ constructor(props){
   }
  }
 
-
 render() {
     return (
       <div>
         <MuiThemeProvider>
           <div>
           <AppBar
-             title="CodeChat Cucks"
+             title="Sign-in"
            />
            <TextField
-             hintText="Enter your Username"
-             floatingLabelText="Username"
+             hintText="Enter your Email"
+             floatingLabelText="Email"
              onChange = {(event,newValue) => this.setState({username:newValue})}
              />
            <br/>
@@ -38,10 +38,13 @@ render() {
                />
              <br/>
              <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
+             <RaisedButton label="Clear" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
+
          </div>
          </MuiThemeProvider>
       </div>
     );
+
   }
 
 
@@ -82,7 +85,7 @@ render() {
 
 
 const style = {
- margin: 50,
+ margin: 20,
 };
 
 

@@ -2,7 +2,7 @@
   background-color: #3a3a3a;
   height: 100vh;
   overflow: hidden; }
-  .main-page .col-md-1, .main-page .col-md-2, .main-page .col-md-8, .main-page .col-md-9 {
+  .main-page .col-xs-1, .main-page .col-xs-2, .main-page .col-xs-8, .main-page .col-xs-9 {
     padding: 0; }
   .main-page .centered-text {
     display: flex; }
