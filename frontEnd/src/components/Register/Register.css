@@ -1,11 +1,19 @@
 * {
   box-sizing: border-box; }
 
+
 body {
   font-family: Helvetica;
   background: #eee;
-  -webkit-font-smoothing: antialiased; }
-
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  padding: 0;
+  text-align: center; /* !!! */ }
+.centered {
+    margin: 0 auto;
+    text-align: left;
+    width: 800px;
+}
 hgroup {
   text-align: center;
   margin-top: 4em; }
