@@ -11,11 +11,11 @@ let server = app.listen(app.get('port'), () => {
 
 const io = require('socket.io').listen(server) //listen to own server
 const socketio = require('socket.io-client')('localhost:3001') //listen to justin server
-const ioAudio = require('socket.io').listen(server) //listen to own server
+// const ioAudio = require('socket.io').listen(server) //listen to own server
 
-
-const audioFile = require('./Audio')
-const audioStream = new audioFile(ioAudio)
 
 const socketjs = require('./socketModules/socket')
 const socketjsnew = new socketjs(io)
+
+// const audioFile = require('./Audio')
+// const audioStream = new audioFile(ioAudio)
