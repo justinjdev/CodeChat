@@ -6,7 +6,7 @@ const WebSocket = require('ws')
 module.exports = class VirtualizationCommands {
     constructor() {
         //takeing language argument
-        language(argument){
+        virtulizeLanguage(argument){
         //     ws.addEventListener('open', (event) => {
         //     ws.send('Hai Server!', (err, res) => {
         //         if (err)
@@ -14,7 +14,7 @@ module.exports = class VirtualizationCommands {
         //     })
         // })
         }
-        
+
         // ws.addEventListener('open', (event) => {
         //     ws.send('Hai Server!', (err, res) => {
         //         if (err)

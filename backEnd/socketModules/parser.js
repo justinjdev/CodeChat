@@ -41,15 +41,12 @@ module.exports = class Parser {
             case 'python':
                 { // console.log("python command")
                     message.text = "python command" + argument
-                    message.text = argument
-                    async pythonCommand(argument) {
-                        let messages
-                        try {
-                            messages = await virtulization.language(argument)
-                            return messages
-                        } catch (error) {
-                            console.error("ERROR: ", error)
-                        }
+                    message.text = argument 
+                    let messages
+                    try {
+                        messages = await virtulization.virtulizeLanguage(argument)
+                    }catch(error){
+                        console.error("ERROR: ", error)
                     }
                     // return (message)
                     break
@@ -57,13 +54,27 @@ module.exports = class Parser {
             case 'java':
                 {
                     message.text = "java command" + argument
-                    return (message)
+                    message.text = argument 
+                    let messages
+                    try {
+                        messages = await virtulization.virtulizeLanguage(argument)
+                    }catch(error){
+                        console.error("ERROR: ", error)
+                    }
+                    // return (message)
                     break
                 }
             case 'javascript':
                 {
                     message.text = "javascript command" + argument
-                    return (message)
+                    message.text = argument 
+                    let messages
+                    try {
+                        messages = await virtulization.virtulizeLanguage(argument)
+                    }catch(error){
+                        console.error("ERROR: ", error)
+                    }
+                    // return (message)
                     break
                 }
             case 'bunny':
