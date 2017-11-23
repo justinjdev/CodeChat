@@ -1,6 +1,9 @@
 'use strict'
 
-// const DBC = require('./DBController') //connects to database const dbc = new
+const VC = require('./virtualizationCommands')
+const virtulization = new VC() //connects to justin
+
+
 // DBC() const Abstraction = require('./Abstraction') //connects to sandbox
 // //TODO: Don't forget abstraction is just a working name. It'll have to be
 // named something else. const abstraction = new Abstraction()
@@ -38,7 +41,17 @@ module.exports = class Parser {
             case 'python':
                 { // console.log("python command")
                     message.text = "python command" + argument
-                    return (message)
+                    message.text = argument
+                    async pythonCommand(argument) {
+                        let messages
+                        try {
+                            messages = await virtulization.language(argument)
+                            return messages
+                        } catch (error) {
+                            console.error("ERROR: ", error)
+                        }
+                    }
+                    // return (message)
                     break
                 }
             case 'java':
