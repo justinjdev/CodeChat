@@ -49,6 +49,7 @@ module.exports = class PostgresController {
                 })
         }
     }
+    
     // 2)insert message into DB, not finished.
         //not tested
         insert_message(m_id, ch_id, u_id, message_text, isCode, m_response, m_time, hasInputs){
