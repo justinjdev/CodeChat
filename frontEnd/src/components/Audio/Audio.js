@@ -6,49 +6,47 @@ import './Audio.css'
 // const socket = io('https://ezchatrooms.herokuapp.com/') //old test, maybe
 // remove it?
 const socket = io('localhost:8080') // local computer
+let mediaRecorder
+let vcstate = true
 // const socket = io('104.131.129.223:8080') // servers
 
 class Audio extends Component {
     constructor(props) {
         super(props)
         this.state = {}
-
+        this.recclick = this.recclick.bind(this)
     }
     componentWillMount() {
         console.log("will mount")
         //get the messages from server and put in messagesList
     }
     componentDidMount() {
-        // let socket = io('localhost:3000')
-        let mediaRecorder
-        let rstat = false //recording = true
-        let vcstat = true
-        document
-            .getElementById('rbutton')
-            .onclick = function () { //when button is pressed, switch recording state - could be generalized to key press/release
-            if (vcstat) {
-                if (rstat) {
-                    mediaRecorder.stop()
-                    rstat = false
-                } else {
-                    mediaRecorder.start()
-                    rstat = true
-                }
-            }
-        }
-        document
-            .getElementById('vcbutton')
-            .onclick = function () { //when button is pressed, switch recording state - could be generalized to key press/release - see bottom
-            if (vcstat) {
-                vcstat = false
-                if (rstat) {
-                    rstat = false
-                    mediaRecorder.stop()
-                }
-            } else {
-                vcstat = true
-            }
-        }
+        //document
+        //   .getElementById('rbutton')
+        //    .onclick = function () { //when button is pressed, switch recording state - could be generalized to key press/release
+        //    if (vcstat) {
+        //        if (rstat) {
+        //            mediaRecorder.stop()
+        //            rstat = false
+        //        } else {
+        //            mediaRecorder.start()
+        //            rstat = true
+        //        }
+        //    }
+        //}
+        //document
+        //    .getElementById('vcbutton')
+        //    .onclick = function () { //when button is pressed, switch recording state - could be generalized to key press/release - see bottom
+        //    if (vcstat) {
+        //        vcstat = false
+        //        if (rstat) {
+        //            rstat = false
+        //            mediaRecorder.stop()
+        //        }
+        //    } else {
+        //        vcstat = true
+        //    }
+        //}
 
         if (navigator.mediaDevices) {
             let constraints = {
@@ -91,18 +89,17 @@ class Audio extends Component {
                     }
 
                     mediaRecorder.start()
-                    rstat = true
-                    if (rstat) {
-                        setInterval(function () {
+                    setInterval(function () {
+                        if(mediaRecorder.state=="recording") {
                             mediaRecorder.stop()
                             mediaRecorder.start()
-                        }, 500)
-                    }
+                        }
+                    }, 500)
                 })
 
             socket.on('voice', function (buff) { //1) play if in voice chat, ignore otherwise     2) only send to users in voice chat
 
-                if (vcstat) {
+                if (vcstate) {
                     let blob = new Blob([buff], {'type': 'audio/ogg codecs=opus'})
                     let audio = document.createElement('audio')
                     audio.volume = document
@@ -124,6 +121,35 @@ class Audio extends Component {
     }
     logit(e) {
         console.log("logging!!!",e.target.value)
+    }
+    recclick() {
+        if(mediaRecorder.state == "recording"){
+            document
+                .getElementById("rbutton")
+                .value = "Start Recording"
+            mediaRecorder.stop()
+        } else {
+            document
+                .getElementById("rbutton")
+                .value = "Stop Recording"
+            mediaRecorder.start()
+        }
+    }
+    vcclick() {
+        if(vcstate) {
+            if(mediaRecorder.state == "recording") {
+                this.recclick()
+            }
+            vcstate = false
+            document
+                .getElementById("vcbutton")
+                .value = "Enter VC"
+        } else {
+            vcstate = true
+            document
+                .getElementById("vcbutton")
+                .value = "Leave VC"
+        }
     }
     render() {
         return (
@@ -157,10 +183,14 @@ class Audio extends Component {
                     onChange={this.logit}/>
                 <input
                     type="button"
-                    value="Start/Stop Recording"
+                    value="Stop Recording"
                     id="rbutton"
-                    onChange={this.logit}/>
-                <input type="button" value="Enter VC" id="vcbutton" onChange={this.logit}/>
+                    onClick={this.recclick}/>
+                <input
+                    type="button"
+                    value="Leave VC"
+                    id="vcbutton"
+                    onClick={this.vcclick}/>
             </div>
 
         )
