@@ -6,6 +6,7 @@ import './Chat.css'
 // const socket = io('https://ezchatrooms.herokuapp.com/') //old test, maybe remove it?
 // const socket = io('localhost:8080') // local computer
 const socket = io('104.131.129.223:8080') // servers
+// const socket = io('192.168.1.83:8080') // servers
 
 
 class Chat extends Component {
@@ -40,10 +41,6 @@ class Chat extends Component {
             }
         })
 
-
-        
-
-
         const textArea = document.querySelector('.input')
         const submitButton = document.querySelector('.submit')
         textArea.addEventListener("keydown", (event) =>{
@@ -71,16 +68,9 @@ class Chat extends Component {
         }
 
         //   socket.emit('question', 'do you think so?', function (answer) {});
-
-        //TODO why wont this on message work????
         socket.emit('message', messageObject,(answer)=>{
-            console.log(messageObject)
-            this.printMessage(messageObject)
-            
-            // socket.on("message", (message) => {
-            //     console.log(message)
-            //     this.printMessage(message)
-            // })
+            console.log(answer.text)
+            this.printMessage(answer)
         })
 
         this.setState({chatInput: ''})
@@ -98,6 +88,9 @@ class Chat extends Component {
         ] //...oldList creates a new array in a new memory address with the contents of the old array
 
         this.setState({messagesList: newList})
+
+        let lastMessage = document.querySelector('.message:last-child')
+        lastMessage.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"})
     }
 
     textChangeHandler(event) {
