@@ -10,6 +10,7 @@ module.exports = class Socket {
         this.listenOnIO(io) //actually start listening on the sockets because for some reason it doesn't work without getting called.
         this.parser = new Parser(io)
         this.io = io
+        this.nicknames = {}
     }
     /**
     * @param {object} socket
@@ -17,7 +18,15 @@ module.exports = class Socket {
     */
     listenOnIO(io) {
         io.on('connection', socket => {
+            console.log("NICKNAMES!!",this.nicknames)
+            socket.emit('nickRequest', "nickname pls")
+            socket.on('nickReply', nickname => {
+                id = socket.id
+                this.nicknames.id = nickname
+            })
+
             console.log(socket.id, "connected")
+
             this.listSocketsInRoom()
 
             // when they connect to the server, default to lobby channel
@@ -31,8 +40,7 @@ module.exports = class Socket {
             this.getCachedMessages('Lobby', socket)
             // when they join, emit the message 'joinResult'
             socket.emit('joinResult', {room: 'Lobby'}) //let the client know that it's defaulted to the lobby
-            // socket.emit('nickRequest', "nickname pls") socket.on('nickReply', nickname =>
-            // {     id = socket.id     nicknames.id = nickname })
+
             /**
             * when the socket connection disconnects then you remove the nickname and name used from the list of names used
             */
@@ -45,8 +53,6 @@ module.exports = class Socket {
                 user: "Server",
                 text: `Welcome ${name}`
             }) // sends only back to that one socket
-
-
 
             /**
             *  If the SPECIFIC SOCKET sends join, then it leaves object: previous room and
@@ -74,6 +80,7 @@ module.exports = class Socket {
                             .then(res => {
                                 console.log('response')
                                 console.log(res)
+                                this.nicknames[socket.id] = res.newNick
                                 socket
                                     .broadcast
                                     .to('Lobby') // room name
@@ -119,9 +126,9 @@ module.exports = class Socket {
         // console.log("actualRooms you mother 🙃 ", actualRooms)
 
         for (let i of actualRooms) {
-             // TODO: implement gets the sockets/users from room const clients =
-            // io.sockets.clients('Lobby') // all users from room `Lobby`
-            // May need to refine later.
+            // TODO: implement gets the sockets/users from room const clients =
+            // io.sockets.clients('Lobby') // all users from room `Lobby` May need to refine
+            // later.
             this
                 .io
                 .of('/')

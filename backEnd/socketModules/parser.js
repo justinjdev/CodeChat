@@ -1,10 +1,9 @@
 'use strict'
 
-// const DBC = require('./DBController') //connects to database
-// const dbc = new DBC()
-
-// const Abstraction = require('./Abstraction') //connects to sandbox //TODO: Don't forget abstraction is just a working name. It'll have to be named something else.
-// const abstraction = new Abstraction()
+// const DBC = require('./DBController') //connects to database const dbc = new
+// DBC() const Abstraction = require('./Abstraction') //connects to sandbox
+// //TODO: Don't forget abstraction is just a working name. It'll have to be
+// named something else. const abstraction = new Abstraction()
 
 module.exports = class Parser {
     async readInput(message) {
@@ -15,7 +14,9 @@ module.exports = class Parser {
         let command = words[0]
             .substring(1, words[0].length)
             .toLowerCase()
-        let argument = words.slice(1).join(' ')
+        let argument = words
+            .slice(1)
+            .join(' ')
         switch (command) {
             case 'join':
                 {
@@ -25,7 +26,12 @@ module.exports = class Parser {
                 }
             case 'nick':
                 {
-                    message.text = "You are now known as " + argument
+                    message.text = `${message.nick} is now ${argument}`
+                    message.oldNick = message.nick
+                    message.newNick = argument
+                    message.nick = "server"
+                    message.command = 'nick'
+                    console.log(message)
                     return (message)
                     break
                 }
@@ -67,8 +73,8 @@ module.exports = class Parser {
             case 'help':
                 {
                     message.text = `
-                        Chat commands: 
-                        Change nickname: /nick [username], 
+                        Chat commands:
+                        Change nickname: /nick [username],
                         Join or Create room: /join [room name]
                         `
                     return (message)
