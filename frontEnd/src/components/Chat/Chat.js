@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import io from 'socket.io-client'
 
 import './Chat.css'
@@ -31,34 +31,40 @@ class Chat extends Component {
     componentWillMount() {
         console.log("will mount")
         //get the messages from server and put in messagesList
-
-        socket.on("userList", (list)=>{
-            console.log("users")
-            console.table(list)
-        })
     }
     componentDidMount() {
         console.log('did mount')
-        socket.on('cachedMessages', (msgs)=>{
-            for(let i in msgs){
+
+        socket.on("userList", (list) => {
+            console.log("users")
+            console.table(list)
+        })
+
+        socket.on('cachedMessages', (msgs) => {
+            for (let i in msgs) {
                 console.log(JSON.parse(msgs[i]))
                 this.printMessage(JSON.parse(msgs[i]))
             }
         })
 
+        socket.on('message', (message) => {
+            console.log(message)
+            this.printMessage(message)
+        })
+
         const textArea = document.querySelector('.input')
         const submitButton = document.querySelector('.submit')
-        textArea.addEventListener("keydown", (event) =>{
-            if(event.keyCode === 13){
-                if(!event.shiftKey){
+        textArea.addEventListener("keydown", (event) => {
+            if (event.keyCode === 13) {
+                if (!event.shiftKey) {
                     event.preventDefault()
                     submitButton.click()
                 }
             }
             // console.log(event.keyCode)
-            if(event.keyCode === 9){
+            if (event.keyCode === 9) {
                 event.preventDefault()
-                this.setState({chatInput: event.target.value + "\t"})
+                this.setState({ chatInput: event.target.value + "\t" })
             }
         })
     }
@@ -72,17 +78,17 @@ class Chat extends Component {
             nick: 'bobert'
         }
 
-        //   socket.emit('question', 'do you think so?', function (answer) {})
-        socket.emit('message', messageObject,(answer)=>{
+        //   socket.emit('question', 'do you think so?', function (answer) {});
+        socket.emit('message', messageObject, (answer) => {
             console.log(answer.text)
             this.printMessage(answer)
         })
 
-        this.setState({chatInput: ''})
+        this.setState({ chatInput: '' })
 
     }
-    clearHandler(event){
-        this.setState({chatInput: ''})
+    clearHandler(event) {
+        this.setState({ chatInput: '' })
     }
 
     printMessage(message) {
@@ -92,14 +98,14 @@ class Chat extends Component {
             message
         ] //...oldList creates a new array in a new memory address with the contents of the old array
 
-        this.setState({messagesList: newList})
+        this.setState({ messagesList: newList })
 
         let lastMessage = document.querySelector('.message:last-child')
-        lastMessage.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"})
+        lastMessage.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" })
     }
 
     textChangeHandler(event) {
-        this.setState({chatInput: event.target.value})
+        this.setState({ chatInput: event.target.value })
         // console.log("textChange", event.target.value)
     }
 
@@ -108,14 +114,14 @@ class Chat extends Component {
             <div className="chat">
                 <div className="chat-window">
                     <ul className="messages-list">
-                        {this.state.messagesList.map((message,index)=>{
+                        {this.state.messagesList.map((message, index) => {
                             return <li className="message" key={index}>
-                            <div className="message-sender">
-                            {message.nick}
-                            </div>
-                            <div className="message-text">
-                            {message.text}
-                            </div>
+                                <div className="message-sender">
+                                    {message.nick}
+                                </div>
+                                <div className="message-text">
+                                    {message.text}
+                                </div>
                             </li>
                         })}
                     </ul>
@@ -127,7 +133,7 @@ class Chat extends Component {
                         rows="1"
                         onChange={this.textChangeHandler}
                         value={this.state.chatInput}
-                        required/>
+                        required />
                     <div className="submit-buttons">
                         <button
                             className="submit"
