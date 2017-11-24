@@ -16,90 +16,90 @@ class Chat extends Component {
             chatInput: '',
             room: 'Lobby',
             messagesList: []
-        };
+        }
 
         this.submitHandler = this
             .submitHandler
-            .bind(this);
+            .bind(this)
         this.clearHandler = this
             .clearHandler
-            .bind(this);
+            .bind(this)
         this.textChangeHandler = this
             .textChangeHandler
-            .bind(this);
+            .bind(this)
     }
     componentWillMount() {
-        console.log("will mount");
+        console.log("will mount")
         //get the messages from server and put in messagesList
-        
+
         socket.on("userList", (list)=>{
-            console.log("users");
-            console.table(list);
-        });
+            console.log("users")
+            console.table(list)
+        })
     }
     componentDidMount() {
         console.log('did mount')
         socket.on('cachedMessages', (msgs)=>{
             for(let i in msgs){
-                console.log(JSON.parse(msgs[i]));
-                this.printMessage(JSON.parse(msgs[i]));
+                console.log(JSON.parse(msgs[i]))
+                this.printMessage(JSON.parse(msgs[i]))
             }
-        });
+        })
 
         const textArea = document.querySelector('.input')
         const submitButton = document.querySelector('.submit')
         textArea.addEventListener("keydown", (event) =>{
             if(event.keyCode === 13){
                 if(!event.shiftKey){
-                    event.preventDefault();
-                    submitButton.click();
+                    event.preventDefault()
+                    submitButton.click()
                 }
             }
             // console.log(event.keyCode)
             if(event.keyCode === 9){
-                event.preventDefault();
-                this.setState({chatInput: event.target.value + "\t"});
+                event.preventDefault()
+                this.setState({chatInput: event.target.value + "\t"})
             }
         })
     }
     submitHandler(event) {
-        event.preventDefault();
-        let messageText = this.state.chatInput;
+        event.preventDefault()
+        let messageText = this.state.chatInput
 
         let messageObject = {
             room: this.state.room,
             text: messageText,
             nick: 'bobert'
-        };
+        }
 
-        //   socket.emit('question', 'do you think so?', function (answer) {});
+        //   socket.emit('question', 'do you think so?', function (answer) {})
         socket.emit('message', messageObject,(answer)=>{
-            console.log(answer.text);
-            this.printMessage(answer);
-        });
+            console.log(answer.text)
+            this.printMessage(answer)
+        })
 
-        this.setState({chatInput: ''});
-        
+        this.setState({chatInput: ''})
+
     }
     clearHandler(event){
-        this.setState({chatInput: ''});
+        this.setState({chatInput: ''})
     }
 
     printMessage(message) {
-        const oldList = this.state.messagesList;
+        const oldList = this.state.messagesList
         const newList = [
             ...oldList,
             message
-        ]; //...oldList creates a new array in a new memory address with the contents of the old array
+        ] //...oldList creates a new array in a new memory address with the contents of the old array
 
-        this.setState({messagesList: newList});
+        this.setState({messagesList: newList})
 
-        let lastMessage = document.querySelector('.message:last-child');
-        lastMessage.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+        let lastMessage = document.querySelector('.message:last-child')
+        lastMessage.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"})
     }
 
     textChangeHandler(event) {
-        this.setState({chatInput: event.target.value});
+        this.setState({chatInput: event.target.value})
         // console.log("textChange", event.target.value)
     }
 
