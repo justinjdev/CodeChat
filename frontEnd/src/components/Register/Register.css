@@ -18,16 +18,16 @@
     margin: 0;
     padding: 0;
     text-align: center; }
-  .register .register-body.centered {
-    margin: 0 auto;
-    text-align: left;
-    width: 800px; }
+    .register .register-body .register-body.centered {
+      margin: 0 auto;
+      text-align: left;
+      width: 800px; }
   .register .register-hgroup {
     text-align: center;
     margin-top: 4rem; }
     .register .register-hgroup h1, .register .register-hgroup h3 {
       font-weight: 300; }
-    .register .register-hgroup h1 {
+    .register .register-hgroup h2 {
       color: #636363; }
     .register .register-hgroup h3 {
       color: #4a89dc; }
