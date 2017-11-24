@@ -22,9 +22,9 @@ class Register extends Component {
   render() {
 
     return (
+      <div className="Register">
       <div>
-        <MuiThemeProvider>
-          
+        <MuiThemeProvider>       
           <div>
           <AppBar
              title="Register"
@@ -68,6 +68,7 @@ class Register extends Component {
 
           </div>
          </MuiThemeProvider>
+      </div>
       </div>
     );
 
