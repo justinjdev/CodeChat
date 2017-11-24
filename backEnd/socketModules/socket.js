@@ -2,104 +2,111 @@
 
 const DBcontroller = require('../dbModules/DBController')
 const dbcontroller = new DBcontroller()
-const Parser = require('./parser')
+const ParserFile = require('./Parser')
+// const parser = new ParserFile()
 
 module.exports = class Socket {
     constructor(io) {
         this.nicknames = {}
-        this.listenOnIO(io) //actually start listening on the sockets because for some reason it doesn't work without getting called.
-        this.parser = new Parser(io)
+        // this.listenOnIO(io) //actually start listening on the sockets because for
+        // some reason it doesn't work without getting called.
         this.io = io
         this.nicknames = {}
+        this.parser = new ParserFile(io)
     }
     /**
     * @param {object} socket
     * listen on socket connection
     */
-    listenOnIO(io) {
-        io.on('connection', socket => {
-            console.log("NICKNAMES!!",this.nicknames)
-            socket.emit('nickRequest', "nickname pls")
-            socket.on('nickReply', nickname => {
-                id = socket.id
-                this.nicknames.id = nickname
-            })
+    listenOnIO() {
+        this
+            .io
+            .on('connection', socket => {
+                console.log("NICKNAMES!!", this.nicknames)
+                socket.emit('nickRequest', "nickname pls")
+                socket.on('nickReply', nickname => {
+                    id = socket.id
+                    this.nicknames.id = nickname
+                })
 
-            console.log(socket.id, "connected")
+                console.log(socket.id, "connected")
 
-            this.listSocketsInRoom()
+                this.listSocketsInRoom()
 
-            // when they connect to the server, default to lobby channel
+                // when they connect to the server, default to lobby channel
 
-            socket.join('Lobby', () => {
-                let rooms = Object.keys(socket.rooms) // rooms is a list of rooms the socket is in, beginning with its own id.
-                console.log(this.allRoomStuff)
-            })
+                socket.join('Lobby', () => {
+                    let rooms = Object.keys(socket.rooms) // rooms is a list of rooms the socket is in, beginning with its own id.
+                    console.log(this.allRoomStuff)
+                })
 
-            // this.listSocketsInRoom(io.sockets,io)
-            this.getCachedMessages('Lobby', socket)
-            // when they join, emit the message 'joinResult'
-            socket.emit('joinResult', {room: 'Lobby'}) //let the client know that it's defaulted to the lobby
+                // this.listSocketsInRoom(io.sockets,io)
+                this.getCachedMessages('Lobby', socket)
+                // when they join, emit the message 'joinResult'
+                socket.emit('joinResult', {room: 'Lobby'}) //let the client know that it's defaulted to the lobby
 
-            /**
+                /**
             * when the socket connection disconnects then you remove the nickname and name used from the list of names used
             */
-            socket.on('disconnect', () => {
-                console.log(socket.id, "disconnected")
-                this.listSocketsInRoom()
-            })
-            let name = socket.id
-            socket.emit('message', {
-                user: "Server",
-                text: `Welcome ${name}`
-            }) // sends only back to that one socket
+                socket.on('disconnect', () => {
+                    console.log(socket.id, "disconnected")
+                    this.listSocketsInRoom()
+                })
+                let name = socket.id
+                socket.emit('message', {
+                    user: "Server",
+                    text: `Welcome ${name}`
+                }) // sends only back to that one socket
 
-            /**
+                /**
             *  If the SPECIFIC SOCKET sends join, then it leaves object: previous room and
             *  joins a new room. Then emit joinResult to the room 'newRoom'.
             */
-            socket.on('join', room => {
-                console.log("😲 OMG JOIN! 😲 ")
-                socket.leave(room.previousRoom)
-                socket.join(room.newRoom)
-                this.getCachedMessages(room.newRoom)
-                this.listSocketsInRoom()
-                socket.emit('joinResult', {room: room.newRoom})
-            })
-            socket.on('message', (message, response) => {
-                dbcontroller.save(message)
-                console.log(message)
-                // remove invalid messages
-                if (message.text === '') { // do nothing
-                } else {
-                    if (message.text[0] === '/') {
-                        this
-                            .parser
-                            .readInput(message)
-                            .then(res => {
-                                console.log('response')
-                                console.log(res)
-                                this.nicknames[socket.id] = res.newNick
-                                response(res)
-                                socket
-                                    .broadcast
-                                    .to('Lobby') // room name
-                                    .emit('message', res) // message name and res is the object being sent
-                            })
+                socket.on('join', room => {
+                    console.log("😲 OMG JOIN! 😲 ")
+                    socket.leave(room.previousRoom)
+                    socket.join(room.newRoom)
+                    this.getCachedMessages(room.newRoom)
+                    this.listSocketsInRoom()
+                    socket.emit('joinResult', {room: room.newRoom})
+                })
+                socket.on('message', (message, response) => {
+                    dbcontroller.save(message)
+                    console.log(message)
+                    // remove invalid messages
+                    if (message.text === '') { // do nothing
                     } else {
-                        message.nick = message.nick || "A User"
-                        message.id = socket.id
-                        response(message)
-                        socket
-                            .broadcast
-                            .to(message.room)
-                            .emit('message', message)
+                        if (message.text[0] === '/') {
+                            this
+                                .parser
+                                .readInput(message)
+                                .then(res => {
+                                    console.log('response')
+                                    console.log(res)
+                                    res.newNick
+                                        ? this.nicknames[socket.id] = res.newNick
+                                        : console.log()
+                                    response(res)
+                                    socket
+                                        .broadcast
+                                        .to('Lobby') // room name
+                                        .emit('message', res) // message name and res is the object being sent
+                                })
+                        } else {
+                            message.nick = message.nick || "A User"
+                            message.id = socket.id
+                            socket
+                                .broadcast
+                                .to(message.room)
+                                .emit('message', message)
+                            response(message)
+                        }
                     }
-                }
-            })
+                })
 
-        })
+            })
     }
+
     async getCachedMessages(roomName, socket) {
         let messages
         try {
@@ -128,8 +135,8 @@ module.exports = class Socket {
 
         for (let i of actualRooms) {
             // TODO: implement gets the sockets/users from room const clients =
-            // io.sockets.clients('Lobby') // all users from room `Lobby` May need to refine
-            // later.
+            // this.io.sockets.clients('Lobby') // all users from room `Lobby` May need to
+            // refine later.
             this
                 .io
                 .of('/')

@@ -1,13 +1,17 @@
 'use strict'
 
-const VC = require('./virtualizationCommands')
-const virtulization = new VC() //connects to justin
-
-// DBC() const Abstraction = require('./Abstraction') //connects to sandbox
-// //TODO: Don't forget abstraction is just a working name. It'll have to be
-// named something else. const abstraction = new Abstraction()
+const VC = require('./VirtualizationCommands')
+// const virtulization = new VC(io) //connects to justin DBC() const Abstraction
+// = require('./Abstraction') //connects to sandbox //TODO: Don't forget
+// abstraction is just a working name. It'll have to be named something else.
+// const abstraction = new Abstraction()
 
 module.exports = class Parser {
+    constructor(io) {
+        console.log('contructing')
+        this.io = io
+        this.virtulization = new VC(io)
+    }
     async readInput(message) {
         console.log(message)
         let words = message
@@ -38,17 +42,20 @@ module.exports = class Parser {
                     break
                 }
             case 'python':
-                { // console.log("python command")
-                    message.text = "python command" + argument
+                {
+                    console.log("python command")
                     message.text = argument
-                    let messages
+                    message.language = "python"
+                    let serverRes
                     try {
-                        messages = await virtulization.language(argument)
-                        return messages
+                        serverRes = await this
+                            .virtulization
+                            .language(message)
+                        console.log("server res:", serverRes)
+                        return serverRes
                     } catch (error) {
-                        console.error("ERROR: ", error)
+                        console.error("ERROR in python case: ", error)
                     }
-                    // return (message)
                     break
                 }
             case 'java':
@@ -59,7 +66,7 @@ module.exports = class Parser {
                     let messages
                     try {
                         messages = await virtulization.virtulizeLanguage(argument)
-                    }catch(error){
+                    } catch (error) {
                         console.error("ERROR: ", error)
                     }
                     // return (message)
@@ -73,7 +80,7 @@ module.exports = class Parser {
                     let messages
                     try {
                         messages = await virtulization.virtulizeLanguage(argument)
-                    }catch(error){
+                    } catch (error) {
                         console.error("ERROR: ", error)
                     }
                     // return (message)
