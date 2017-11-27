@@ -17,6 +17,9 @@ class Chennels extends Component {
     componentDidMount(){
         this.props.socket.on('joinResult', (room) => {
             console.table(room)
+            let newState = this.state
+            newState.roomName = room.room
+            this.setState(newState)
         })
 
     }
@@ -24,7 +27,9 @@ class Chennels extends Component {
     onChannelClick(event) {
         // event.preventDefault()
         // event.stopPropagation()
-        console.log(event.target.text)
+        console.log("current room: " + this.state.roomName)
+        console.log("new room:",event.target.text)
+        
         let room = {
             previousRoom: this.state.roomName,
             newRoom: event.target.text

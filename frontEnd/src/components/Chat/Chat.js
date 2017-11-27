@@ -26,6 +26,9 @@ class Chat extends Component {
         this.textChangeHandler = this
             .textChangeHandler
             .bind(this)
+        this.clearMessageList = this
+            .clearMessageList
+            .bind(this)
     }
     componentWillMount() {
         console.log("will mount")
@@ -35,8 +38,8 @@ class Chat extends Component {
         console.log('did mount')
 
         this.props.socket.on("userList", (list) => {
-            console.log("users")
-            console.table(list)
+            if (list != null)
+                console.table(list)
         })
 
         this.props.socket.on('cachedMessages', (msgs) => {
@@ -51,13 +54,15 @@ class Chat extends Component {
             this.printMessage(message)
         })
 
-        this.props.socket.on('joinResult', (join)=>{
+        this.props.socket.on('joinResult', (join) => {
+            //this.clearMessageList()
+
             let state = this.state
             state.room = join.room
             this.setState(state)
 
-        console.log('connected to: ' + this.state.room)
-        
+            console.log('connected to: ' + this.state.room)
+
         })
 
         const textArea = document.querySelector('.input')
@@ -118,6 +123,12 @@ class Chat extends Component {
         lastMessage.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" })
     }
 
+    clearMessageList() {
+        let state = this.state
+        state.messagesList = []
+        this.setState(state)
+    }
+
     textChangeHandler(event) {
 
         let state = this.state
@@ -161,7 +172,7 @@ class Chat extends Component {
                             className="clear"
                             type="reset"
                             onClick={this.clearHandler}
-                            value="Clear">Clear</button>
+                            value="Clear">Squeegee</button>
                     </div>
                 </form>
             </div>
