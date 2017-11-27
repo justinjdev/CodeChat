@@ -21,7 +21,8 @@ class ActiveUsers extends Component {
             // for(let i in users){
             //     this.printMessage(JSON.parse(users[i]))
             // }
-            console.table(users)
+            if(users != null)
+                console.table(users)
         })
     }
 
