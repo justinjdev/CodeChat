@@ -26,9 +26,9 @@ module.exports = class redisController {
         redisClient.LRANGE(`${roomName}`, 0, -1, (err, messages) => {
             console.log("roomName", roomName, "Messages:", messages)
             this.messages = messages
+            return(this.messages)
         })
-        console.log("returning cache")
-        return(this.messages)
+        console.log("returning cache",this.messages)
     }
 
 }
