@@ -11,14 +11,19 @@ const objectResponse = (new ObjectResponseFile())
 
 module.exports = class VirtualizationCommands {
     constructor(io) {
-        ws.addEventListener('open', (event) => {
+        ws.addEventListener('open', (event, error) => {
             console.log("opened websocket connection")
+            if (error) {
+                console.log("Can't connect to the virtualization server yo! :(")
+            }
         })
         this.serverResponse = 'default'
         this.objectResponse = new ObjectResponseFile(io)
-        // Listen for messages 
-        // ws.addEventListener('message', (event) => {
-        // console.log('Message from server ', event.data) })
+        // Listen for messages ws.addEventListener('message', (event) => {
+        this.prevResponse = ''
+        ws.onerror = function (error) {
+            console.log(error)
+        }
     }
     //taking language argument
     async language(message) {
@@ -32,14 +37,13 @@ module.exports = class VirtualizationCommands {
             }
         })
         // Listen for messages
-        ws.addEventListener('message', event => {
+        ws.onmessage = event => {
             console.log('Message from server ', event.data)
             this
                 .objectResponse
                 .sendResponseToFrontEnd(event.data)
-        })
-        return ('sent')
-
+        }
+        return (message)
     }
     ignorethis() {
         ws.addEventListener('open', (event) => {
