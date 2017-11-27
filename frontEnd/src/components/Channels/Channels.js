@@ -12,19 +12,21 @@ class Chennels extends Component {
 
     onChannelClick(event) {
         if(event.target.parentElement.classList.contains('channel')){
+
             var elems = document.querySelector(".active")
             if (elems !== null) {
                 elems.classList.remove("active")
             }
             event.target.classList.add('active')
+            
         }
     }
 
     render() {
         return (
-            <div className="channels">
+            <div className="channels" onClick={this.onChannelClick}>
                 <hr />
-                <ul className="channel-list" onClick={this.onChannelClick}>
+                <ul className="channel-list">
                     <li className="channel centered-text">
                         <a href="#">ADA</a>
                     </li>
