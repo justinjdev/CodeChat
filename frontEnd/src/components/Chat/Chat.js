@@ -43,8 +43,8 @@ class Chat extends Component {
         })
 
         this.props.socket.on('cachedMessages', (msgs) => {
+            console.table(msgs)
             for (let i in msgs) {
-                console.log(JSON.parse(msgs[i]))
                 this.printMessage(JSON.parse(msgs[i]))
             }
         })
