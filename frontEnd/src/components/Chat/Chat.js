@@ -55,6 +55,9 @@ class Chat extends Component {
             let state = this.state
             state.room = join.room
             this.setState(state)
+
+        console.log('connected to: ' + this.state.room)
+        
         })
 
         const textArea = document.querySelector('.input')
@@ -76,7 +79,7 @@ class Chat extends Component {
     submitHandler(event) {
         event.preventDefault()
         let messageText = this.state.chatInput
-
+        console.log('send message to: ' + this.state.room)
         let messageObject = {
             room: this.state.room,
             text: messageText,
