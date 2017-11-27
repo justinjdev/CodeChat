@@ -63,7 +63,7 @@ module.exports = class Socket {
             *  joins a new room. Then emit joinResult to the room 'newRoom'.
             */
                 socket.on('join', room => {
-                    console.log("😲 OMG JOINing!😲 ",room.newRoom)
+                    console.log("😲 OMG JOINing!😲 ",room)
                     socket.leave(room.previousRoom)
                     socket.join(room.newRoom)
                     this.getCachedMessages(room.newRoom)
