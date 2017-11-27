@@ -44,6 +44,7 @@ module.exports = class Parser {
                     console.log("python command")
                     message.text = argument
                     message.language = "python"
+                    message.isCode = true
                     let serverRes
                     try {
                         serverRes = await this
@@ -60,6 +61,7 @@ module.exports = class Parser {
                 {
                     console.log("ada command")
                     message.text = argument
+                    message.isCode = true
                     message.language = "ada"
                     let serverRes
                     try {
@@ -77,6 +79,7 @@ module.exports = class Parser {
                 {
                     message.text = "java command" + argument
                     message.text = argument
+                    message.isCode = true
                     message.language = 'java'
                     // return (message)
                     let messages
@@ -92,7 +95,8 @@ module.exports = class Parser {
             //     {
             //         message.text = "javascript command" + argument
             //         return (message)
-            //         message.text = argument
+                    // message.code = true
+                    //         message.text = argument
             //         let messages
             //         try {
             //             messages = await virtulization.virtulizeLanguage(argument)
@@ -123,7 +127,7 @@ module.exports = class Parser {
                 {
                     message.text = `
                         Chat commands:
-                        To send code and specify the language, it will look like this
+                        To send code and specify the language, it will look like this:
                         type,
                         /python print(test);
 
