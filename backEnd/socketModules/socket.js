@@ -66,7 +66,7 @@ module.exports = class Socket {
                     console.log("😲 OMG JOINing!😲 ",room)
                     socket.leave(room.previousRoom)
                     socket.join(room.newRoom)
-                    this.getCachedMessages(room.newRoom)
+                    this.getCachedMessages(room.newRoom,socket)
                     this.listSocketsInRoom()
                     socket.emit('joinResult', {room: room.newRoom})
                 })
@@ -108,6 +108,7 @@ module.exports = class Socket {
     }
 
     async getCachedMessages(roomName, socket) {
+
         let messages
         try {
             messages = await dbcontroller.getCachedMessages(roomName)
@@ -115,7 +116,7 @@ module.exports = class Socket {
             // return messages
         } catch (error) {
             socket.emit('cachedMessages', error)
-            console.error(error)
+            console.error("cached messages error:",error)
             return error
         }
     }
