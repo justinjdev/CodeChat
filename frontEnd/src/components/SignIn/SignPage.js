@@ -25,13 +25,13 @@ constructor(props){
   axios.post(apiBaseUrl+'login', payload)
   .then(function (response) {
   console.log(response);
-  if(response.data.code == 200){
+  if(response.data.code === 200){
   console.log("Login successfull");
   //var uploadScreen=[];
   //uploadScreen.push(<UploadScreen appContext={self.props.appContext}/>)
   //self.props.appContext.setState({loginPage:[],uploadScreen:uploadScreen})
   }
-  else if(response.data.code == 204){
+  else if(response.data.code === 204){
   console.log("Username password do not match");
   alert("username password do not match")
   }

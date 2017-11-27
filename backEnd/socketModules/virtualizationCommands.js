@@ -1,7 +1,7 @@
 'use strict'
 
-const WebSocket = require('ws')
-const ws = new WebSocket("ws://104.131.129.223:3003")
+// const WebSocket = require('ws')
+// const ws = new WebSocket("ws://104.131.129.223:3003")
 
 // const socketfile = require('./Socket') const socketio =  Proxy( new
 // socketfile())
@@ -11,12 +11,13 @@ const objectResponse = (new ObjectResponseFile())
 
 module.exports = class VirtualizationCommands {
     constructor(io) {
-        ws.addEventListener('open', (event) => {
-            console.log("opened websocket connection")
-        })
+        // ws.addEventListener('open', (event) => {
+        //     console.log("opened websocket connection")
+        // })
         this.serverResponse = 'default'
         this.objectResponse = new ObjectResponseFile(io)
-        // // Listen for messages ws.addEventListener('message', (event) => {
+        // Listen for messages 
+        // ws.addEventListener('message', (event) => {
         // console.log('Message from server ', event.data) })
     }
     //taking language argument

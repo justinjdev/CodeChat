@@ -1,10 +1,7 @@
 'use strict'
 
 const VC = require('./VirtualizationCommands')
-// const virtulization = new VC(io) //connects to justin DBC() const Abstraction
-// = require('./Abstraction') //connects to sandbox //TODO: Don't forget
-// abstraction is just a working name. It'll have to be named something else.
-// const abstraction = new Abstraction()
+// const virtulization = new VC() //connects to justin DBC() 
 
 module.exports = class Parser {
     constructor(io) {
@@ -37,6 +34,7 @@ module.exports = class Parser {
                     message.newNick = argument
                     message.nick = "server"
                     message.command = 'nick'
+                    // this.socket.emit('nameAttempt', argument);
                     console.log(message)
                     return (message)
                     break
@@ -107,7 +105,12 @@ module.exports = class Parser {
                 {
                     message.text = `
                         Chat commands:
+                        To send code and specify the language, it will look like this
+                        type,
+                        /python print(test);
+
                         Change nickname: /nick [username],
+
                         Join or Create room: /join [room name]
                         `
                     return (message)
