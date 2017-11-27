@@ -72,10 +72,15 @@ class Chat extends Component {
         event.preventDefault()
         let messageText = this.state.chatInput
 
+        //get user id to assign to message object
+        //but do we get it from the class socket?
+
+        // let userNick = this.state.socket.id
+
         let messageObject = {
             room: this.state.room,
             text: messageText,
-            nick: 'bobert'
+            nick: 'bobert' //userNick
         }
 
         //   socket.emit('question', 'do you think so?', function (answer) {});
