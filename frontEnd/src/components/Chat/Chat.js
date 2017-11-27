@@ -55,7 +55,7 @@ class Chat extends Component {
         })
 
         this.props.socket.on('joinResult', (join) => {
-            //this.clearMessageList()
+            this.clearMessageList()
 
             let state = this.state
             state.room = join.room
