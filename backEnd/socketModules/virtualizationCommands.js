@@ -16,7 +16,8 @@ module.exports = class VirtualizationCommands {
         })
         this.serverResponse = 'default'
         this.objectResponse = new ObjectResponseFile(io)
-        // // Listen for messages ws.addEventListener('message', (event) => {
+        // Listen for messages 
+        // ws.addEventListener('message', (event) => {
         // console.log('Message from server ', event.data) })
     }
     //taking language argument

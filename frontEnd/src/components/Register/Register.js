@@ -4,7 +4,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import axios from 'axios';
+//import axios from 'axios';
 import SignPage from '../SignIn/SignPage';
 import './Register.css';
 
@@ -19,7 +19,7 @@ class Register extends Component {
       password:''
     }
   }
-
+/*
   handleClick(event){
     var apiBaseUrl = "http://localhost:4000/api/";
     console.log("values",this.state.first_name,this.state.last_name,this.state.email,this.state.password);
@@ -34,7 +34,7 @@ class Register extends Component {
     axios.post(apiBaseUrl+'/register', payload)
    .then(function (response) {
      console.log(response);
-     if(response.data.code == 200){
+     if(response.data.code === 200){
        console.log("registration successfull");
        var loginscreen=[];
        loginscreen.push(<SignPage parentContext={this}/>);
@@ -50,7 +50,7 @@ class Register extends Component {
      console.log(error);
    });
   }
-
+*/
 
 
   render(){
