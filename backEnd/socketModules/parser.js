@@ -1,7 +1,7 @@
 'use strict'
 
-const VC = require('./VirtualizationCommands')
-// const virtulization = new VC() //connects to justin DBC() 
+const VC = require('./virtualizationCommands')
+// const virtulization = new VC() //connects to justin DBC()
 
 module.exports = class Parser {
     constructor(io) {
