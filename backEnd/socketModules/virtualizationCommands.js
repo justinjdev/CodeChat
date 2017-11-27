@@ -45,18 +45,4 @@ module.exports = class VirtualizationCommands {
         }
         return (message)
     }
-<<<<<<< HEAD
 }
-=======
-    ignorethis() {
-        ws.addEventListener('open', (event) => {
-            ws.send('Hi Server!', (err, res) => {
-                if (err)
-                    console.log("Error:", err)
-            })
-        })
-
-    }
-
-}
->>>>>>> 68caea2048bef6d8521201a9daf33f56ca656813

@@ -2,7 +2,7 @@
 
 const DBcontroller = require('../dbModules/DBController')
 const dbcontroller = new DBcontroller()
-const ParserFile = require('./Parser')
+const ParserFile = require('./parser')
 // const parser = new ParserFile()
 
 module.exports = class Socket {
@@ -63,7 +63,7 @@ module.exports = class Socket {
             *  joins a new room. Then emit joinResult to the room 'newRoom'.
             */
                 socket.on('join', room => {
-                    console.log("😲 OMG JOIN! 😲 ")
+                    console.log("😲 OMG JOINing!😲 ",room)
                     socket.leave(room.previousRoom)
                     socket.join(room.newRoom)
                     this.getCachedMessages(room.newRoom)
@@ -89,7 +89,7 @@ module.exports = class Socket {
                                     response(res)
                                     socket
                                         .broadcast
-                                        .to('Lobby') // room name
+                                        .to(messages.room) // room name
                                         .emit('message', res) // message name and res is the object being sent
                                 })
                         } else {
