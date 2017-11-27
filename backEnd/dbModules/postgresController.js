@@ -5,7 +5,7 @@ const promise = require('bluebird')
 const pgp = require('pg-promise')({
     promiseLib: promise
 })
-const connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/codechat'
+const connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/codechat_database'
 const client = pgp(connectionString)
 
 module.exports = class PostgresController {
