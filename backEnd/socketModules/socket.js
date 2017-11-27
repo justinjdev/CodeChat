@@ -18,10 +18,10 @@ module.exports = class Socket {
     * @param {object} socket
     * listen on socket connection
     */
-    listenOnIO() {
+    async listenOnIO() {
         this
             .io
-            .on('connection', socket => {
+            .on('connection', async(socket) => {
                 console.log("NICKNAMES!!", this.nicknames)
                 socket.emit('nickRequest', "nickname pls")
                 socket.on('nickReply', nickname => {
@@ -41,7 +41,7 @@ module.exports = class Socket {
                 })
 
                 // this.listSocketsInRoom(io.sockets,io)
-                this.getCachedMessages('Lobby', socket)
+                await this.getCachedMessages('Lobby', socket)
                 // when they join, emit the message 'joinResult'
                 socket.emit('joinResult', {room: 'Lobby'}) //let the client know that it's defaulted to the lobby
 
@@ -62,13 +62,16 @@ module.exports = class Socket {
             *  If the SPECIFIC SOCKET sends join, then it leaves object: previous room and
             *  joins a new room. Then emit joinResult to the room 'newRoom'.
             */
-                socket.on('join', room => {
-                    console.log("😲 OMG JOINing!😲 ", room)
+                socket.on('join', async(room) => {
+                    console.log("😲 OMG JOINING!😲 ", room)
                     socket.leave(room.previousRoom)
                     socket.join(room.newRoom)
-                    this.getCachedMessages(room.newRoom, socket)
-                    this.listSocketsInRoom()
+                    await this.listSocketsInRoom()
                     socket.emit('joinResult', {room: room.newRoom})
+                })
+                socket.on('getCache', async room => {
+                    await this.getCachedMessages(room, socket)
+
                 })
                 socket.on('message', (message, response) => {
                     dbcontroller.save(message)
@@ -110,12 +113,15 @@ module.exports = class Socket {
     }
 
     async getCachedMessages(roomName, socket) {
-        console.log("getting cached messages from ", roomName)
+        // console.log("getting cached messages from ", roomName)
         let messages
         try {
-            messages = await dbcontroller.getCachedMessages(roomName)
-            console.log("okay we've got the cached messages in socket:", messages)
-            socket.emit('cachedMessages', messages)
+            dbcontroller
+                .getCachedMessages(roomName)
+                .then(messages => {
+                    // console.log("okay we've got the cached messages in socket:", messages)
+                    socket.emit('cachedMessages', messages)
+                })
             // return messages
         } catch (error) {
             socket.emit('cachedMessages', error)
@@ -131,7 +137,7 @@ module.exports = class Socket {
         let actualRooms
         try {
             actualRooms = await this.getRooms()
-            console.log("waitingggggg")
+            console.log("waitingggggg to list sockets in rooms")
         } catch (error) {
             console.log(error)
         }
