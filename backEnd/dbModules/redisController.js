@@ -28,6 +28,7 @@ module.exports = class redisController {
             this.messages = messages
             return(this.messages)
         })
+        return(this.messages)
         console.log("returning cache",this.messages)
     }
 
