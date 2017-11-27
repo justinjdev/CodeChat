@@ -5,28 +5,27 @@
 
 	.register-body {
 		font-family: Helvetica;
-//		background: #3A3A3A;
+//background: #3A3A3A;
 //THIS SHIT WONT CHANGE I DONT FUCKING KNOW WHY OMGGG
 //background-color: $message-background;		
 		-webkit-font-smoothing: antialiased;
 		margin: 0;
 		padding: 0;
-		text-align: center; }
+		text-align: center; 
 
 	.register-body.centered {
 		margin: 0 auto;
 		text-align: left;
 		width: 800px;
-		}
-	
-
+		} 
+	}
 	.register-hgroup { 
 		text-align:center;
 		margin-top: 4rem;
 
 	h1, h3 { font-weight: 300; }
 
-	h1 { color: #636363; }
+	h2 {color: #636363; }
 
 	h3 { color: #4a89dc; }
 	
@@ -108,11 +107,9 @@ input:focus ~ label, input.used ~ label {
 
 .bar:after { right: 50%; }
 
-
 /* active */
 
 input:focus ~ .bar:before, input:focus ~ .bar:after { width: 50%; }
-
 
 /* Highlight */
 

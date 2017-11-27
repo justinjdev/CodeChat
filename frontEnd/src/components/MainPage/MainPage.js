@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 import './MainPage.css'
 import 'bootstrap-grid/dist/grid.min.css'
@@ -32,8 +32,8 @@ class MainPage extends Component {
                         <h3>{"</CODE CHAT>"}</h3>
                     </div>
             </div>
-        );
+        )
     }
 }
 
-export default MainPage;
+export default MainPage

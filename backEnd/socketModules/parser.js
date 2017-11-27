@@ -1,14 +1,14 @@
 'use strict'
 
-const VC = require('./virtualizationCommands')
-const virtulization = new VC() //connects to justin
-
-
-// DBC() const Abstraction = require('./Abstraction') //connects to sandbox
-// //TODO: Don't forget abstraction is just a working name. It'll have to be
-// named something else. const abstraction = new Abstraction()
+const VC = require('./VirtualizationCommands')
+// const virtulization = new VC() //connects to justin DBC() 
 
 module.exports = class Parser {
+    constructor(io) {
+        console.log('contructing')
+        this.io = io
+        this.virtulization = new VC(io)
+    }
     async readInput(message) {
         console.log(message)
         let words = message
@@ -34,31 +34,37 @@ module.exports = class Parser {
                     message.newNick = argument
                     message.nick = "server"
                     message.command = 'nick'
+                    // this.socket.emit('nameAttempt', argument);
                     console.log(message)
                     return (message)
                     break
                 }
             case 'python':
-                { // console.log("python command")
-                    message.text = "python command" + argument
-                    message.text = argument 
-                    let messages
+                {
+                    console.log("python command")
+                    message.text = argument
+                    message.language = "python"
+                    let serverRes
                     try {
-                        messages = await virtulization.virtulizeLanguage(argument)
-                    }catch(error){
-                        console.error("ERROR: ", error)
+                        serverRes = await this
+                            .virtulization
+                            .language(message)
+                        console.log("server res:", serverRes)
+                        return serverRes
+                    } catch (error) {
+                        console.error("ERROR in python case: ", error)
                     }
-                    // return (message)
                     break
                 }
             case 'java':
                 {
                     message.text = "java command" + argument
-                    message.text = argument 
+                    return (message)
+                    message.text = argument
                     let messages
                     try {
                         messages = await virtulization.virtulizeLanguage(argument)
-                    }catch(error){
+                    } catch (error) {
                         console.error("ERROR: ", error)
                     }
                     // return (message)
@@ -67,11 +73,12 @@ module.exports = class Parser {
             case 'javascript':
                 {
                     message.text = "javascript command" + argument
-                    message.text = argument 
+                    return (message)
+                    message.text = argument
                     let messages
                     try {
                         messages = await virtulization.virtulizeLanguage(argument)
-                    }catch(error){
+                    } catch (error) {
                         console.error("ERROR: ", error)
                     }
                     // return (message)
@@ -98,7 +105,12 @@ module.exports = class Parser {
                 {
                     message.text = `
                         Chat commands:
+                        To send code and specify the language, it will look like this
+                        type,
+                        /python print(test);
+
                         Change nickname: /nick [username],
+
                         Join or Create room: /join [room name]
                         `
                     return (message)
