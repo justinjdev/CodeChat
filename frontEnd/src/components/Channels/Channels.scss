@@ -7,11 +7,15 @@
         margin: 0px 10px;
     }
 
-    ul{
+    .active{
+        background-color: $accent-color;
+    }
+
+    .channel-list{
         padding: 0;
         margin-top: 0;
 
-        li{
+        .channel{
             margin: 5px 0px;
             list-style: none;
             background-color: $sidebar-button-background;
@@ -24,8 +28,17 @@
             a{
                 text-decoration: none;
                 color: #F3F3F3;
-                flex-grow: 1;
+                line-height: 250%;
+                width: 100%;
+                height: 100%;
+                
             }
+
+            &:hover{
+                background-color: #505050;
+            }
+            // &:active{
+            // }
         }
     }
 }
