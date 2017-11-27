@@ -5,7 +5,7 @@ const ws = new WebSocket("ws://104.131.129.223:3003")
 // const websocketServerLocation = ("ws://104.131.129.223:3003") const
 // socketfile = require('./Socket') const socketio =  Proxy( new socketfile())
 
-const ObjectResponseFile = require('./ObjectResponse')
+const ObjectResponseFile = require('./objectResponse')
 const objectResponse = (new ObjectResponseFile())
 
 module.exports = class VirtualizationCommands {
