@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
-import io from 'socket.io-client'
+// import io from 'socket.io-client'
 
 import './Chat.css'
 
 // const socket = io('https://ezchatrooms.herokuapp.com/') //old test, maybe remove it?
 // const socket = io('localhost:8080') // local computer
-const socket = io('104.131.129.223:8080') // servers
+// const socket = io('104.131.129.223:8080') // servers
 // const socket = io('192.168.1.83:8080') // servers
-
 
 class Chat extends Component {
     constructor(props) {
@@ -35,19 +34,19 @@ class Chat extends Component {
     componentDidMount() {
         console.log('did mount')
 
-        socket.on("userList", (list) => {
+        this.props.socket.on("userList", (list) => {
             console.log("users")
             console.table(list)
         })
 
-        socket.on('cachedMessages', (msgs) => {
+        this.props.socket.on('cachedMessages', (msgs) => {
             for (let i in msgs) {
                 console.log(JSON.parse(msgs[i]))
                 this.printMessage(JSON.parse(msgs[i]))
             }
         })
 
-        socket.on('message', (message) => {
+        this.props.socket.on('message', (message) => {
             console.log(message)
             this.printMessage(message)
         })
@@ -79,7 +78,7 @@ class Chat extends Component {
         }
 
         //   socket.emit('question', 'do you think so?', function (answer) {});
-        socket.emit('message', messageObject, (answer) => {
+        this.props.socket.emit('message', messageObject, (answer) => {
             console.log(answer.text)
             this.printMessage(answer)
         })

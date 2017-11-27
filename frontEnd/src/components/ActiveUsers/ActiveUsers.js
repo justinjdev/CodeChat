@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import io from 'socket.io-client'
+// import io from 'socket.io-client'
 
 import './ActiveUsers.css';
 
-const socket = io('104.131.129.223:8080') // servers
+// const socket = io('104.131.129.223:8080') // servers
 
 class ActiveUsers extends Component {
     constructor(props) {
@@ -17,10 +17,11 @@ class ActiveUsers extends Component {
     }
     componentDidMount() {
         console.log('did mount')
-        socket.on('userList', (users)=>{
-            for(let i in users){
-                this.printMessage(JSON.parse(users[i]))
-            }
+        this.props.socket.on('userList', (users)=>{
+            // for(let i in users){
+            //     this.printMessage(JSON.parse(users[i]))
+            // }
+            console.table(users)
         })
     }
 
