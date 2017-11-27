@@ -63,6 +63,8 @@ class Chat extends Component {
 
             console.log('connected to: ' + this.state.room)
 
+            this.props.socket.emit('getCache', this.state.room)
+
         })
 
         const textArea = document.querySelector('.input')
