@@ -7,8 +7,10 @@ import './Audio.css'
 // remove it?
 const socket = io('localhost:8080') // local computer
 let mediaRecorder    //records audio
-let vcstate = true   //tracks whether user is in VC or not
+let vcstate = false   //tracks whether user is in VC or not
 let gainNode         //pass audio stream through gainNode to manipulate recording volume
+let pbvolume = 1     //storage for pbvolume so we do not have to manually retrieve it every time we play a segment
+let recinterval  //stores interval id: used to setInterval when recording and clearInterval when not recording
 // const socket = io('104.131.129.223:8080') // servers
 
 class Audio extends Component {
@@ -18,6 +20,7 @@ class Audio extends Component {
         this.recclick = this.recclick.bind(this)
         this.vcclick = this.vcclick.bind(this)
         this.recchange = this.recchange.bind(this)
+        this.pbchange = this.pbchange.bind(this)
     }
     componentWillMount() {
         console.log("will mount")
@@ -54,34 +57,19 @@ class Audio extends Component {
                         chunks = []  //empty buffer
                         socket.emit('voice', blob)  //send blob to server
                     }
-
-                    mediaRecorder.start() //mediaRecorder defaults to recording. Remove to default to inactive
-                    setInterval(function () {   //every 500 ms, if recording, restart mediaRecorder to send buffer to server
-                        if(mediaRecorder.state=="recording") {
-                            mediaRecorder.stop()
-                            mediaRecorder.start()
-                        }
-                    }, 500) //interval time in ms. Lower time makes audio choppy
                 })
-                //parts of playback could be moved outside for optimization
-            socket.on('voice', function (buff) { // 1) play if in voice chat, ignore otherwise     2) only send to users in voice chat
-                                                        // 1) is currently implemented, 2)requires control in backend
-                if (vcstate) {
-                    let blob = new Blob([buff], {'type': 'audio/ogg codecs=opus'}) //convert buffer back into blob
-                    let audio = document.createElement('audio')
-                    audio.volume = document
-                        .getElementById('playbackVolume')   //set playback volume to playbackVolume.value
-                        .value
-                    audio.src = window
-                        .URL
-                        .createObjectURL(blob)  //link audio
-                    audio.play()  //play audio
-                }
-            })
         }
-    }
-    logit(e) {
-        console.log("logging!!!",e.target.value)
+        socket.on('voice', function (buff) {
+            if(vcstate) {
+                let blob = new Blob([buff], {'type': 'audio/ogg codecs=opus'})   //convert buffer back into blob
+                let audio = document.createElement('audio')
+                audio.volume = pbvolume     //set playback volume
+                audio.src = window    //link audio
+                    .URL
+                    .createObjectURL(blob)
+                audio.play()    //play audio
+            }
+        })
     }
     recclick() {  //if using a button for PTT
         if(vcstate) { //button only active if user is in VC
@@ -89,31 +77,36 @@ class Audio extends Component {
                 document
                     .getElementById("rbutton")
                     .value = "Start Recording"    //change button text
+                clearInterval(recinterval)
                 mediaRecorder.stop()              //stop recording
             } else {
                 document
                     .getElementById("rbutton")
                     .value = "Stop Recording"     //change button text
+                recinterval = setInterval(function () {   //every 500 ms, if recording, restart mediaRecorder to send buffer to server
+                    mediaRecorder.stop()
+                    mediaRecorder.start()
+                }, 500) //interval time in ms. Lower time makes audio choppy
                 mediaRecorder.start()             //start recording
             }
         }
     }
-    reckeydown(e) { //PTT key pressed down    - currently not bound
-        let kc = 90   //preset keyCode for PTT, 90 = 'z'      this check could occur here or before the method is called
-        if(e.keyCode==kc){
-            if(vcstate && mediaRecorder.state != "recording"){   //only active if user is in VC, make sure user isn't already recording(bug)
-                mediaRecorder.start()
-            }
-        }
-    }
-    reckeyup(e) {   //PTT key released        - currently not bound
-        let kc = 90   //preset keyCode for PTT, 90 = 'z'      this check could occur here or before the method is called
-        if(e.keyCode==kc){
-            if(vcstate && mediaRecorder.state != "inactive"){   //only active if user is in VC, make sure mediaRecorder isn't already stopped(bug)
-                mediaRecorder.stop()
-            }
-        }
-    }
+    //reckeydown(e) { //PTT key pressed down    - currently not bound
+    //    let kc = 90   //preset keyCode for PTT, 90 = 'z'      this check could occur here or before the method is called
+    //    if(e.keyCode==kc){
+    //        if(vcstate && mediaRecorder.state != "recording"){   //only active if user is in VC, make sure user isn't already recording(bug)
+    //            mediaRecorder.start()
+    //        }
+    //    }
+    //}
+    //reckeyup(e) {   //PTT key released        - currently not bound
+    //    let kc = 90   //preset keyCode for PTT, 90 = 'z'      this check could occur here or before the method is called
+    //    if(e.keyCode==kc){
+    //        if(vcstate && mediaRecorder.state != "inactive"){   //only active if user is in VC, make sure mediaRecorder isn't already stopped(bug)
+    //            mediaRecorder.stop()
+    //        }
+    //    }
+    //}
     vcclick() {
         if(vcstate) {
             if(mediaRecorder.state == "recording") {
@@ -133,24 +126,22 @@ class Audio extends Component {
     recchange(e) {
         gainNode.gain.value = e.target.value
     }
+    pbchange(e) {
+        pbvolume = e.target.value
+    }
     render() {
         return (
             <div className="Audiochat">
-                <ul id="messages"></ul>
-                <form action="">
-                    <input id="m" autoComplete="off"/>
-                    <button>Send</button>
-                </form>
                 <span>
                     RecordVolume:
-                </span> //NOTE: sliders are not sliding currently for some reason, but values are correctly being updated
+                </span>
                 <input
                     type="range"
                     id="recordVolume"
                     min="0"
                     max="1"
-                    value="1"
                     step="0.01"
+                    defaultValue="1"
                     onChange={this.recchange}/>
                 <span>
                     PlaybackVolume:
@@ -160,21 +151,20 @@ class Audio extends Component {
                     id="playbackVolume"
                     min="0"
                     max="1"
-                    value="1"
                     step="0.01"
-                    onChange={this.logit}/>
+                    defaultValue="1"
+                    onChange={this.pbchange}/>
                 <input
                     type="button"
-                    value="Stop Recording"
+                    value="Start Recording"
                     id="rbutton"
                     onClick={this.recclick}/>
                 <input
                     type="button"
-                    value="Leave VC"
+                    value="Enter VC"
                     id="vcbutton"
                     onClick={this.vcclick}/>
             </div>
-
         )
     }
 }
