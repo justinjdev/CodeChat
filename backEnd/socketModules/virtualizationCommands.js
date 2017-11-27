@@ -1,7 +1,7 @@
 'use strict'
 
-// const WebSocket = require('ws')
-// const ws = new WebSocket("ws://104.131.129.223:3003")
+const WebSocket = require('ws')
+const ws = new WebSocket("ws://104.131.129.223:3003")
 
 // const socketfile = require('./Socket') const socketio =  Proxy( new
 // socketfile())
@@ -11,12 +11,12 @@ const objectResponse = (new ObjectResponseFile())
 
 module.exports = class VirtualizationCommands {
     constructor(io) {
-        // ws.addEventListener('open', (event) => {
-        //     console.log("opened websocket connection")
-        // })
+        ws.addEventListener('open', (event) => {
+            console.log("opened websocket connection")
+        })
         this.serverResponse = 'default'
         this.objectResponse = new ObjectResponseFile(io)
-        // Listen for messages 
+        // Listen for messages
         // ws.addEventListener('message', (event) => {
         // console.log('Message from server ', event.data) })
     }
@@ -41,14 +41,14 @@ module.exports = class VirtualizationCommands {
         return ('sent')
 
     }
-    ignorethis() {
-        ws.addEventListener('open', (event) => {
-            ws.send('Hi Server!', (err, res) => {
-                if (err)
-                    console.log("Error:", err)
-            })
-        })
+    // ignorethis() {
+    //     ws.addEventListener('open', (event) => {
+    //         ws.send('Hi Server!', (err, res) => {
+    //             if (err)
+    //                 console.log("Error:", err)
+    //         })
+    //     })
 
-    }
+    // }
 
 }

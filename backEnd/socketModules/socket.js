@@ -72,6 +72,7 @@ module.exports = class Socket {
                 })
                 socket.on('message', (message, response) => {
                     dbcontroller.save(message)
+                    console.log("message here")
                     console.log(message)
                     // remove invalid messages
                     if (message.text === '') { // do nothing
