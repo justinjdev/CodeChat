@@ -6,7 +6,7 @@ import './Chat.css'
 // const socket = io('https://ezchatrooms.herokuapp.com/') //old test, maybe remove it?
 // const socket = io('localhost:8080') // local computer
 // const socket = io('104.131.129.223:8080') // servers
-// const socket = io('192.168.1.83:8080') // servers
+// const socket = io('192.168.1.83:8080') // server
 
 class Chat extends Component {
     constructor(props) {
