@@ -2,7 +2,7 @@
 
 const DBcontroller = require('../dbModules/DBController')
 const dbcontroller = new DBcontroller()
-const ParserFile = require('./Parser')
+const ParserFile = require('./parser')
 // const parser = new ParserFile()
 
 module.exports = class Socket {
