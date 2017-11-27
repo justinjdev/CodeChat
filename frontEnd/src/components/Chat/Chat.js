@@ -90,7 +90,9 @@ class Chat extends Component {
         let messageObject = {
             room: this.state.room,
             text: messageText,
-            nick: 'bobert'
+            nick: 'bobert',
+            isCode: false,
+            isOutput: false
         }
 
         //   socket.emit('question', 'do you think so?', function (answer) {});
