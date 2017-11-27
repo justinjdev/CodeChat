@@ -103,7 +103,9 @@ module.exports = class Socket {
                         }
                     }
                 })
-
+                socket.on('getRooms', () => {
+                    socket.emit('roomList', this.actualRooms)
+                })
             })
     }
 
@@ -181,6 +183,7 @@ module.exports = class Socket {
                 actualRooms.push(i)
             }
         }
+        this.actualRooms = actualRooms
         console.log(actualRooms)
         return (actualRooms)
     }
