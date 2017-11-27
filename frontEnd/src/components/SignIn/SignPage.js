@@ -2,7 +2,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import axios from 'axios';
+//import axios from 'axios';
 import React, { Component } from 'react';
 import './SignPage.css';
 
@@ -14,7 +14,7 @@ constructor(props){
   password:''
   }
  }
-
+/*
  handleClick(event){
   var apiBaseUrl = "http://localhost:4000/api/";
   var self = this;
@@ -44,7 +44,7 @@ constructor(props){
   console.log(error);
   });
   }
-
+*/
 render() {
     return (
       <div className="SignPage">
