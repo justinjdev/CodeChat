@@ -23,9 +23,9 @@ module.exports = class redisController {
     }
     async getCachedMessages(roomName) {
         console.log("getting cache for room name:", roomName)
-
+        let messagestemp
         try {
-            messages = await redisClient.LRANGE(`${roomName}`, 0, -1, (err, messages) => {
+            messagestemp = await redisClient.LRANGE(`${roomName}`, 0, -1, (err, messages) => {
                 console.log("roomName", roomName, "Messages:", messages)
                 this.messages = messages
                 return (this.messages)
@@ -33,7 +33,7 @@ module.exports = class redisController {
         } catch (error) {
             console.log("redis error yo:", error)
         }
-        return (messages)
+        return (messagestemp)
         console.log("returning cache", this.messages)
     }
 
