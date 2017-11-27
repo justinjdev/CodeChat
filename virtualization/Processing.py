@@ -42,24 +42,21 @@ class Processor:
         :param path: The path to put the code in.
         :return: The path to the output file.
         """
-        code_lines = code.split()
-        for line in code_lines:
-            line = line.join("\n")
         with open(path, 'w+', newline=os.linesep) as testfile:
             testfile.truncate()
-            testfile.writelines(code_lines)
+            testfile.writelines(code)
         return path
 
     def cleanup(self, fpath: str):
-        subprocess.Popen('rm -rf {}*'.format(fpath), shell=True, executable='/bin/bash')
+        subprocess.Popen('rm -rf *{}*'.format(fpath), shell=True, executable='/bin/bash')
 
-# *** BEGIN LANGUAGE DEFINITIONS *** #
+    # *** BEGIN LANGUAGE DEFINITIONS *** #
 
     """
     func names should be `process_{language} (self, code:str)` or there may be problems with parsing
     preferably all lower case
     ***A sample definition follows:
-    
+
     def process_language(self, code: str):
         fname = {however you determine file name, if necessary}
         fpath = self.write_file(code, fname)
@@ -81,7 +78,7 @@ class Processor:
         fpath = self.write_file(code, os.path.join(fname, '.adb'))
         output = subprocess.getoutput('gnatmake {}'.format(fpath))
         if 'error' not in output:
-             output += subprocess.getoutput('./{}'.format(fname))
+            output += subprocess.getoutput('./{}'.format(fname))
         self.cleanup(fname)
         return output
 
@@ -100,13 +97,20 @@ class Processor:
         self.cleanup(fname)
         return output
 
-    def process_python(self, code:str):
+    def process_python(self, code: str):
         r"""
         Given Python code, creates file, captures output, and disposes.
         :param code: The code to be executed.
         :return: The output of passed code.
         """
         fpath = self.write_file(code, 'tmp')
-        output = subprocess.getoutput('python3.6 {}'.format(fpath))
+        output = subprocess.run('python3.6 {}'.format(fpath), shell=True,
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE,
+                                stdin=subprocess.PIPE,
+                                timeout=5,
+                                universal_newlines=True
+                                )
         self.cleanup(fpath)
-        return output
+        print(output.stdout)
+        return output.stdout

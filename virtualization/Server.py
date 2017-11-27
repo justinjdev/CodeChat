@@ -18,30 +18,35 @@ from Processing import Processor
 import json
 import logging
 from datetime import datetime
+import sys
 
-async def command_handler(websocket):
-    logger = logging.getLogger('websockets')
-    logger.setLevel(logging.INFO)
-    logger.addHandler(logging.StreamHandler())
+async def command_handler(websocket, path):
+    global logger
     my_processor = Processor()
     supported_langs = my_processor.get_languages()
-    lang_handler = {}
-    for num, lang in enumerate(supported_langs, 0):
-        lang_handler[lang] = lambda: getattr(Processor, supported_langs[num])
+    lang_funcs = my_processor.get_funcs()
+    lang_handler = {'python': my_processor.process_python}
+    #for num, lang in enumerate(supported_langs, 0):
+        #lang_handler[lang] = getattr(Processor, lang_funcs[num])
     while True:
         try:
             command_obj = await websocket.recv()
             logger.info('command received')
             command_obj = json.loads(command_obj)
-            if command_obj['language'] in lang_handler.keys():
+            language = command_obj['language']
+            if language in lang_handler.keys():
                 logger.info('command is valid, executing...')
-                output = lang_handler[command_obj['language']](command_obj['code'])
+                handler = lang_handler[command_obj['language']]
+                output = handler(my_processor, command_obj['text'])
+                #output = my_processor.process_python(command_obj['text'])
+
             else:
-                logger.info('command not in supported languages')
+                logger.info('Command not in supported languages')
                 output = "Language is not supported at this time."
             command_obj['output'] = output
             logger.info("response sent")
-            await websocket.send(json.dumps(command_obj))
+            command_obj = json.dumps(command_obj)
+            await websocket.send(command_obj)
 
         except KeyboardInterrupt:
             print("Process quit via KBI\nBye...")
@@ -49,14 +54,16 @@ async def command_handler(websocket):
 
         except websockets.exceptions.ConnectionClosed:
             print("Connection lost!")
+            sys.exit()
 
+logger = logging.getLogger('websockets')
 def main():
-    logger = logging.getLogger('websockets')
+    global logger
     logger.setLevel(logging.INFO)
     logger.addHandler(logging.StreamHandler())
     start_server = websockets.serve(command_handler, '0.0.0.0', 3003)
     asyncio.get_event_loop().run_until_complete(start_server)
-    #asyncio.get_event_loop().run_forever()
+    asyncio.get_event_loop().run_forever()
 
 if __name__ == '__main__':
     main()
