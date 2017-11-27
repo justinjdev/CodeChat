@@ -43,8 +43,8 @@ class Chat extends Component {
         })
 
         this.props.socket.on('cachedMessages', (msgs) => {
+            console.table(msgs)
             for (let i in msgs) {
-                console.log(JSON.parse(msgs[i]))
                 this.printMessage(JSON.parse(msgs[i]))
             }
         })
@@ -62,6 +62,8 @@ class Chat extends Component {
             this.setState(state)
 
             console.log('connected to: ' + this.state.room)
+
+            this.props.socket.emit('getCache', this.state.room)
 
         })
 
