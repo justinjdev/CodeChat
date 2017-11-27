@@ -161,7 +161,7 @@ class Chat extends Component {
                             className="clear"
                             type="reset"
                             onClick={this.clearHandler}
-                            value="Clear">Squeegee</button>
+                            value="Clear">Clear</button>
                     </div>
                 </form>
             </div>
