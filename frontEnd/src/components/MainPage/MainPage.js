@@ -19,7 +19,7 @@ class MainPage extends Component {
                             <div className="profile-icon centered-text">
                                 <p>D.B.</p>
                             </div>
-                            <Channels/>
+                            <Channels socket={this.props.socket}/>
                         </div>
                         <div className="main col-xs-9">
                             <Chat socket={this.props.socket}/>

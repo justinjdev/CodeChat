@@ -51,6 +51,12 @@ class Chat extends Component {
             this.printMessage(message)
         })
 
+        this.props.socket.on('joinResult', (join)=>{
+            let state = this.state
+            state.room = join.room
+            this.setState(state)
+        })
+
         const textArea = document.querySelector('.input')
         const submitButton = document.querySelector('.submit')
         textArea.addEventListener("keydown", (event) => {
@@ -83,11 +89,15 @@ class Chat extends Component {
             this.printMessage(answer)
         })
 
-        this.setState({ chatInput: '' })
+        let state = this.state
+        state.chatInput = ''
+        this.setState(state)
 
     }
     clearHandler(event) {
-        this.setState({ chatInput: '' })
+        let state = this.state
+        state.chatInput = ''
+        this.setState(state)
     }
 
     printMessage(message) {
@@ -97,14 +107,20 @@ class Chat extends Component {
             message
         ] //...oldList creates a new array in a new memory address with the contents of the old array
 
-        this.setState({ messagesList: newList })
+        let state = this.state
+        state.messagesList = newList
+        this.setState(state)
 
         let lastMessage = document.querySelector('.message:last-child')
         lastMessage.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" })
     }
 
     textChangeHandler(event) {
-        this.setState({ chatInput: event.target.value })
+
+        let state = this.state
+        state.chatInput = event.target.value
+        this.setState(state)
+        // this.setState({ chatInput: event.target.value })
         // console.log("textChange", event.target.value)
     }
 
