@@ -12,6 +12,7 @@ module.exports = class DBController {
         redisController.cacheMessage(message)
     }
     async getCachedMessages(roomName) {
+        console.log("getting cached messages for room:",roomName)
         let messages
         try {
             messages = await redisController.getCachedMessages(roomName)
@@ -75,8 +76,8 @@ module.exports = class DBController {
         }
      }
 
-    //5) get list of all User emails 
-    // is not the same parameters for the postgressController.ls !! 
+    //5) get list of all User emails
+    // is not the same parameters for the postgressController.ls !!
     async Users_Email(u_id, u_email) {
         let checkEmail
         try{
@@ -87,7 +88,7 @@ module.exports = class DBController {
         }
      }
 
-    //6) get the list of all usernames currently in a channel 
+    //6) get the list of all usernames currently in a channel
     async Get_Users_In_Channel(ch_id) {
         let UsersInChannel
         try{
@@ -98,7 +99,7 @@ module.exports = class DBController {
         }
      }
 
-    //7) change a username 
+    //7) change a username
     async change_username(u_id, new_username) {
         let usernameUpdate
         try{
@@ -142,7 +143,7 @@ module.exports = class DBController {
         }
      }
 
-    //11) delete a channel 
+    //11) delete a channel
     async deleteChannel(ch_id) {
         let delChannel
         try{
