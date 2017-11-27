@@ -1,6 +1,6 @@
 'use strict'
 
-const VC = require('./virtualizationCommands')
+const VC = require('./VirtualizationCommands')
 // const virtulization = new VC() //connects to justin DBC()
 
 module.exports = class Parser {
@@ -56,34 +56,52 @@ module.exports = class Parser {
                     }
                     break
                 }
+            case 'ada':
+                {
+                    console.log("ada command")
+                    message.text = argument
+                    message.language = "ada"
+                    let serverRes
+                    try {
+                        serverRes = await this
+                            .virtulization
+                            .language(message)
+                        console.log("server res:", serverRes)
+                        return serverRes
+                    } catch (error) {
+                        console.error("ERROR in ada case: ", error)
+                    }
+                    break
+                }
             case 'java':
                 {
                     message.text = "java command" + argument
-                    return (message)
                     message.text = argument
+                    message.language = 'java'
+                    // return (message)
                     let messages
                     try {
-                        messages = await virtulization.virtulizeLanguage(argument)
+                        messages = await this.virtulization.virtulizeLanguage(argument)
                     } catch (error) {
-                        console.error("ERROR: ", error)
+                        console.error("ERROR in java case: ", error)
                     }
                     // return (message)
                     break
                 }
-            case 'javascript':
-                {
-                    message.text = "javascript command" + argument
-                    return (message)
-                    message.text = argument
-                    let messages
-                    try {
-                        messages = await virtulization.virtulizeLanguage(argument)
-                    } catch (error) {
-                        console.error("ERROR: ", error)
-                    }
-                    // return (message)
-                    break
-                }
+            // case 'javascript':
+            //     {
+            //         message.text = "javascript command" + argument
+            //         return (message)
+            //         message.text = argument
+            //         let messages
+            //         try {
+            //             messages = await virtulization.virtulizeLanguage(argument)
+            //         } catch (error) {
+            //             console.error("ERROR: ", error)
+            //         }
+            //         // return (message)
+            //         break
+            //     }
             case 'bunny':
                 {
                     message.text = `

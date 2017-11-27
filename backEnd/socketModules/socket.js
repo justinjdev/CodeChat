@@ -2,7 +2,7 @@
 
 const DBcontroller = require('../dbModules/DBController')
 const dbcontroller = new DBcontroller()
-const ParserFile = require('./parser')
+const ParserFile = require('./Parser')
 // const parser = new ParserFile()
 
 module.exports = class Socket {
@@ -72,7 +72,6 @@ module.exports = class Socket {
                 })
                 socket.on('message', (message, response) => {
                     dbcontroller.save(message)
-                    console.log("message here")
                     console.log(message)
                     // remove invalid messages
                     if (message.text === '') { // do nothing

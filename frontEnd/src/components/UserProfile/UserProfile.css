@@ -1,0 +1,35 @@
+.main-page {
+  background-color: #3a3a3a;
+  height: 100vh;
+  overflow: hidden; }
+  .main-page .col-xs-1, .main-page .col-xs-2, .main-page .col-xs-8, .main-page .col-xs-9 {
+    padding: 0; }
+  .main-page .centered-text p, .main-page .centered-text h1, .main-page .centered-text h2, .main-page .centered-text h3, .main-page .centered-text h4, .main-page .centered-text h5, .main-page .centered-text h6, .main-page .centered-text h7, .main-page .centered-text a {
+    margin: auto; }
+  .main-page .header {
+    height: 7vh;
+    background-color: #56ccf2;
+    align-content: center;
+    text-align: center; }
+  .main-page .content {
+    height: 86vh; }
+    .main-page .content .left-sidebar {
+      height: 100%;
+      background-color: #4d4d4d; }
+      .main-page .content .left-sidebar .profile-icon {
+        margin: 25px auto;
+        width: 100px;
+        height: 100px;
+        background-color: #56ccf2;
+        border-radius: 50%;
+        align-content: center; }
+    .main-page .content .main {
+      height: 100%; }
+    .main-page .content .right-sidebar {
+      height: 100%;
+      background-color: #4d4d4d; }
+  .main-page .footer {
+    height: 7vh;
+    background-color: #56ccf2;
+    text-align: center;
+    align-content: center; }

@@ -4,49 +4,75 @@ class Chennels extends Component {
     constructor(props){
         super(props)
 
+        this.state = {
+            roomName:''
+        }
+
         this.onChannelClick = this
             .onChannelClick
             .bind(this)
 
     }
 
-    onChannelClick(event) {
-        if(event.target.parentElement.classList.contains('channel')){
+    componentDidMount(){
+        this.props.socket.on('joinResult', (room) => {
+            console.table(room)
+        })
 
-            var elems = document.querySelector(".active")
-            if (elems !== null) {
-                elems.classList.remove("active")
-            }
-            event.target.classList.add('active')
-            
+    }
+
+    onChannelClick(event) {
+        // event.preventDefault()
+        // event.stopPropagation()
+        console.log(event.target.text)
+        let room = {
+            previousRoom: this.state.roomName,
+            newRoom: event.target.text
         }
+        // console.log(event.target)
+        var elems = document.querySelector(".active")
+        if (elems !== null) {
+            elems.classList.remove("active")
+        }
+        event.target.classList.add('active')
+
+        this.props.socket.emit('join', room)
+
+        // if(event.target.parentElement.classList.contains('channel')){
+
+        //     var elems = document.querySelector(".active")
+        //     if (elems !== null) {
+        //         elems.classList.remove("active")
+        //     }
+        //     event.target.classList.add('active')
+        // }
     }
 
     render() {
         return (
-            <div className="channels" onClick={this.onChannelClick}>
+            <div className="channels">
                 <hr />
                 <ul className="channel-list">
                     <li className="channel centered-text">
-                        <a href="#">ADA</a>
+                        <a href="#"  onClick={this.onChannelClick}>ADA</a>
                     </li>
                     <li className="channel centered-text">
-                        <a href="#">C++</a>
+                        <a href="#" onClick={this.onChannelClick}>C++</a>
                     </li>
                     <li className="channel centered-text">
-                        <a href="#">Java</a>
+                        <a href="#" onClick={this.onChannelClick}>Java</a>
                     </li>
                     <li className="channel centered-text">
-                        <a href="#">Python</a>
+                        <a href="#" onClick={this.onChannelClick}>Python</a>
                     </li>
                 </ul>
                 <hr />
                 <ul className="channel-list">
                 <li className="channel centered-text">
-                        <a href="#">CodeChat Devs</a>
+                        <a href="#" onClick={this.onChannelClick}>CodeChat Devs</a>
                     </li>
                     <li className="channel centered-text">
-                        <a href="#">SHACS Tutors</a>
+                        <a href="#" onClick={this.onChannelClick}>SHACS Tutors</a>
                     </li>
                 </ul>
             </div>

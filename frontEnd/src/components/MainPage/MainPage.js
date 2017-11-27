@@ -7,6 +7,7 @@ import Channels from '../Channels/Channels'
 import ActiveUsers from '../ActiveUsers/ActiveUsers'
 
 class MainPage extends Component {
+    
     render() {
         return (
             <div className="main-page container-fluid">
@@ -18,14 +19,14 @@ class MainPage extends Component {
                             <div className="profile-icon centered-text">
                                 <p>D.B.</p>
                             </div>
-                            <Channels/>
+                            <Channels socket={this.props.socket}/>
                         </div>
                         <div className="main col-xs-9">
-                            <Chat/>
+                            <Chat socket={this.props.socket}/>
                         </div>
                         <div className="right-sidebar col-xs-1">
                             <p>active</p>
-                            <ActiveUsers/>
+                            <ActiveUsers socket={this.props.socket}/>
                         </div>
                     </div>
                     <div className="footer row centered-text">
