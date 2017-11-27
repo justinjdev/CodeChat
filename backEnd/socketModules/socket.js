@@ -108,10 +108,11 @@ module.exports = class Socket {
     }
 
     async getCachedMessages(roomName, socket) {
-        console.log("getting cached messages from ",roomName)
+        console.log("getting cached messages from ", roomName)
         let messages
         try {
             messages = await dbcontroller.getCachedMessages(roomName)
+            console.log("okay we've got the cached messages in socket:", messages)
             socket.emit('cachedMessages', messages)
             // return messages
         } catch (error) {

@@ -16,6 +16,7 @@ module.exports = class DBController {
         let messages
         try {
             messages = await redisController.getCachedMessages(roomName)
+            console.log("getting messages in dbcontroller?",messages)
             return messages
 
         } catch (error) {
