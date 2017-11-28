@@ -87,8 +87,6 @@ class Chennels extends Component {
 
                     <a>Audio Settings</a> 
                      <Audio/> 
-                     <a>YOU MUST HAVE YOUR MIC ENABLED, DUH.</a> 
-
 
 
                 </ul>
