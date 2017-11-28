@@ -13,7 +13,6 @@ module.exports = class Socket {
         // this.listenOnIO(io) //actually start listening on the sockets because for
         // some reason it doesn't work without getting called.
         this.io = io
-        this.nicknames = {}
         this.parser = new ParserFile(io)
     }
     /**
@@ -91,7 +90,8 @@ module.exports = class Socket {
                                     console.log('response')
                                     console.log(res)
                                     if (res.newNick) {
-                                        this.nicknames[socket.id] = res.newNick
+                                        let id = socket.id
+                                        this.nicknames.id = res.newNick
                                         socket.emit('nickRequest', res.newNick)
                                     }
                                     response(res)
