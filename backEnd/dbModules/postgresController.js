@@ -302,7 +302,7 @@ module.exports = class PostgresController {
         delete_user_from_channel(ch_id, u_id){
             return new Promise((resolve, reject) => {
                 console.log(`DELETE "public"."${Users}" WHERE '${ch_id, u_id}'`) // not sure how to set up a delete function
-                .any(`DELETE "public"."${Users}" WHERE '${ch_id, u_id}'`)// not sure ..^
+                client.any(`DELETE "public"."${Users}" WHERE '${ch_id, u_id}'`)// not sure ..^
                 .then(data =>{
                     resolve(data)
                 })

@@ -76,6 +76,9 @@ module.exports = class Socket {
                 socket.on('message', (message, response) => {
                     dbcontroller.save(message)
                     console.log(message)
+                    if (message.text === 'testing delete'){
+                        dbcontroller.postgresTest()
+                    }
                     // remove invalid messages
                     if (message.text === '') { // do nothing
                     } else {

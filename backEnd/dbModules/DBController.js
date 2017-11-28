@@ -28,15 +28,6 @@ module.exports = class DBController {
             }
         })
     }
-    async postgresTest() {
-        let test
-        try {
-            test = await postgresController.testDB()
-            return
-        } catch (error) {
-            console.error(error)
-        }
-    }
 
     //1) insert a user record
     async registerUser(u_id, u_email, u_password, u_username, u_firstname, u_lastname, u_bio) {
