@@ -5,6 +5,7 @@
   "dependencies": {
     "bootstrap-grid": "^2.0.1",
     "i": "^0.3.6",
+    "js-sha256": "^0.8.0",
     "material-ui": "^0.19.4",
     "node-sass-chokidar": "^0.0.3",
     "npm-run-all": "^4.1.1",

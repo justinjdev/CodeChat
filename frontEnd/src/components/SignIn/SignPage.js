@@ -18,9 +18,10 @@ constructor(props){
  handleClick(event){
   var apiBaseUrl = "http://localhost:4000/api/";
   var self = this;
+  var sha256 = require('js-sha256');
   var payload={
   "email":this.state.username,
-  "password":this.state.password
+  "password": sha256.hex(this.state.password)
   }
   axios.post(apiBaseUrl+'login', payload)
   .then(function (response) {
