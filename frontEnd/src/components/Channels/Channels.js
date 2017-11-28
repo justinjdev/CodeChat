@@ -83,7 +83,8 @@ class Chennels extends Component {
                         <a onClick={this.onChannelClick}>SHACS Tutors</a>
                     </li>
 
-                    <hr />
+                    <hr/>
+
                     <a>Audio Settings</a> 
                      <Audio/> 
 
