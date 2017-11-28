@@ -13,7 +13,7 @@ const socket = io('localhost:8080') // servers
 
 class App extends Component {
   render() {
-    return (<Register {...this.props} socket={socket} />)
+    return (<MainPage {...this.props} socket={socket} />)
   }
 }
 

@@ -7,15 +7,19 @@ const dbcontroller = new DBcontroller()
 const ParserFile = require('./parser')
 // const parser = new ParserFile()
 
-function generateUUID () { // Public Domain/MIT
+function generateUUID() { // Public Domain/MIT
     var d = new Date().getTime();
-    if (typeof performance !== 'undefined' && typeof performance.now === 'function'){
+    if (typeof performance !== 'undefined' && typeof performance.now === 'function') {
         d += performance.now(); //use high-precision timer if available
     }
     return 'xxxx'.replace(/[xy]/g, function (c) {
         var r = (d + Math.random() * 16) % 16 | 0;
         d = Math.floor(d / 16);
-        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16).charCodeAt(0);
+        return (c === 'x'
+                ? r
+                : (r & 0x3 | 0x8))
+            .toString(16)
+            .charCodeAt(0);
     });
 }
 
@@ -88,6 +92,9 @@ module.exports = class Socket {
 
                 })
                 socket.on('message', (message, response) => {
+                    let date = Date.now()
+                    message.time = date
+                    message.id = socket.id + date //setting message id
                     dbcontroller.save(message)
                     console.log(message)
                     // remove invalid messages
