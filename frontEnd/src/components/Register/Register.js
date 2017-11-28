@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-//import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-//import SignPage from '../SignIn/SignPage';
+//import axios from 'axios';
+import SignPage from '../SignIn/SignPage';
 import './Register.css';
-//maybe import the hash stuff idk boi
-
+import AccountKit from 'react-facebook-account-kit';
 
 class Register extends Component {
   constructor(props){
@@ -20,19 +20,17 @@ class Register extends Component {
       password:''
     }
   }
-
 /*
   handleClick(event){
     var apiBaseUrl = "http://localhost:4000/api/";
     console.log("values",this.state.first_name,this.state.last_name,this.state.email,this.state.password);
     //To be done:check for empty values before hitting submit
-    var sha256 = require('js-sha256');
     var self = this;
     var payload={
     "first_name": this.state.first_name,
     "last_name":this.state.last_name,
     "email":this.state.email,
-    "password": sha256.hex(this.state.password)
+    "password":this.state.password
     }
     axios.post(apiBaseUrl+'/register', payload)
    .then(function (response) {
@@ -55,12 +53,13 @@ class Register extends Component {
   }
 */
 
+
   render(){
 
     return (
       <div className="Register">
       <div>
-        <MuiThemeProvider>
+        <MuiThemeProvider>       
           <div>
           <AppBar
              title="Register"
@@ -78,7 +77,7 @@ class Register extends Component {
              onChange = {(event,newValue) => this.setState({last_name:newValue})}
              />
            <br/>
-
+      
            <TextField
              hintText="Username"
              floatingLabelText="Codechat Alias"
@@ -99,7 +98,15 @@ class Register extends Component {
              onChange = {(event,newValue) => this.setState({password:newValue})}
              />
            <br/>
-           <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
+           <AccountKit
+           appId="148416749076090"
+           version="v1.0" // Version must be in form v{major}.{minor}
+           onResponse={(resp) => this.props.socket.emit('register', resp, {"first_name": this.state.first_name, "Username":this.state.Username,"last_name":this.state.last_name,"email":this.state.email,"password":this.state.password})}
+           csrf="awzsrexdtcfvgybhjn" // Required for security
+           loginType="EMAIL"
+           >
+           {p => <RaisedButton {...p} label="Submit" primary={true}></RaisedButton>}
+           </AccountKit>
            <RaisedButton label="Clear" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
 
           </div>

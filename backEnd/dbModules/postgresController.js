@@ -19,7 +19,7 @@
 const promise = require('bluebird')
 const pgp = require('pg-promise')({promiseLib: promise})
 const config = {
-    host: '127.0.0.1',
+    host: 'localhost',
     port: 5432,
     database: 'codechat_database',
     user: 'postgres',
@@ -65,7 +65,7 @@ module.exports = class PostgresController {
     insert_New_User(u_id, u_email, u_pass, u_username, u_firstname, u_lastname, u_bio) {
         return new Promise((resolve, reject) => {
 
-            console.log(`INSERT INTO "Users"("u_username", "u_pass", "u_email", "u_id", "u_firstname", "u_lastname", "u_bio") VALUES ('${u_username}', '${u_pass}', '${u_email}',  '${u_id}', '${u_firstname}', '${u_lastname}', '${u_bio}') returning u_username`);
+            console.log(`INSERT INTO "Users"("u_username", "u_pass", "u_email", "u_id", "u_firstname", "u_lastname", "u_bio") VALUES ('${u_username}', '${u_pass}', '${u_email}',  '${u_id}', '${u_firstname}', '${u_lastname}', '${u_bio}') returning u_username`)
 
             client
                 .any(`INSERT INTO "Users"("u_username", "u_pass", "u_email", "u_id", "u_firstname", "u_lastname", "u_bio") VALUES ('${u_username}', '${u_pass}', '${u_email}',  '${u_id}', '${u_firstname}', '${u_lastname}', '${u_bio}') returning u_username`)
@@ -74,6 +74,7 @@ module.exports = class PostgresController {
                 })
                 .catch(error => {
                     reject(error)
+                    console.log(error)
                 })
         })
     }
