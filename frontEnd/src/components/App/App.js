@@ -4,6 +4,8 @@ import LandingPage from '../LandingPage/LandingPage'
 import MainPage from '../MainPage/MainPage'
 import Register from '../Register/Register'
 import SignIn from '../SignIn/SignPage'
+import Audio from '../Audio/Audio'
+
 import io from 'socket.io-client'
 
 const socket = io('localhost:8080') // servers

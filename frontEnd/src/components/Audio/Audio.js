@@ -55,7 +55,15 @@ class Audio extends Component {
                     mediaRecorder.onstop = function (e) {  //when stopped (by interval or by user), send voice to server
                         let blob = new Blob(chunks, {'type': 'audio/ogg codecs=opus'}) //store buffer in blob, use opus codec
                         chunks = []  //empty buffer
-                        socket.emit('voice', blob)  //send blob to server
+                  //      socket.emit('voice', blob)  //send blob to server
+
+                  
+                  let audio = document.createElement('audio')
+                  audio.volume = pbvolume     //set playback volume
+                  audio.src = window    //link audio
+                      .URL
+                      .createObjectURL(blob)
+                  audio.play()    //play audio
                     }
                 })
         }
@@ -116,7 +124,9 @@ class Audio extends Component {
             document
                 .getElementById("vcbutton")
                 .value = "Enter VC"
-        } else {
+        }
+        
+        else {
             vcstate = true
             document
                 .getElementById("vcbutton")
