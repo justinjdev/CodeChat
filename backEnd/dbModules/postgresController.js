@@ -207,22 +207,6 @@ module.exports = class PostgresController {
                 })
         })
     }
-    /*
-    //9)change user bio
-	//not tested
-	change_user_bio(u_id, val){
-		return new Promise((resolve, reject) => {
-			console.log(`UPDATE ${Users} SET '${u_id}', '${u_bio}'='${val}' RETURNING "u_bio"`)
-			client
-			.any(`UPDATE ${Users} SET '${u_id})', '${u_bio}'='${val}' RETURNING "u_bio"`)
-			.then(data => {
-				resolve(data)
-			})
-			.catch(error => {
-				reject(error)
-			})
-		})
-	}*/
 
     // //10)user search function not tested search(m_id, ch_id, u_id, keyword_list)
     // {     return new Promise((resolve, reject) => {         console.log(`SELECT
@@ -260,23 +244,7 @@ module.exports = class PostgresController {
             })
         })
     }
-    /*
-   //11)Delete a channel(admin deletss the channel or user deletes a private channel)
-	//not tested
-	delete_channel(ch_id) {
-		return new Promise((resolve, reject) => {
-            console.log(`DELETE FROM "plubic".${Channel} WHERE "ch_id" = '${ch_id}'`) //idk how the admin would know the ch_id
-			client
-			.any(`DELETE FROM "plubic".${Channel} WHERE "ch_id" = '${ch_id}'`)
-			.then(data => {
-				resolve(data, "channel has been deleted!!")
-			})
-			.catch(error => {
-				reject(error)
-			})
-		})
-	}*/
-
+   
     //12)delete a user from a channel not tested
     delete_user_from_channel(ch_id, u_id) {
         return new Promise((resolve, reject) => {
@@ -289,40 +257,5 @@ module.exports = class PostgresController {
             })
         })
     }
-    /*
-    //12)Delete user from a channel
-	//not tested
-	delete_user_from_channel(u_id, ch_id) {
-		return new Promise((resolve, reject) => {
-            console.log(`DELETE FROM "plubic".${Users_In_Channel} WHERE "u_id" = '${u_id}' AND "ch_id" = '${ch_id}'`)
-			client
-			.any(`DELETE FROM "plubic".${Users_In_Channel} WHERE "u_id" = '${u_id}' AND "ch_id" = '${ch_id}'`)
-			.then(data => {
-				resolve("user has been removed from channel")
-			})
-			.catch(error => {
-				reject(error)
-			})
-		})
-	}
-    */
-
-    /*
-   //13)Gives all the dill for single user.
-	//not tested
-	give_all_single(u_id) {
-		return new Promise((resolve, reject) => {
-            console.log(`SELECT * FROM ${Channel} AND $"{} `)//idk t
-			client
-			.any(``)
-			.then(data => {
-				resolve(data)
-			})
-			.catch(error => {
-				reject(error)
-			})
-		})
-	}
-    */
 
 }
