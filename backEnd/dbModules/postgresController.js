@@ -20,7 +20,15 @@ const promise = require('bluebird')
 const pgp = require('pg-promise')({
     promiseLib: promise
 })
-const connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/codechat_database'
+const config = {
+    host: 'localhost',
+    port: 5432,
+    database: 'codechat_database',
+    user: 'postgres',
+    password: 'postgres',
+    poolSize: 10
+  }
+const connectionString = process.env.DATABASE_URL || config
 const client = pgp(connectionString)
 
 //declare tables
