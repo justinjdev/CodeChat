@@ -1,7 +1,8 @@
 'use strict'
 
 const VC = require('./virtualizationCommands')
-// const virtulization = new VC() //connects to justin DBC()
+// const virtulization = new VC()
+// //connects to justin DBC()
 
 module.exports = class Parser {
     constructor(io) {
@@ -34,7 +35,6 @@ module.exports = class Parser {
                     message.newNick = argument
                     message.nick = "server"
                     message.command = 'nick'
-                    // this.socket.emit('nameAttempt', argument);
                     console.log(message)
                     return (message)
                     break
@@ -84,28 +84,38 @@ module.exports = class Parser {
                     // return (message)
                     let messages
                     try {
-                        messages = await this.virtulization.virtulizeLanguage(argument)
+                        messages = await this
+                            .virtulization
+                            .virtulizeLanguage(argument)
                     } catch (error) {
                         console.error("ERROR in java case: ", error)
                     }
                     // return (message)
                     break
                 }
-            // case 'javascript':
-            //     {
-            //         message.text = "javascript command" + argument
-            //         return (message)
-                    // message.code = true
-                    //         message.text = argument
-            //         let messages
-            //         try {
-            //             messages = await virtulization.virtulizeLanguage(argument)
-            //         } catch (error) {
-            //             console.error("ERROR: ", error)
-            //         }
-            //         // return (message)
-            //         break
-            //     }
+            case 'cpp':
+            case 'c++':
+                {
+                    message.text = "cpp command" + argument
+                    message.text = argument
+                    message.isCode = true
+                    message.language = 'cpp'
+                    let messages
+                    try {
+                        messages = await this
+                            .virtulization
+                            .virtulizeLanguage(argument)
+                    } catch (error) {
+                        console.error("ERROR in cpp case: ", error)
+                    }
+                    break
+                }
+                // case 'javascript':     {         message.text = "javascript command" +
+                // argument         return (message) message.code = true         message.text =
+                // argument         let messages         try {             messages = await
+                // virtulization.virtulizeLanguage(argument)         } catch (error) {
+                //   console.error("ERROR: ", error)         }         // return (message)
+                //   break     }
             case 'bunny':
                 {
                     message.text = `
