@@ -25,9 +25,9 @@ async def command_handler(websocket, path):
     my_processor = Processor()
     supported_langs = my_processor.get_languages()
     lang_funcs = my_processor.get_funcs()
-    lang_handler = {'python': my_processor.process_python}
-    #for num, lang in enumerate(supported_langs, 0):
-        #lang_handler[lang] = getattr(Processor, lang_funcs[num])
+    lang_handler = {}
+    for num, lang in enumerate(supported_langs, 0):
+        lang_handler[lang] = getattr(Processor, lang_funcs[num])
     while True:
         try:
             command_obj = await websocket.recv()
@@ -38,15 +38,14 @@ async def command_handler(websocket, path):
                 logger.info('command is valid, executing...')
                 handler = lang_handler[command_obj['language']]
                 output = handler(my_processor, command_obj['text'])
-                #output = my_processor.process_python(command_obj['text'])
 
             else:
                 logger.info('Command not in supported languages')
                 output = "Language is not supported at this time."
             command_obj['output'] = output
-            logger.info("response sent")
             command_obj = json.dumps(command_obj)
             await websocket.send(command_obj)
+            logger.info("response sent")
 
         except KeyboardInterrupt:
             print("Process quit via KBI\nBye...")
@@ -54,7 +53,7 @@ async def command_handler(websocket, path):
 
         except websockets.exceptions.ConnectionClosed:
             print("Connection lost!")
-            sys.exit()
+            raise
 
 logger = logging.getLogger('websockets')
 def main():

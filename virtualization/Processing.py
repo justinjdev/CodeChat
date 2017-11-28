@@ -114,3 +114,16 @@ class Processor:
         self.cleanup(fpath)
         print(output.stdout)
         return output.stdout
+
+    def process_pony(self, code: str):
+        fname = 'main.pony'
+        subprocess.Popen('mkdir ./test/', shell=True, executable='/bin/bash')
+        fpath = self.write_file(code, os.path.join('./test/', fname)
+        output = subprocess.run('cd ./test && ponyc && cd ..')
+        if 'Error' not in output:
+            output = subprocess.getoutput('./test/test')
+        #subprocess.Popen('cd ..', shell=True, executable='/bin/bash')
+        #self.cleanup('./test')
+        return output
+
+
