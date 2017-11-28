@@ -6,6 +6,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 //import SignPage from '../SignIn/SignPage';
 import './Register.css';
+//maybe import the hash stuff idk boi
+
 
 class Register extends Component {
   constructor(props){
@@ -18,17 +20,19 @@ class Register extends Component {
       password:''
     }
   }
+
 /*
   handleClick(event){
     var apiBaseUrl = "http://localhost:4000/api/";
     console.log("values",this.state.first_name,this.state.last_name,this.state.email,this.state.password);
     //To be done:check for empty values before hitting submit
+    var sha256 = require('js-sha256');
     var self = this;
     var payload={
     "first_name": this.state.first_name,
     "last_name":this.state.last_name,
     "email":this.state.email,
-    "password":this.state.password
+    "password": sha256.hex(this.state.password)
     }
     axios.post(apiBaseUrl+'/register', payload)
    .then(function (response) {
@@ -56,7 +60,7 @@ class Register extends Component {
     return (
       <div className="Register">
       <div>
-        <MuiThemeProvider>       
+        <MuiThemeProvider>
           <div>
           <AppBar
              title="Register"
@@ -74,7 +78,7 @@ class Register extends Component {
              onChange = {(event,newValue) => this.setState({last_name:newValue})}
              />
            <br/>
-      
+
            <TextField
              hintText="Username"
              floatingLabelText="Codechat Alias"
