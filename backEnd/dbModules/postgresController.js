@@ -30,12 +30,11 @@ const Users = "Users"
 const Users_In_Channel = "Users_In_Channel"
 
 module.exports = class PostgresController {
-    async testDB() {}
-    //}
-    //modules.exports = class DBCommands {
-
+    constructor(){
+        this.connectDb()
+    }
     //will connect to DB
-    connectBD() {
+    connectDb() {
         client.connect((err) => {
             if (err) {
                 console.error('connection error', err.stack)
@@ -46,7 +45,7 @@ module.exports = class PostgresController {
     }
 
     //disconnect from  DB
-    disconnectDB() {
+    disconnectDb() {
         client.end((err) => {
             if (err) {
                 console.error('disconnection error', err.stack)
@@ -61,8 +60,8 @@ module.exports = class PostgresController {
     insert_New_User(u_id, u_email, u_pass, u_username, u_firstname, u_lastname, u_bio) {
         {
             client
-                console.log(`INSERT INTO "Users"(u_username", "u_pass", "u_email", "u_id", "u_firstname", "u_lastname", "u_bio") VALUES ('${u_username}', '${u_pass}', '${u_email}',  '${u_id}', '${u_firstname}", '${U_lastname}', '${u_bio}') returning u_username`)
-                .any(`INSERT INTO "Users"(u_username", "u_pass", "u_email", "u_id", "u_firstname", "u_lastname", "u_bio") VALUES ('${u_username}', '${u_pass}', '${u_email}',  '${u_id}', '${u_firstname}", '${U_lastname}', '${u_bio}') returning u_username`)
+                console.log(`INSERT INTO "Users"(u_username", "u_pass", "u_email", "u_id", "u_firstname", "u_lastname", "u_bio") VALUES ('${u_username}', '${u_pass}', '${u_email}',  '${u_id}', '${u_firstname}", '${u_lastname}', '${u_bio}') returning u_username`)
+                .any(`INSERT INTO "Users"(u_username", "u_pass", "u_email", "u_id", "u_firstname", "u_lastname", "u_bio") VALUES ('${u_username}', '${u_pass}', '${u_email}',  '${u_id}', '${u_firstname}", '${u_lastname}', '${u_bio}') returning u_username`)
                 .then(() => {
                     resolve("Successful Insert of new user.")
                 })
@@ -71,12 +70,12 @@ module.exports = class PostgresController {
                 })
         }
     }
-    
+
     // 2)insert message into DB, not finished.
         //not tested
         insert_message(m_id, ch_id, u_id, message_text, isCode, m_response, m_time, hasInputs){
             return new Promise((resolve, reject) => {
-            Client
+            client
                 console.log(`INSERT INTO "Messages"("m_id", "ch_id", "u_id","message_text", "isCode", "m_response", "m_time", "hasInputs") VALUES ('${m_id}', '${ch_id}', '${u_id}', '${message_text}', '${isCode}', '${m_response}', '${m_time}', '${hasinputs}') returning m_id`)
                 .any(`INSERT INTO "Messages"("m_id", "ch_id", "u_id","message_text", "isCode", "m_response", "m_time", "hasInputs") VALUES ('${m_id}', '${ch_id}', '${u_id}', '${message_text}', '${isCode}', '${m_response}', '${m_time}', '${hasinputs}') returning m_id`)
                 .then(() => {
@@ -189,7 +188,7 @@ module.exports = class PostgresController {
                 })
             })
         }
-    
+
 
     //9)change a user bio
         //not tested
@@ -221,7 +220,7 @@ module.exports = class PostgresController {
 			})
 		})
 	}*/
-    
+
 
     //10)user search function
         //not tested
@@ -241,7 +240,7 @@ module.exports = class PostgresController {
                     reject(error)
                 })
             }
-    
+
     /*
     //10)search funcition(specifiying category and then keywords) -incomplete-
 	//not tested
@@ -260,9 +259,9 @@ module.exports = class PostgresController {
 		})
 	}
     */
-    
-    
-    
+
+
+
 
     //11)delete a channel
         //not tested
@@ -294,7 +293,7 @@ module.exports = class PostgresController {
 			})
 		})
 	}*/
-    
+
 
 
     //12)delete a user from a channel
@@ -328,7 +327,7 @@ module.exports = class PostgresController {
 		})
 	}
     */
-    
+
    /*
    //13)Gives all the dill for single user.
 	//not tested
@@ -346,10 +345,10 @@ module.exports = class PostgresController {
 		})
 	}
     */
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
     }

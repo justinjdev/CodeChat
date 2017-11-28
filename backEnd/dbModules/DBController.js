@@ -7,7 +7,6 @@ const redisControlFile = require('./redisController') //connects to redis
 const redisController = new redisControlFile()
 
 module.exports = class DBController {
-
     save(message) {
         redisController.cacheMessage(message)
     }
@@ -27,6 +26,68 @@ module.exports = class DBController {
                 reject(error)
             }
         })
+    }
+    async postgresTest() {
+        let test1
+        try {
+            test1 = await this.registerUser('14', 'email@email.com', 'password', 'username', 'firstname', 'lastname', 'this is a bio about me and other unimportant garbage')
+        } catch (error) {
+            console.log("test 1 error", error)
+        }
+        console.log("test1", test1)
+
+        let test2
+        try {
+            test2 = await this.registerMessage('15', '32123', 'messagetext', 'thisiscode', 'responding', '1267890', 'soinputs')
+        } catch (error) {
+            console.log("test 2 error", error)
+        }
+        console.log("test2", test2)
+
+        let test3
+        try {
+            test3 = await this.registerChannel('6721', 'ada')
+        } catch (error) {
+            console.log("test 3 error", error)
+        }
+        console.log("test3", test3)
+
+        let test4
+        try {
+            test4 = await this.Insert_Users_In_Channel('456', 'allusers')
+        } catch (error) {
+            console.log("test 4 error", error)
+        }
+        console.log("test4", test4)
+
+        let test12
+        try {
+            test12 = await this.deleteUser_in_channel('111', '222')
+            return
+        } catch (error) {
+            console.error('test 12 error', error)
+        }
+        console.error('test12', test12)
+
+        let test11
+        try {
+            test11 = await this.deleteChannel('333')
+            return
+        } catch (error) {
+            console.error('test 11 error', error)
+        }
+        console.error('test11', test11)
+
+        let test10
+        try {
+            test10 = await this.search('444', '555', '666', 'keyword')
+            return
+        } catch (error) {
+            console.error('test 10 error', error)
+
+        }
+        console.error('test10', test10)
+
     }
 
     //1) insert a user record

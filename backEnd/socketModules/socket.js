@@ -30,40 +30,33 @@ module.exports = class Socket {
                 })
 
                 console.log(socket.id, "connected")
-
-                this.listSocketsInRoom()
-
                 // when they connect to the server, default to lobby channel
-
                 socket.join('Lobby', () => {
                     let rooms = Object.keys(socket.rooms) // rooms is a list of rooms the socket is in, beginning with its own id.
                     console.log(this.allRoomStuff)
                 })
+                this.listSocketsInRoom()
 
-                // this.listSocketsInRoom(io.sockets,io)
                 await this.getCachedMessages('Lobby', socket)
                 // when they join, emit the message 'joinResult'
                 socket.emit('joinResult', {room: 'Lobby'}) //let the client know that it's defaulted to the lobby
 
                 /**
-            * when the socket connection disconnects then you remove the nickname and name used from the list of names used
-            */
+                * when the socket connection disconnects then you remove the nickname and name used from the list of names used
+                */
                 socket.on('disconnect', () => {
                     console.log(socket.id, "disconnected")
                     this.listSocketsInRoom()
                 })
-                let name = socket.id
-                socket.emit('message', {
-                    user: "Server",
-                    text: `Welcome ${name}`
-                }) // sends only back to that one socket
+                // let name = socket.id // socket.emit('message', {user: "Server",text: `Welcome
+                // ${name}` }) // sends only back to that one socket
 
                 /**
             *  If the SPECIFIC SOCKET sends join, then it leaves object: previous room and
             *  joins a new room. Then emit joinResult to the room 'newRoom'.
             */
                 socket.on('join', async(room) => {
-                    console.log("😲 OMG JOINING!😲 ", room)
+                    // console.log("😲 OMG JOINING!😲 ", room)
                     socket.leave(room.previousRoom)
                     socket.join(room.newRoom)
                     await this.listSocketsInRoom()
@@ -74,14 +67,19 @@ module.exports = class Socket {
 
                 })
                 socket.on('message', (message, response) => {
+                    let date = Date.now()
+                    message.time = date
+                    message.id = socket.id + date //setting message id
                     dbcontroller.save(message)
                     console.log(message)
                     if (message.text === 'testing delete'){
                         dbcontroller.postgresTest()
                     }
                     // remove invalid messages
-                    if (message.text === '') { // do nothing
-                    } else {
+                    if (message.text === 'testDBNowPls') {
+                        dbcontroller.postgresTest()
+                    }
+                    if (message.text === '') {} else {
                         if (message.text[0] === '/') {
                             this
                                 .parser
@@ -100,7 +98,6 @@ module.exports = class Socket {
                                 })
                         } else {
                             message.nick = message.nick || "A User"
-                            message.id = socket.id
                             socket
                                 .broadcast
                                 .to(message.room)

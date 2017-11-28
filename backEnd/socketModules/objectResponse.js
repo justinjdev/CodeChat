@@ -6,13 +6,14 @@ module.exports = class ObjectResponse {
     }
     async sendResponseToFrontEnd(response) {
         let parsedResponse = JSON.parse(response)
+        console.log("parsed response in objRes:", parsedResponse)
         parsedResponse.text = parsedResponse.output
         parsedResponse.user = "server"
         parsedResponse.isOutput = true
         parsedResponse.isCode = true;
         this
             .io
-            .in(parsedResponse.room)
+            . in(parsedResponse.room)
             .emit('message', parsedResponse)
 
     }

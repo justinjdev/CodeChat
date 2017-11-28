@@ -20,13 +20,3 @@
     background: #82e0ff;
     border: none;
     padding: 10px; }
-  .audio #messages {
-    list-style-type: none;
-    margin: 0;
-    padding: 0; }
-  .audio #messages li {
-    padding: 5px 10px; }
-  .audio #messages li:nth-child(odd) {
-    background: #eee; }
-  .audio #messages {
-    margin-bottom: 40px; }
