@@ -1,9 +1,23 @@
 'use strict'
 
+var SHA256 = require("crypto-js/sha256");
+
 const DBcontroller = require('../dbModules/DBController')
 const dbcontroller = new DBcontroller()
 const ParserFile = require('./parser')
 // const parser = new ParserFile()
+
+function generateUUID () { // Public Domain/MIT
+    var d = new Date().getTime();
+    if (typeof performance !== 'undefined' && typeof performance.now === 'function'){
+        d += performance.now(); //use high-precision timer if available
+    }
+    return 'xxxx'.replace(/[xy]/g, function (c) {
+        var r = (d + Math.random() * 16) % 16 | 0;
+        d = Math.floor(d / 16);
+        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16).charCodeAt(0);
+    });
+}
 
 module.exports = class Socket {
     constructor(io) {
@@ -30,53 +44,55 @@ module.exports = class Socket {
                 })
 
                 console.log(socket.id, "connected")
+
+                this.listSocketsInRoom()
+
                 // when they connect to the server, default to lobby channel
+
                 socket.join('Lobby', () => {
                     let rooms = Object.keys(socket.rooms) // rooms is a list of rooms the socket is in, beginning with its own id.
                     console.log(this.allRoomStuff)
                 })
-                this.listSocketsInRoom()
 
+                // this.listSocketsInRoom(io.sockets,io)
                 await this.getCachedMessages('Lobby', socket)
                 // when they join, emit the message 'joinResult'
                 socket.emit('joinResult', {room: 'Lobby'}) //let the client know that it's defaulted to the lobby
 
                 /**
-                * when the socket connection disconnects then you remove the nickname and name used from the list of names used
-                */
+            * when the socket connection disconnects then you remove the nickname and name used from the list of names used
+            */
                 socket.on('disconnect', () => {
                     console.log(socket.id, "disconnected")
                     this.listSocketsInRoom()
                 })
-                // let name = socket.id // socket.emit('message', {user: "Server",text: `Welcome
-                // ${name}` }) // sends only back to that one socket
+                let name = socket.id
+                socket.emit('message', {
+                    user: "Server",
+                    text: `Welcome ${name}`
+                }) // sends only back to that one socket
 
                 /**
             *  If the SPECIFIC SOCKET sends join, then it leaves object: previous room and
             *  joins a new room. Then emit joinResult to the room 'newRoom'.
             */
                 socket.on('join', async(room) => {
-                    // console.log("😲 OMG JOINING!😲 ", room)
+                    console.log("😲 OMG JOINING!😲 ", room)
                     socket.leave(room.previousRoom)
                     socket.join(room.newRoom)
                     await this.listSocketsInRoom()
                     socket.emit('joinResult', {room: room.newRoom})
                 })
-                socket.on('getCache', async (room) => {
+                socket.on('getCache', async room => {
                     await this.getCachedMessages(room, socket)
 
                 })
                 socket.on('message', (message, response) => {
-                    let date = Date.now()
-                    message.time = date
-                    message.id = socket.id + date //setting message id
                     dbcontroller.save(message)
                     console.log(message)
                     // remove invalid messages
-                    if (message.text === 'testDBNowPls') {
-                        dbcontroller.postgresTest()
-                    }
-                    if (message.text === '') {} else {
+                    if (message.text === '') { // do nothing
+                    } else {
                         if (message.text[0] === '/') {
                             this
                                 .parser
@@ -95,6 +111,7 @@ module.exports = class Socket {
                                 })
                         } else {
                             message.nick = message.nick || "A User"
+                            message.id = socket.id
                             socket
                                 .broadcast
                                 .to(message.room)
@@ -105,6 +122,11 @@ module.exports = class Socket {
                 })
                 socket.on('getRooms', () => {
                     socket.emit('roomList', this.actualRooms)
+                })
+                socket.on('register', (resp, creds) => {
+                    var uuid = generateUUID()
+                    console.log("Registering new user: ", creds.Username, uuid)
+                    dbcontroller.registerUser(uuid, creds.email, SHA256(creds.password), creds.Username, creds.first_name, creds.last_name, "")
                 })
             })
     }
