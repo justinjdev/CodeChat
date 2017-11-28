@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './Channels.css';
+import Audio from '../Audio/Audio'
+
 class Chennels extends Component {
     constructor(props){
         super(props)
@@ -73,12 +75,21 @@ class Chennels extends Component {
                 </ul>
                 <hr />
                 <ul className="channel-list">
+
                 <li className="channel centered-text">
                         <a onClick={this.onChannelClick}>CodeChat Devs</a>
                     </li>
                     <li className="channel centered-text">
                         <a onClick={this.onChannelClick}>SHACS Tutors</a>
                     </li>
+
+                    <hr/>
+
+                    <a>Audio Settings</a> 
+                     <Audio/> 
+
+
+
                 </ul>
             </div>
         );

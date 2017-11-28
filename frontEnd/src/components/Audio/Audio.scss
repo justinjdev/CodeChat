@@ -1,8 +1,9 @@
-* {
+@import './../../colors.scss';
+
+.audio {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
 
 body {
     font: 13px Helvetica, Arial;
@@ -30,20 +31,4 @@ form button {
     padding: 10px;
 }
 
-#messages {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-#messages li {
-    padding: 5px 10px;
-}
-
-#messages li:nth-child(odd) {
-    background: #eee;
-}
-
-#messages {
-    margin-bottom: 40px
 }
