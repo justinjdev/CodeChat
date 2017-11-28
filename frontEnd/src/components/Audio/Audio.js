@@ -84,15 +84,15 @@ class Audio extends Component {
         })
     }
     recclick() {  //if using a button for PTT
-        if(mic){
+        if(mic){  //inactive if user does not allow access to microphone. Show Alert
             if(vcstate) { //button only active if user is in VC
-                if(mediaRecorder.state === "recording"){
+                if(mediaRecorder.state === "recording"){  //if recording, stop recording and clear interval
                     document
                         .getElementById("rbutton")
                         .value = "Start Recording"    //change button text
                     clearInterval(recinterval)
                     mediaRecorder.stop()              //stop recording
-                } else {
+                } else {  //start recording and set interval
                     document
                         .getElementById("rbutton")
                         .value = "Stop Recording"     //change button text
@@ -124,9 +124,9 @@ class Audio extends Component {
     //    }
     //}
     vcclick() {
-        if(vcstate) {
+        if(vcstate) { //if in VC, disable VC
             if(mic) {
-                if(mediaRecorder.state === "recording") {
+                if(mediaRecorder.state === "recording") {  //disable recording if recording. Do not check if mic disabled
                     this.recclick()
                 }
             }
@@ -134,21 +134,21 @@ class Audio extends Component {
             document
                 .getElementById("vcbutton")
                 .value = "Enter VC"
-        } else {
+        } else { //enter VC
             vcstate = true
             document
                 .getElementById("vcbutton")
                 .value = "Leave VC"
         }
     }
-    recchange(e) {
+    recchange(e) {  //set gain.value to new value if mic is enabled, else display alert
         if(mic) {
             gainNode.gain.value = e.target.value
         } else {
             window.alert("Microphone Disabled")
         }
     }
-    pbchange(e) {
+    pbchange(e) {  //set playback volume to new value
         pbvolume = e.target.value
     }
     render() {
