@@ -1,0 +1,20 @@
+{
+  "name": "sandbox",
+  "version": "1.0.0",
+  "description": "sandbox for SE testing",
+  "main": "js/main.js",
+  "scripts": {
+    "test": "shell/test.sh"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.4",
+    "path": "^0.12.7",
+    "body-parser": "^1.15.0",
+    "guid": "0.0.12",
+    "mustache": "^2.2.1",
+    "querystring": "^0.2.0",
+    "request": "^2.69.0"
+  }
+}
