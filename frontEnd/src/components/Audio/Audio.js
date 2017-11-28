@@ -106,7 +106,7 @@ class Audio extends Component {
                 }
             }
         } else {
-            window.alert("Microphone Disabled")
+            window.alert("Enable your microphone you idiot")
         }
     }
     //reckeydown(e) { //PTT key pressed down    - currently not bound
