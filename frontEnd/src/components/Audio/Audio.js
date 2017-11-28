@@ -6,8 +6,8 @@ import './Audio.css'
 // const socket = io('https://ezchatrooms.herokuapp.com/') //old test, maybe
 // remove it?
 
-//const socket = io('localhost:8080') // local computer
-const socket = io('104.131.129.223:8080') // server
+const socket = io('localhost:8080') // local computer
+// const socket = io('104.131.129.223:8080') // server
 
 let mediaRecorder    //records audio
 let vcstate = false   //tracks whether user is in VC or not
@@ -60,7 +60,7 @@ class Audio extends Component {
                         chunks = []  //empty buffer
                   //      socket.emit('voice', blob)  //send blob to server
 
-                  
+
                   let audio = document.createElement('audio')
                   audio.volume = pbvolume     //set playback volume
                   audio.src = window    //link audio

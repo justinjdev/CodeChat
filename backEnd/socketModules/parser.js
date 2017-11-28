@@ -25,6 +25,9 @@ module.exports = class Parser {
             case 'join':
                 {
                     message.text = "join command " + argument
+                    message.previousRoom = message.room
+                    message.newRoom = argument
+                    message.command = 'join'
                     return (message)
                     break
                 }
