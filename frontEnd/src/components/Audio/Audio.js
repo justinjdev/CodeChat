@@ -5,14 +5,16 @@ import './Audio.css'
 
 // const socket = io('https://ezchatrooms.herokuapp.com/') //old test, maybe
 // remove it?
-const socket = io('localhost:8080') // local computer
+
+//const socket = io('localhost:8080') // local computer
+const socket = io('104.131.129.223:8080') // server
+
 let mediaRecorder    //records audio
 let vcstate = false   //tracks whether user is in VC or not
 let gainNode         //pass audio stream through gainNode to manipulate recording volume
 let pbvolume = 1     //storage for pbvolume so we do not have to manually retrieve it every time we play a segment
 let recinterval  //stores interval id: used to setInterval when recording and clearInterval when not recording
 let mic // T/F did user allow mic
-// const socket = io('104.131.129.223:8080') // servers
 
 class Audio extends Component {
     constructor(props) {
@@ -104,7 +106,7 @@ class Audio extends Component {
                 }
             }
         } else {
-            window.alert("Microphone Disabled")
+            window.alert("Enable your microphone you idiot")
         }
     }
     //reckeydown(e) { //PTT key pressed down    - currently not bound
