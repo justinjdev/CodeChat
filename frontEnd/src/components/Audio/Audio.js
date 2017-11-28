@@ -11,6 +11,7 @@ let vcstate = false   //tracks whether user is in VC or not
 let gainNode         //pass audio stream through gainNode to manipulate recording volume
 let pbvolume = 1     //storage for pbvolume so we do not have to manually retrieve it every time we play a segment
 let recinterval  //stores interval id: used to setInterval when recording and clearInterval when not recording
+let mic // T/F did user allow mic
 // const socket = io('104.131.129.223:8080') // servers
 
 class Audio extends Component {
@@ -34,9 +35,9 @@ class Audio extends Component {
             let chunks = [] //buffer to store audio in
             navigator
                 .mediaDevices
-                .getUserMedia(constraints)
-                .then(function (mediaStream) {
-
+                .getUserMedia(constraints)  //ask user for permission to use microphone
+                .then(function (mediaStream) {  //user accepts
+                    mic = true
                     let audioCtx = new AudioContext() //reroute input to control recording volume
                     let source = audioCtx.createMediaStreamSource(mediaStream)
                     let dest = audioCtx.createMediaStreamDestination()
@@ -66,6 +67,9 @@ class Audio extends Component {
                   audio.play()    //play audio
                     }
                 })
+                .catch(function (err) {  ///user does not accept or error
+                    mic = false
+                })
         }
         socket.on('voice', function (buff) {
             if(vcstate) {
@@ -80,23 +84,27 @@ class Audio extends Component {
         })
     }
     recclick() {  //if using a button for PTT
-        if(vcstate) { //button only active if user is in VC
-            if(mediaRecorder.state == "recording"){
-                document
-                    .getElementById("rbutton")
-                    .value = "Start Recording"    //change button text
-                clearInterval(recinterval)
-                mediaRecorder.stop()              //stop recording
-            } else {
-                document
-                    .getElementById("rbutton")
-                    .value = "Stop Recording"     //change button text
-                recinterval = setInterval(function () {   //every 500 ms, if recording, restart mediaRecorder to send buffer to server
-                    mediaRecorder.stop()
-                    mediaRecorder.start()
-                }, 500) //interval time in ms. Lower time makes audio choppy
-                mediaRecorder.start()             //start recording
+        if(mic){
+            if(vcstate) { //button only active if user is in VC
+                if(mediaRecorder.state == "recording"){
+                    document
+                        .getElementById("rbutton")
+                        .value = "Start Recording"    //change button text
+                    clearInterval(recinterval)
+                    mediaRecorder.stop()              //stop recording
+                } else {
+                    document
+                        .getElementById("rbutton")
+                        .value = "Stop Recording"     //change button text
+                    recinterval = setInterval(function () {   //every 500 ms, if recording, restart mediaRecorder to send buffer to server
+                        mediaRecorder.stop()
+                        mediaRecorder.start()
+                    }, 500) //interval time in ms. Lower time makes audio choppy
+                    mediaRecorder.start()             //start recording
+                }
             }
+        } else {
+            window.alert("Microphone Disabled")
         }
     }
     //reckeydown(e) { //PTT key pressed down    - currently not bound
@@ -117,8 +125,10 @@ class Audio extends Component {
     //}
     vcclick() {
         if(vcstate) {
-            if(mediaRecorder.state == "recording") {
-                this.recclick()
+            if(mic) {
+                if(mediaRecorder.state == "recording") {
+                    this.recclick()
+                }
             }
             vcstate = false
             document
@@ -134,7 +144,11 @@ class Audio extends Component {
         }
     }
     recchange(e) {
-        gainNode.gain.value = e.target.value
+        if(mic) {
+            gainNode.gain.value = e.target.value
+        } else {
+            window.alert("Microphone Disabled")
+        }
     }
     pbchange(e) {
         pbvolume = e.target.value
