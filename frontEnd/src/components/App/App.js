@@ -26,7 +26,7 @@ class App extends Component {
     this.setState(state)
   }
 
-  getSignedIn() {
+  getSignedIn() { // this is dangerous. TODO: Change and fix
     const chatting = localStorage.getItem('chatting')
     let state = this.state
     state.chatting = chatting
