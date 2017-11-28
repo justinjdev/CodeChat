@@ -4,7 +4,7 @@
 
     hr{
         color: #919191;
-        margin: 0px 10px;
+        margin: 10px 10px;
     }
 
     .active{
@@ -35,6 +35,7 @@
             }
 
             &:hover{
+                //background-color: #505050;
                 background-color: #505050;
             }
             // &:active{
