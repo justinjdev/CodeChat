@@ -7,22 +7,6 @@ const dbcontroller = new DBcontroller()
 const ParserFile = require('./parser')
 // const parser = new ParserFile()
 
-function generateUUID() { // Public Domain/MIT
-    var d = new Date().getTime();
-    if (typeof performance !== 'undefined' && typeof performance.now === 'function') {
-        d += performance.now(); //use high-precision timer if available
-    }
-    return 'xxxx'.replace(/[xy]/g, function (c) {
-        var r = (d + Math.random() * 16) % 16 | 0;
-        d = Math.floor(d / 16);
-        return (c === 'x'
-                ? r
-                : (r & 0x3 | 0x8))
-            .toString(16)
-            .charCodeAt(0);
-    });
-}
-
 module.exports = class Socket {
     constructor(io) {
         this.nicknames = {}
@@ -41,9 +25,8 @@ module.exports = class Socket {
             .io
             .on('connection', async(socket) => {
                 console.log("NICKNAMES!!", this.nicknames)
-                socket.emit('nickRequest', "nickname pls")
                 socket.on('nickReply', nickname => {
-                    id = socket.id
+                    let id = socket.id
                     this.nicknames.id = nickname
                 })
 
@@ -94,7 +77,7 @@ module.exports = class Socket {
                 socket.on('message', (message, response) => {
                     let date = Date.now()
                     message.time = date
-                    message.id = socket.id + date //setting message id
+                    message.id = '666' + date //setting message id
                     dbcontroller.save(message)
                     console.log(message)
                     // remove invalid messages
@@ -107,9 +90,10 @@ module.exports = class Socket {
                                 .then(res => {
                                     console.log('response')
                                     console.log(res)
-                                    res.newNick
-                                        ? this.nicknames[socket.id] = res.newNick
-                                        : console.log()
+                                    if (res.newNick) {
+                                        this.nicknames[socket.id] = res.newNick
+                                        socket.emit('nickRequest', res.newNick)
+                                    }
                                     response(res)
                                     socket
                                         .broadcast
@@ -219,4 +203,20 @@ module.exports = class Socket {
         console.log(actualRooms)
         return (actualRooms)
     }
+}
+
+function generateUUID() { // Public Domain/MIT
+    var d = new Date().getTime();
+    if (typeof performance !== 'undefined' && typeof performance.now === 'function') {
+        d += performance.now(); //use high-precision timer if available
+    }
+    return 'xxxx'.replace(/[xy]/g, function (c) {
+        var r = (d + Math.random() * 16) % 16 | 0;
+        d = Math.floor(d / 16);
+        return (c === 'x'
+                ? r
+                : (r & 0x3 | 0x8))
+            .toString(16)
+            .charCodeAt(0);
+    });
 }

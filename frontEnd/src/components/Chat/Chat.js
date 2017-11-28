@@ -1,12 +1,12 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 // import io from 'socket.io-client'
 
 import './Chat.css'
 
-// const socket = io('https://ezchatrooms.herokuapp.com/') //old test, maybe remove it?
-// const socket = io('localhost:8080') // local computer
-// const socket = io('104.131.129.223:8080') // servers
-// const socket = io('192.168.1.83:8080') // server
+// const socket = io('https://ezchatrooms.herokuapp.com/') //old test, maybe
+// remove it? const socket = io('localhost:8080') // local computer const socket
+// = io('104.131.129.223:8080') // servers const socket =
+// io('192.168.1.83:8080') // server
 
 class Chat extends Component {
     constructor(props) {
@@ -14,7 +14,8 @@ class Chat extends Component {
         this.state = {
             chatInput: '',
             room: 'Lobby',
-            messagesList: []
+            messagesList: [],
+            nick: 'Hoebert'
         }
 
         this.submitHandler = this
@@ -36,36 +37,64 @@ class Chat extends Component {
     }
     componentDidMount() {
         console.log('did mount')
+        this
+            .props
+            .socket
+            .on("userList", (list) => {
+                if (list != null) {
+                    console.table(list)
+                }
+            })
 
-        this.props.socket.on("userList", (list) => {
-            if (list != null)
-                console.table(list)
-        })
+        this
+            .props
+            .socket
+            .on('cachedMessages', (msgs) => {
+                // console.table(msgs)
+                for (let i in msgs) {
+                    this.printMessage(JSON.parse(msgs[i]))
+                }
+            })
 
-        this.props.socket.on('cachedMessages', (msgs) => {
-            console.table(msgs)
-            for (let i in msgs) {
-                this.printMessage(JSON.parse(msgs[i]))
-            }
-        })
+        this
+            .props
+            .socket
+            .on('message', (message) => {
+                console.log(message)
+                this.printMessage(message)
+            })
+        this
+            .props
+            .socket
+            .on('nickRequest', (nick) => {
+                this.state.nick = nick
+                console.log("new nickname:", nick)
+            })
 
-        this.props.socket.on('message', (message) => {
-            console.log(message)
-            this.printMessage(message)
-        })
+        this
+            .props
+            .socket
+            .on('joinResult', (join) => {
+                this.clearMessageList()
 
-        this.props.socket.on('joinResult', (join) => {
-            this.clearMessageList()
+                let state = this.state
+                state.room = join.room
+                this.setState(state)
 
-            let state = this.state
-            state.room = join.room
-            this.setState(state)
+                console.log('connected to: ' + this.state.room)
 
-            console.log('connected to: ' + this.state.room)
+                this
+                    .props
+                    .socket
+                    .emit('getCache', this.state.room)
 
-            this.props.socket.emit('getCache', this.state.room)
+            })
 
-        })
+        this
+            .props
+            .socket
+            .emit('nickReply', this.state.nick)
+        console.log("emitting nickname:", this.state.nick)
 
         const textArea = document.querySelector('.input')
         const submitButton = document.querySelector('.submit')
@@ -79,7 +108,9 @@ class Chat extends Component {
             // console.log(event.keyCode)
             if (event.keyCode === 9) {
                 event.preventDefault()
-                this.setState({ chatInput: event.target.value + "\t" })
+                this.setState({
+                    chatInput: event.target.value + "\t"
+                })
             }
         })
     }
@@ -90,16 +121,19 @@ class Chat extends Component {
         let messageObject = {
             room: this.state.room,
             text: messageText,
-            nick: 'bobert',
+            nick: this.state.nick,
             isCode: false,
             isOutput: false
         }
 
         //   socket.emit('question', 'do you think so?', function (answer) {});
-        this.props.socket.emit('message', messageObject, (answer) => {
-            console.log(answer.text)
-            this.printMessage(answer)
-        })
+        this
+            .props
+            .socket
+            .emit('message', messageObject, (answer) => {
+                console.log(answer.text)
+                this.printMessage(answer)
+            })
 
         let state = this.state
         state.chatInput = ''
@@ -124,7 +158,7 @@ class Chat extends Component {
         this.setState(state)
 
         let lastMessage = document.querySelector('.message:last-child')
-        lastMessage.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" })
+        lastMessage.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"})
     }
 
     clearMessageList() {
@@ -138,8 +172,8 @@ class Chat extends Component {
         let state = this.state
         state.chatInput = event.target.value
         this.setState(state)
-        // this.setState({ chatInput: event.target.value })
-        // console.log("textChange", event.target.value)
+        // this.setState({ chatInput: event.target.value }) console.log("textChange",
+        // event.target.value)
     }
 
     render() {
@@ -147,16 +181,19 @@ class Chat extends Component {
             <div className="chat">
                 <div className="chat-window">
                     <ul className="messages-list">
-                        {this.state.messagesList.map((message, index) => {
-                            return <li className="message" key={index}>
-                                <div className="message-sender">
-                                    {message.nick}
-                                </div>
-                                <div className="message-text">
-                                    {message.text}
-                                </div>
-                            </li>
-                        })}
+                        {this
+                            .state
+                            .messagesList
+                            .map((message, index) => {
+                                return <li className="message" key={index}>
+                                    <div className="message-sender">
+                                        {message.nick}
+                                    </div>
+                                    <div className="message-text">
+                                        {message.text}
+                                    </div>
+                                </li>
+                            })}
                     </ul>
                 </div>
                 <form className="chat-input" onSubmit={this.submitHandler}>
@@ -166,12 +203,9 @@ class Chat extends Component {
                         rows="1"
                         onChange={this.textChangeHandler}
                         value={this.state.chatInput}
-                        required />
+                        required/>
                     <div className="submit-buttons">
-                        <button
-                            className="submit"
-                            type="submit"
-                            value="Send">Send</button>
+                        <button className="submit" type="submit" value="Send">Send</button>
                         <button
                             className="clear"
                             type="reset"
