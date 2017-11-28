@@ -86,7 +86,7 @@ class Audio extends Component {
     recclick() {  //if using a button for PTT
         if(mic){
             if(vcstate) { //button only active if user is in VC
-                if(mediaRecorder.state == "recording"){
+                if(mediaRecorder.state === "recording"){
                     document
                         .getElementById("rbutton")
                         .value = "Start Recording"    //change button text
@@ -126,7 +126,7 @@ class Audio extends Component {
     vcclick() {
         if(vcstate) {
             if(mic) {
-                if(mediaRecorder.state == "recording") {
+                if(mediaRecorder.state === "recording") {
                     this.recclick()
                 }
             }
@@ -134,9 +134,7 @@ class Audio extends Component {
             document
                 .getElementById("vcbutton")
                 .value = "Enter VC"
-        }
-        
-        else {
+        } else {
             vcstate = true
             document
                 .getElementById("vcbutton")
