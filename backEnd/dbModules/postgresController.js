@@ -1,3 +1,18 @@
+/*---------------General FUnctions Should Follow As Below-------------------------------------------------------------------------------------------------------------
+1)  insert a User record (when a user registers)
+2)  insert a Message record (when a message/code is sent)
+3)  insert a Channel record (when a new channel is created)
+4)  insert a Users_In_Channel record (when a user joins a channel)
+5)  get list of all User emails (used to determine if an email has already been registered)
+6)  get the list of all usernames currently in a channel (to display in the GUI so people can see who is in channel)
+7)  change a username (in case a user wants to change their username)
+8)  change a channel name (in case a user wants to change the name of a private channel or admin the name of general channel)
+9)  change a user bio (when a user wants to change their bio)
+10) user search function (specify 1. a category (Message, User, Channel), 2. then keyword(s))
+11) delete a channel (when admin wants to delete a channel or a user wants to delete a private channel)
+12) delete a user from a channel (when a user leaves a channel)
+-------------------------------------------------------------------------------------------------------------*/
+
 'use strict'
 
 //stevan & sabian queries
@@ -7,6 +22,12 @@ const pgp = require('pg-promise')({
 })
 const connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/codechat_database'
 const client = pgp(connectionString)
+
+//declare tables
+const Channel = "Channel"
+const Messages = "Messages"
+const Users = "Users"
+const Users_In_Channel = "Users_In_Channel"
 
 module.exports = class PostgresController {
     async testDB() {}
@@ -40,6 +61,7 @@ module.exports = class PostgresController {
     insert_New_User(u_id, u_email, u_pass, u_username, u_firstname, u_lastname, u_bio) {
         {
             client
+                console.log(`INSERT INTO "Users"(u_username", "u_pass", "u_email", "u_id", "u_firstname", "u_lastname", "u_bio") VALUES ('${u_username}', '${u_pass}', '${u_email}',  '${u_id}', '${u_firstname}", '${U_lastname}', '${u_bio}') returning u_username`)
                 .any(`INSERT INTO "Users"(u_username", "u_pass", "u_email", "u_id", "u_firstname", "u_lastname", "u_bio") VALUES ('${u_username}', '${u_pass}', '${u_email}',  '${u_id}', '${u_firstname}", '${U_lastname}', '${u_bio}') returning u_username`)
                 .then(() => {
                     resolve("Successful Insert of new user.")
@@ -55,10 +77,11 @@ module.exports = class PostgresController {
         insert_message(m_id, ch_id, u_id, message_text, isCode, m_response, m_time, hasInputs){
             return new Promise((resolve, reject) => {
             Client
-            .any(`INSERT INTO "Messages"("m_id", "ch_id", "u_id","message_text", "isCode", "m_response", "m_time", "hasInputs") VALUES ('${m_id}', '${ch_id}', '${u_id}', '${message_text}', '${isCode}', '${m_response}', '${m_time}', '${hasinputs}') returning m_id`)
-            .then(() => {
-                resolve("Successful Insert of Message.")
-            })
+                console.log(`INSERT INTO "Messages"("m_id", "ch_id", "u_id","message_text", "isCode", "m_response", "m_time", "hasInputs") VALUES ('${m_id}', '${ch_id}', '${u_id}', '${message_text}', '${isCode}', '${m_response}', '${m_time}', '${hasinputs}') returning m_id`)
+                .any(`INSERT INTO "Messages"("m_id", "ch_id", "u_id","message_text", "isCode", "m_response", "m_time", "hasInputs") VALUES ('${m_id}', '${ch_id}', '${u_id}', '${message_text}', '${isCode}', '${m_response}', '${m_time}', '${hasinputs}') returning m_id`)
+                .then(() => {
+                    resolve("Successful Insert of Message.")
+               })
                 .catch(error => {
                 reject(error)
                 })
@@ -70,6 +93,7 @@ module.exports = class PostgresController {
         insert_channel(ch_id, type){
             return new Promise((resolve, reject) => {
             client
+                console.log(`INSERT INTO "Channel"("ch_id", "type") VALUES ('${ch_id}', '${type}') returning type`)
                 .any(`INSERT INTO "Channel"("ch_id", "type") VALUES ('${ch_id}', '${type}') returning type`)
                 .then(ch_id => {
                     resolve(ch_id)
@@ -85,6 +109,7 @@ module.exports = class PostgresController {
         user_in_channel(u_id, ch_id){
             return new Promise((resolve, reject) => {
             client
+                console.log(`INSERT INTO "Users_In_Channel"("u_id", "ch_id") VALUES ('${u_id}', '${ch_ID}') returning u_id`)
                 .any(`INSERT INTO "Users_In_Channel"("u_id", "ch_id") VALUES ('${u_id}', '${ch_ID}') returning u_id`)
                 .then(() => {
                     resolve("Successful Inserted user into channel.")
@@ -120,12 +145,13 @@ module.exports = class PostgresController {
         user_channel_query(ch_id){
             return new Promise((resolve, reject) => {
                 client
+                    console.log(`SELECT * FROM ${Users_In_Channel} ORDER BY u_id,ch_id;`)
                     .any(`SELECT * FROM ${Users_In_Channel} ORDER BY u_id,ch_id;`)
                     .then(data => {
-                    if (data.length > 0) {
-                        resolve(data)
-                    } else {
-                        reject(error)
+                        if (data.length > 0) {
+                            resolve(data)
+                        } else {
+                            reject(error)
                     }
                 })
                 .catch(error => {
@@ -142,9 +168,9 @@ module.exports = class PostgresController {
                 .any(`UPDATE "public"."${Users}" SET '${u_id}', '${u_username}'='${new_username}' RETURNING "u_username"`)
                 .then(data => {
                     resolve(data)
-                })
-                .catch(error => {
-                    reject(error)
+                    })
+                    .catch(error => {
+                        reject(error)
                 })
             })
         }
@@ -157,9 +183,9 @@ module.exports = class PostgresController {
                 .any(`UPDATE "public"."${Channels}" SET '${ch_id}', '${ch_name}'='${new_channelname}' RETURNING "ch_name"`)
                 .then(data =>{
                     resolve(data)
-            })
-                .catch(error => {
-                    reject(error)
+                 })
+                    .catch(error => {
+                        reject(error)
                 })
             })
         }
@@ -172,9 +198,9 @@ module.exports = class PostgresController {
                 .any(`UPDATE "public"."${Users}" SET '${u_id}', '${u_bio}'='${new_userbio}' RETURNING "u_bio"`)
                 .then(data =>{
                     resolve(data)
-            })
-                .catch(error => {
-                    reject(error)
+                })
+                    .catch(error => {
+                        reject(error)
                 })
             })
         }
@@ -206,9 +232,9 @@ module.exports = class PostgresController {
                 .any(`DELETE "public"."${Channels}" WHERE '${ch_id}'`)// not sure ..^
                 .then(data =>{
                     resolve(data)
-                })
-                .catch(error => {
-                    reject(error)
+                    })
+                    .catch(error => {
+                        reject(error)
                 })
             })
         }
@@ -222,9 +248,9 @@ module.exports = class PostgresController {
                 .any(`DELETE "public"."${Users}" WHERE '${ch_id, u_id}'`)// not sure ..^
                 .then(data =>{
                     resolve(data)
-            })
-                .catch(error => {
-                    reject(error)
+                })
+                    .catch(error => {
+                        reject(error)
                 })
             })
         }

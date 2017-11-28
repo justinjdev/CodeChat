@@ -59,25 +59,25 @@ class Chennels extends Component {
                 <hr />
                 <ul className="channel-list">
                     <li className="channel centered-text">
-                        <a href="#"  onClick={this.onChannelClick}>ADA</a>
+                        <a onClick={this.onChannelClick}>ADA</a>
                     </li>
                     <li className="channel centered-text">
-                        <a href="#" onClick={this.onChannelClick}>C++</a>
+                        <a onClick={this.onChannelClick}>C++</a>
                     </li>
                     <li className="channel centered-text">
-                        <a href="#" onClick={this.onChannelClick}>Java</a>
+                        <a onClick={this.onChannelClick}>Java</a>
                     </li>
                     <li className="channel centered-text">
-                        <a href="#" onClick={this.onChannelClick}>Python</a>
+                        <a onClick={this.onChannelClick}>Python</a>
                     </li>
                 </ul>
                 <hr />
                 <ul className="channel-list">
                 <li className="channel centered-text">
-                        <a href="#" onClick={this.onChannelClick}>CodeChat Devs</a>
+                        <a onClick={this.onChannelClick}>CodeChat Devs</a>
                     </li>
                     <li className="channel centered-text">
-                        <a href="#" onClick={this.onChannelClick}>SHACS Tutors</a>
+                        <a onClick={this.onChannelClick}>SHACS Tutors</a>
                     </li>
                 </ul>
             </div>

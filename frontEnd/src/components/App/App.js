@@ -6,7 +6,7 @@ import Register from '../Register/Register'
 import SignIn from '../SignIn/SignPage'
 import io from 'socket.io-client'
 
-const socket = io('104.131.129.223:8080') // servers
+const socket = io('localhost:8080') // servers
 
 class App extends Component {
   render() {
