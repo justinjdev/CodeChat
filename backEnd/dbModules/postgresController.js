@@ -189,6 +189,7 @@ module.exports = class PostgresController {
                 })
             })
         }
+    
 
     //9)change a user bio
         //not tested
@@ -204,6 +205,23 @@ module.exports = class PostgresController {
                 })
             })
         }
+    /*
+    //9)change user bio
+	//not tested
+	change_user_bio(u_id, val){
+		return new Promise((resolve, reject) => {
+			client
+			console.log(`UPDATE "public".${Users} SET '${u_id}', '${u_bio}'='${val}' RETURNING "u_bio"`)
+			.any(`UPDATE "public".${Users} SET '${u_id})', '${u_bio}'='${val}' RETURNING "u_bio"`)
+			.then(data => {
+				resolve(data)
+			})
+			.catch(error => {
+				reject(error)
+			})
+		})
+	}*/
+    
 
     //10)user search function
         //not tested
@@ -223,6 +241,28 @@ module.exports = class PostgresController {
                     reject(error)
                 })
             }
+    
+    /*
+    //10)search funcition(specifiying category and then keywords) -incomplete-
+	//not tested
+	search_channel(u_id, ch_id, keyword){
+		return new Promise((resolve, reject) => {
+			client
+			console.log(`SELECT * FROM "public".${Message} WHERE '${m_text}' = ANY ({keyword} :: text []) ORDER BY checked, u_id`) //test1, give back any text of keyword.
+			//console.log(`SELECT * FROM "public".${Message} WHERE '${m_text}' = ANY ({keyword} :: text [])`) //test2, search for text, returns text, channel & user id. -incomplete-
+			.any(`SELECT * FROM "public"."${Message}" WHERE '${m_text}' = ANY ({keyword} :: text []) ORDER BY checked, u_id`)
+			.then(data =>  {
+				resolve(data)
+			})
+			.catch(error => {
+				reject(error)
+			})
+		})
+	}
+    */
+    
+    
+    
 
     //11)delete a channel
         //not tested
@@ -238,6 +278,23 @@ module.exports = class PostgresController {
                 })
             })
         }
+   /*
+   //11)Delete a channel(admin deletss the channel or user deletes a private channel)
+	//not tested
+	delete_channel(ch_id) {
+		return new Promise((resolve, reject) => {
+			client
+			console.log(`DELETE FROM "plubic".${Channel} WHERE "ch_id" = '${ch_id}'`) //idk how the admin would know the ch_id
+			.any(`DELETE FROM "plubic".${Channel} WHERE "ch_id" = '${ch_id}'`)
+			.then(data => {
+				resolve(data, "channel has been deleted!!")
+			})
+			.catch(error => {
+				reject(error)
+			})
+		})
+	}*/
+    
 
 
     //12)delete a user from a channel
@@ -254,4 +311,45 @@ module.exports = class PostgresController {
                 })
             })
         }
+    /*
+    //12)Delete user from a channel
+	//not tested
+	delete_user_from_channel(u_id, ch_id) {
+		return new Promise((resolve, reject) => {
+			client
+			console.log(`DELETE FROM "plubic".${Users_In_Channel} WHERE "u_id" = '${u_id}' AND "ch_id" = '${ch_id}'`)
+			.any(`DELETE FROM "plubic".${Users_In_Channel} WHERE "u_id" = '${u_id}' AND "ch_id" = '${ch_id}'`)
+			.then(data => {
+				resolve("user has been removed from channel")
+			})
+			.catch(error => {
+				reject(error)
+			})
+		})
+	}
+    */
+    
+   /*
+   //13)Gives all the dill for single user.
+	//not tested
+	give_all_single(u_id) {
+		return new Promise((resolve, reject) => {
+			client
+			console.log(`SELECT * FROM "public".${Channel} AND "public".$"{} `)//idk t
+			.any(``)
+			.then(data => {
+				resolve(data)
+			})
+			.catch(error => {
+				reject(error)
+			})
+		})
+	}
+    */
+    
+    
+    
+    
+    
+    
     }
