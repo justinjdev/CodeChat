@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom'
+//import ReactDOM from 'react-dom'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-//import axios from 'axios';
-import SignPage from '../SignIn/SignPage';
+//import SignPage from '../SignIn/SignPage';
 import './Register.css';
 
 class Register extends Component {
@@ -51,7 +50,6 @@ class Register extends Component {
    });
   }
 */
-
 
   render(){
 

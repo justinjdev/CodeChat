@@ -15,20 +15,25 @@ class MainPage extends Component {
                             <h3>{"<CODE CHAT>"}</h3>
                     </div>
                     <div className="content row">
+
                         <div className="left-sidebar col-xs-2">
                             <div className="profile-icon centered-text">
                                 <p>D.B.</p>
                             </div>
                             <Channels socket={this.props.socket}/>
                         </div>
+
                         <div className="main col-xs-9">
                             <Chat socket={this.props.socket}/>
                         </div>
+
                         <div className="right-sidebar col-xs-1">
-                            <p>active</p>
+                            <p>Active</p>
                             <ActiveUsers socket={this.props.socket}/>
                         </div>
+                        
                     </div>
+
                     <div className="footer row centered-text">
                         <h3>{"</CODE CHAT>"}</h3>
                     </div>

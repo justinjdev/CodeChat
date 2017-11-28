@@ -29,11 +29,14 @@ class UserProfile extends Component {
             <div className="content row">
             <div className="left-sidebar col-xs-2">
             <div className="profile-icon centered-text">
-            <p>D.B.</p>
-            </div>         
+           <center> <p>Change Avatar</p> </center>
+
+            </div>   
+
+
+            <hr />
 
             <div className="profile">
-                <hr />
                 <ul className="menu-list">
                     <li className="channel centered-text">
                         <a href="usersettings">Profile</a>
