@@ -62,7 +62,7 @@ module.exports = class Socket {
                     await this.listSocketsInRoom()
                     socket.emit('joinResult', {room: room.newRoom})
                 })
-                socket.on('getCache', async room => {
+                socket.on('getCache', async (room) => {
                     await this.getCachedMessages(room, socket)
 
                 })
