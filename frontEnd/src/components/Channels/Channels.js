@@ -100,13 +100,13 @@ class Chennels extends Component {
                     </li>
                 <h4>Database Channels</h4>
 
-                        {/* { // TODO: implement later
+                        { // TODO: implement later
                             this
                             .state
                             .allRooms
                             .map((roomname, index) => {
                                 return <li className="channel centered-text" key={index}><a onClick={this.onChannelClick}>{roomname}</a></li>
-                            })} */}
+                            })}
                 </ul>
 
             </div>

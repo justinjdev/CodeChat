@@ -231,7 +231,7 @@ module.exports = class Socket {
         // for(let i in rooms){
         //     allRooms.push(i)
         // }
-
+        console.log("getting get all rooms")
         return (rooms)
     }
 
