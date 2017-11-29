@@ -15,9 +15,6 @@ class Chennels extends Component {
             .bind(this)
 
     }
-    componentDidMount(){
-        
-    }
 
     componentDidMount(){
         this.props.socket.on('joinResult', (room) => {
@@ -27,16 +24,16 @@ class Chennels extends Component {
         })
 
         this.props.socket.on('roomList', (allRooms) => {
-            console.log("get channels")
-            console.log(allRooms)
+            // console.log("get channels")
+            // console.log(allRooms)
 
-            for(let i in allRooms){
-            console.log(allRooms[i])
-            }
+            // for(let i in allRooms){
+            // console.log(allRooms[i])
+            // }
 
-            let newState = this.state
-            newState.allRooms = allRooms
-            this.setState(newState)
+            // let newState = this.state
+            // newState.allRooms = allRooms
+            // this.setState(newState)
         })
         
         this.props.socket.emit('getRooms')
@@ -55,7 +52,7 @@ class Chennels extends Component {
             previousRoom: this.state.roomName,
             newRoom: event.target.text
         }
-        // console.log(event.target)
+        
         var elems = document.querySelector(".active")
         if (elems !== null) {
             elems.classList.remove("active")
@@ -100,13 +97,13 @@ class Chennels extends Component {
                     </li>
                 <h4>Database Channels</h4>
                     
-                        {
+                        {/* {
                             this
                             .state
                             .allRooms
                             .map((roomname, index) => {
                                 return <li className="channel centered-text" key={index}><a onClick={this.onChannelClick}>{roomname}</a></li>
-                            })}
+                            })} */}
                 </ul>
                 
             </div>
