@@ -15,12 +15,12 @@ class Register extends Component {
     this.state={
       first_name:'',
       last_name:'',
-     // Username:'',
+      username:'',
       email:'',
       password:''
     }
   }
-/*
+
   handleClick(event){
     var apiBaseUrl = "http://localhost:4000/api/";
     console.log("values",this.state.first_name,this.state.last_name,this.state.email,this.state.password);
@@ -29,10 +29,11 @@ class Register extends Component {
     var payload={
     "first_name": this.state.first_name,
     "last_name":this.state.last_name,
+    "username":this.state.username,
     "email":this.state.email,
     "password":this.state.password
     }
-    axios.post(apiBaseUrl+'/register', payload)
+   // axios.post(apiBaseUrl+'/register', payload)
    .then(function (response) {
      console.log(response);
      if(response.data.code === 200){
@@ -51,7 +52,7 @@ class Register extends Component {
      console.log(error);
    });
   }
-*/
+
 
 
   render(){
