@@ -117,7 +117,7 @@ module.exports = class Socket {
                     }
                 })
                 socket.on('getRooms', async(room) => {
-                    const allRooms = ['Ada', 'Java', 'Python']
+                    const allRooms = ['Lobby','Ada', 'Java', 'Python'] //TODO: include the rest of the rooms
 
                     console.log("ALL ROOMS:", allRooms)
                     socket.emit('roomList', allRooms)
