@@ -40,9 +40,8 @@ module.exports = class Socket {
                     console.log(this.allRoomStuff)
                 })
 
-                // this.listSocketsInRoom(io.sockets,io)
-                // await this.getCachedMessages('Lobby', socket)
-                // when they join, emit the message 'joinResult'
+                // this.listSocketsInRoom(io.sockets,io) await this.getCachedMessages('Lobby',
+                // socket) when they join, emit the message 'joinResult'
                 socket.emit('joinResult', {room: 'Lobby'}) //let the client know that it's defaulted to the lobby
 
                 /**
@@ -71,7 +70,7 @@ module.exports = class Socket {
                 })
                 socket.on('message', (message, response) => {
                     const uuid = generateUUID()
-                    message.id = uuid
+                    message.id = uuid / 100
                     message.language = ''
                     dbcontroller.save(message)
                     console.log(message)
@@ -116,7 +115,7 @@ module.exports = class Socket {
                     }
                 })
                 socket.on('getRooms', async(room) => {
-                    const allRooms = ['Lobby','Ada', 'Java', 'Python'] //TODO: include the rest of the rooms
+                    const allRooms = ['Lobby', 'Ada', 'Java', 'Python'] //TODO: include the rest of the rooms
 
                     console.log("ALL ROOMS:", allRooms)
                     socket.emit('roomList', allRooms)
@@ -126,15 +125,13 @@ module.exports = class Socket {
                     console.log("logging in user:", registerCreds)
                     const uuid = generateUUID()
 
-                    dbcontroller
-                        .registerUser(uuid, registerCreds.email, registerCreds.password, registerCreds.username, registerCreds.first_name, registerCreds.last_name, "")
-                        .then(reply => {
-                            if(reply === 'success'){
-                                socket.emit('registerReply', user)
-                            }
-                        }).catch(error=>{
-                            console.error("error with register")
-                        })
+                    dbcontroller.registerUser(Math.floor(uuid / 100), registerCreds.email, registerCreds.password, registerCreds.username, registerCreds.first_name, registerCreds.last_name, "").then(reply => {
+                        if (reply === 'success') {
+                            socket.emit('registerReply', user)
+                        }
+                    }).catch(error => {
+                        console.error("error with register")
+                    })
                 })
                 socket.on('loginRequest', loginCreds => {
                     console.log("logging in user:", loginCreds)
@@ -142,9 +139,12 @@ module.exports = class Socket {
                         .loginUser(loginCreds.email, loginCreds.password)
                         .then(user => {
                             console.log("this is the user yo!", user)
-                            user.length > 0 ? user = user : user = 'error'
+                            user.length > 0
+                                ? user = user
+                                : user = 'error'
                             socket.emit('loginReply', user)
-                        }).catch(error=>{
+                        })
+                        .catch(error => {
                             console.error("error with login")
                         })
                 })
