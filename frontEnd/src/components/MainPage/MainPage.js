@@ -6,7 +6,7 @@ import Chat from '../Chat/Chat'
 import Channels from '../Channels/Channels'
 import ActiveUsers from '../ActiveUsers/ActiveUsers'
 import Audio from '../Audio/Audio'
-import logo from './../../img/logo.png'
+// import logo from './../../img/logo.png'
 
 class MainPage extends Component {
     
@@ -20,8 +20,8 @@ class MainPage extends Component {
 
                         <div className="left-sidebar col-xs-2">
                             <div className="profile-icon centered-text">
-                                <img src={logo} alt="CodeChat"/>
-                                {/* <p>D.B.</p> */}
+                                 {/* <img src={logo} alt="CodeChat"/>  */}
+                                 <p>D.B.</p> 
                             </div>
                             <hr/>
                             <Channels socket={this.props.socket}/>
