@@ -290,8 +290,8 @@ module.exports = class PostgresController {
     //14)return all channel names
     return_all_channel_names(){
         return new Promise((resolve, reject) => {
-            console.log(`SELECT '${ch_name}' FROM "${Channel}"`)
-            client.any(`SELECT '${ch_name}' FROM "${Channel}"`)
+            console.log(`SELECT 'ch_name' FROM "${Channel}"`)
+            client.any(`SELECT 'ch_name' FROM "${Channel}"`)
             .then(data => {
                 resolve(data)
             }).catch(error => {

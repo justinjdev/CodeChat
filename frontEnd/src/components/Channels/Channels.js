@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './Channels.css';
 
 class Chennels extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
 
         this.state = {
-            roomName:'',
+            roomName: '',
             allRooms: []
         }
 
@@ -16,37 +16,36 @@ class Chennels extends Component {
 
     }
 
-    componentDidMount(){
-        this.props.socket.on('joinResult', (room) => {
-            let newState = this.state
-            newState.roomName = room.room
-            this.setState(newState)
-        })
+    componentDidMount() {
+        this
+            .props
+            .socket
+            .on('joinResult', (room) => {
+                let newState = this.state
+                newState.roomName = room.room
+                this.setState(newState)
+            })
 
-        this.props.socket.on('roomList', (allRooms) => {
-            // console.log("get channels")
-            // console.log(allRooms)
+        this
+            .props
+            .socket
+            .on('roomList', (allRooms) => {
+                // console.log("get channels") console.log(allRooms) for(let i in allRooms){
+                // console.log(allRooms[i]) } let newState = this.state newState.allRooms =
+                // allRooms this.setState(newState)
+            })
 
-            // for(let i in allRooms){
-            // console.log(allRooms[i])
-            // }
-
-            // let newState = this.state
-            // newState.allRooms = allRooms
-            // this.setState(newState)
-        })
-
-        this.props.socket.emit('getRooms')
-
+        this
+            .props
+            .socket
+            .emit('getRooms')
 
     }
 
-
     onChannelClick(event) {
-        // event.preventDefault()
-        // event.stopPropagation()
+        // event.preventDefault() event.stopPropagation()
         console.log("current room: " + this.state.roomName)
-        console.log("new room:",event.target.text)
+        console.log("new room:", event.target.text)
 
         let room = {
             previousRoom: this.state.roomName,
@@ -55,26 +54,30 @@ class Chennels extends Component {
 
         var elems = document.querySelector(".active")
         if (elems !== null) {
-            elems.classList.remove("active")
+            elems
+                .classList
+                .remove("active")
         }
-        event.target.classList.add('active')
+        event
+            .target
+            .classList
+            .add('active')
 
-        this.props.socket.emit('join', room)
+        this
+            .props
+            .socket
+            .emit('join', room)
 
-        // if(event.target.parentElement.classList.contains('channel')){
-
-        //     var elems = document.querySelector(".active")
-        //     if (elems !== null) {
-        //         elems.classList.remove("active")
-        //     }
-        //     event.target.classList.add('active')
-        // }
+        // if(event.target.parentElement.classList.contains('channel')){     var elems =
+        // document.querySelector(".active")     if (elems !== null) {
+        // elems.classList.remove("active")     }
+        // event.target.classList.add('active') }
     }
 
     render() {
         return (
             <div className="channels">
-                <hr />
+                <hr/>
                 <h4>Hardcoded Channels</h4>
                 <ul className="channel-list">
                     <li className="channel centered-text">
@@ -95,18 +98,21 @@ class Chennels extends Component {
                     <li className="channel centered-text">
                         <a onClick={this.onChannelClick}>SHACS Tutors</a>
                     </li>
-                <h4>Database Channels</h4>
+                    <h4>Database Channels</h4>
 
-                        { // TODO: implement later
-                            this
-                            .state
-                            .allRooms
-                            .map((roomname, index) => {
-                                return <li className="channel centered-text" key={index}><a onClick={this.onChannelClick}>{roomname}</a></li>
-                            })}
+                    {// TODO: implement later
+                    this
+                        .state
+                        .allRooms
+                        .map((roomname, index) => {
+                            return <li className="channel centered-text" key={index}>
+                                <a onClick={this.onChannelClick}>{roomname}</a>
+                            </li>
+                        })}
                 </ul>
 
             </div>
         );
     }
-} export default Chennels;
+}
+export default Chennels;
