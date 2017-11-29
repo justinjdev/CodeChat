@@ -18,19 +18,17 @@ class ActiveUsers extends Component {
     componentDidMount() {
         console.log('did mount')
         this.props.socket.on('userList', (users)=>{
-            console.log("users:")
             // for(let i in users){
             //     this.printMessage(JSON.parse(users[i]))
             // }
-            // if(users != null)
-            //     console.table(users)
+            if(users != null)
+                console.table(users)
         })
     }
 
     render() {
         return (
             <div className="active-users">
-                i dont actually know how to grab all the users...
                 <ul className="users-list">
                     <li className="active-user centered-text"><p>D.B.</p></li>
                     <li className="active-user centered-text"><p>T.M.</p></li>
