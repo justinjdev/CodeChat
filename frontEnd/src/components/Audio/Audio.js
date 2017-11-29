@@ -106,7 +106,7 @@ class Audio extends Component {
                 }
             }
         } else {
-            window.alert("Enable your microphone you idiot")
+        window.alert("Enable your microphone")
         }
     }
     //reckeydown(e) { //PTT key pressed down    - currently not bound
@@ -178,6 +178,7 @@ class Audio extends Component {
                     step="0.01"
                     defaultValue="1"
                     onChange={this.pbchange}/>
+                    <center>
                 <input
                     type="button"
                     value="Start Recording"
@@ -188,6 +189,7 @@ class Audio extends Component {
                     value="Enter VC"
                     id="vcbutton"
                     onClick={this.vcclick}/>
+                    </center>
             </div>
         )
     }
