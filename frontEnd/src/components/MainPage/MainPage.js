@@ -5,6 +5,7 @@ import 'bootstrap-grid/dist/grid.min.css'
 import Chat from '../Chat/Chat'
 import Channels from '../Channels/Channels'
 import ActiveUsers from '../ActiveUsers/ActiveUsers'
+import Audio from '../Audio/Audio'
 
 class MainPage extends Component {
     
@@ -21,6 +22,9 @@ class MainPage extends Component {
                                 <p>D.B.</p>
                             </div>
                             <Channels socket={this.props.socket}/>
+                            <center><p>Audio Settings</p></center>
+
+                            <Audio/>
                         </div>
 
                         <div className="main col-xs-9">
