@@ -79,7 +79,6 @@ module.exports = class Parser {
                 }
             case 'java':
                 {
-                    console.log("java command")
                     message.text = argument
                     message.isCode = true
                     message.language = "java"
