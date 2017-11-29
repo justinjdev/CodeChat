@@ -181,13 +181,13 @@ class Chat extends Component {
                             .state
                             .messagesList
                             .map((message, index) => {
+                                
                                 let textClass = "message-text"
-                                if(message.isCode){
+                                if(message.isCode)
                                     textClass += " code"
-                                }
-                                else if(message.isOutput){
+                                else if(message.isOutput)
                                     textClass += " output"
-                                }
+                                
                                 return <li className="message" key={index}>
                                     <div className="message-sender">
                                         {message.nick}
