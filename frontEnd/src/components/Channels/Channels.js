@@ -25,7 +25,7 @@ class Chennels extends Component {
 
         this.props.socket.on('roomList', (allRooms) => {
             console.log("get channels")
-            console.log(allRooms)
+            console.table(allRooms)
 
             // for(let i in allRooms){
             // console.log(allRooms[i])
