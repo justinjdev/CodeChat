@@ -79,45 +79,21 @@ module.exports = class Parser {
                 }
             case 'java':
                 {
-                    message.text = "java command" + argument
+                    console.log("java command")
                     message.text = argument
                     message.isCode = true
-                    message.language = 'java'
-                    // return (message)
-                    let messages
+                    message.language = "java"
+                    let serverRes
                     try {
-                        messages = await this
+                        serverRes = await this
                             .virtulization
                             .language(argument)
-                        return message
+                        return serverRes
                     } catch (error) {
                         console.error("ERROR in java case: ", error)
                     }
                     break
                 }
-            case 'cpp':
-            case 'c++':
-                {
-                    message.text = "cpp command" + argument
-                    message.text = argument
-                    message.isCode = true
-                    message.language = 'cpp'
-                    let messages
-                    try {
-                        messages = await this
-                            .virtulization
-                            .language(argument)
-                    } catch (error) {
-                        console.error("ERROR in cpp case: ", error)
-                    }
-                    break
-                }
-                // case 'javascript':     {         message.text = "javascript command" +
-                // argument         return (message) message.code = true         message.text =
-                // argument         let messages         try {             messages = await
-                // virtulization.virtulizeLanguage(argument)         } catch (error) {
-                // console.error("ERROR: ", error)         }         // return (message)   break
-                //     }
             case 'bunny':
                 {
                     message.text = `
