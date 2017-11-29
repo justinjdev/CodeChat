@@ -1,6 +1,5 @@
 'use strict'
 
-const SHA256 = require("crypto-js/sha256")
 const DBcontroller = require('../dbModules/DBController')
 const dbcontroller = new DBcontroller()
 const ParserFile = require('./parser')
@@ -71,9 +70,8 @@ module.exports = class Socket {
 
                 })
                 socket.on('message', (message, response) => {
-                    let date = Date.now()
-                    message.time = date
-                    message.id = '666' + date //setting message id
+                    const uuid = generateUUID()
+                    message.id = uuid
                     dbcontroller.save(message)
                     console.log(message)
                     // remove invalid messages
@@ -122,10 +120,20 @@ module.exports = class Socket {
                     console.log("ALL ROOMS:", allRooms)
                     socket.emit('roomList', allRooms)
                 })
-                socket.on('register', (resp, creds) => {
-                    var uuid = generateUUID()
-                    console.log("Registering new user: ", creds.Username, uuid)
-                    dbcontroller.registerUser(uuid, creds.email, SHA256(creds.password), creds.Username, creds.first_name, creds.last_name, "")
+
+                socket.on('registerRequest', registerCreds => {
+                    console.log("logging in user:", registerCreds)
+                    const uuid = generateUUID()
+
+                    dbcontroller
+                        .registerUser(uuid, registerCreds.email, SHA256(registerCreds.password), registerCreds.Username, registerCreds.first_name, registerCreds.last_name, "")
+                        .then(reply => {
+                            if(reply === 'success'){
+                                socket.emit('registerReply', user)
+                            }
+                        }).catch(error=>{
+                            console.error("error with register")
+                        })
                 })
                 socket.on('loginRequest', loginCreds => {
                     console.log("logging in user:", loginCreds)
@@ -243,12 +251,12 @@ module.exports = class Socket {
 }
 
 function generateUUID() { // Public Domain/MIT
-    var d = new Date().getTime()
+    let d = new Date().getTime()
     if (typeof performance !== 'undefined' && typeof performance.now === 'function') {
         d += performance.now() //use high-precision timer if available
     }
     return 'xxxx'.replace(/[xy]/g, function (c) {
-        var r = (d + Math.random() * 16) % 16 | 0
+        let r = (d + Math.random() * 16) % 16 | 0
         d = Math.floor(d / 16)
         return (c === 'x'
                 ? r

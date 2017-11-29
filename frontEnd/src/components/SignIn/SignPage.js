@@ -1,10 +1,10 @@
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
-//import axios from 'axios';
-import React, {Component} from 'react';
-import './SignPage.css';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import AppBar from 'material-ui/AppBar'
+import RaisedButton from 'material-ui/RaisedButton'
+import TextField from 'material-ui/TextField'
+//import axios from 'axios'
+import React, {Component} from 'react'
+import './SignPage.css'
 const sha256 = require('js-sha256')
 
 class Login extends Component {
@@ -26,10 +26,10 @@ class Login extends Component {
           this
             .props
             .signIn()
-
         }
       })
   }
+
 
   signIn(event) {
     console.log("pls sign in")
@@ -53,13 +53,21 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="signpage">
-        <div className="body">
+
+       <div className="signpage">
+
+         <div className="body">
 
           <div>
+
             <MuiThemeProvider>
               <div>
-                <AppBar title="Sign-in"/>
+
+              <AppBar
+             title="Sign In" showMenuIconButton={false}
+           />
+
+
                 <TextField
                   hintText="Enter your Email"
                   floatingLabelText="Email"
@@ -87,15 +95,16 @@ class Login extends Component {
             </MuiThemeProvider>
           </div>
         </div>
-      </div>
+        </div>
 
-    );
+
+    )
 
   }
 }
 
 const style = {
   margin: 20
-};
+}
 
-export default Login;
+export default Login
