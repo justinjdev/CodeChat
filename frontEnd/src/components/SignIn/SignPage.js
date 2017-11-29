@@ -46,7 +46,7 @@ class Login extends Component {
 
   saveUsername(e, text) {
     console.log(text)
-    localStorage.setItem("userInfo", text)
+    localStorage.setItem("username", text)
   }
 
   render() {

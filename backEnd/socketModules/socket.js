@@ -86,14 +86,14 @@ module.exports = class Socket {
                                 .readInput(message)
                                 .then(res => {
                                     // console.log('response') console.log(res)
-                                    if (res.newNick) { //change nicknames
+                                    if (res.command === 'nick') { //change nicknames
                                         let id = socket.id
                                         console.log('ID:', id)
                                         this.nicknames[id] = res.newNick
                                         console.log(this.nicknames)
                                         socket.emit('nickRequest', res.newNick)
                                     }
-                                    if (res.command) {
+                                    if (res.command === 'join') {
                                         // console.log("res changeROOMS👍:", res)
                                         this.changeRooms({
                                             previousRoom: res.previousRoom,

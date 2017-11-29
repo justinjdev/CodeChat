@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 // import io from 'socket.io-client'
 
 import './Chat.css'
+import {userInfo} from 'os';
 
 // const socket = io('https://ezchatrooms.herokuapp.com/') //old test, maybe
 // remove it? const socket = io('localhost:8080') // local computer const socket
@@ -33,6 +34,7 @@ class Chat extends Component {
     }
     componentWillMount() {
         console.log("will mount")
+        this.nick = localStorage.getItem('username')
         //get the messages from server and put in messagesList
     }
     componentDidMount() {
