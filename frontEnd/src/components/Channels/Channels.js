@@ -16,7 +16,7 @@ class Chennels extends Component {
 
     }
     componentDidMount(){
-        
+
     }
 
     componentDidMount(){
@@ -38,7 +38,7 @@ class Chennels extends Component {
             newState.allRooms = allRooms
             this.setState(newState)
         })
-        
+
         this.props.socket.emit('getRooms')
 
 
@@ -50,7 +50,7 @@ class Chennels extends Component {
         // event.stopPropagation()
         console.log("current room: " + this.state.roomName)
         console.log("new room:",event.target.text)
-        
+
         let room = {
             previousRoom: this.state.roomName,
             newRoom: event.target.text
@@ -99,16 +99,16 @@ class Chennels extends Component {
                         <a onClick={this.onChannelClick}>SHACS Tutors</a>
                     </li>
                 <h4>Database Channels</h4>
-                    
-                        {
+
+                        {/* { // TODO: implement later
                             this
                             .state
                             .allRooms
                             .map((roomname, index) => {
                                 return <li className="channel centered-text" key={index}><a onClick={this.onChannelClick}>{roomname}</a></li>
-                            })}
+                            })} */}
                 </ul>
-                
+
             </div>
         );
     }
