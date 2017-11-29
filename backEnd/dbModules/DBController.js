@@ -44,6 +44,7 @@ module.exports = class DBController {
         return new Promise((resolve, reject) => {
             postgresController.get_user_name(u_email, u_pass)
         }).then(user => {
+            console.log("db login:",user)
             resolve(user)
         }).catch(error => {
             reject(error)
