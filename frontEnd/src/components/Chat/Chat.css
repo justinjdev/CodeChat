@@ -20,6 +20,9 @@
           color: #56ccf2; }
         .chat .chat-window .messages-list .message .message-text {
           margin-left: 10px; }
+        .chat .chat-window .messages-list .message .code {
+          background-color: blue;
+          font-family: Monaco; }
       .chat .chat-window .messages-list .local-user {
         text-align: right; }
   .chat .chat-input {
@@ -31,7 +34,6 @@
       resize: none;
       background-color: #3f3f3f;
       color: #f3f3f3;
-      font-family: sans-serif;
       padding: 5px;
       box-shadow: none; }
     .chat .chat-input .submit-buttons {
@@ -50,5 +52,4 @@
         background-color: #f25670;
         border: 0;
         color: #f3f3f3;
-        font-family: sans-serif;
         font-size: 14pt; }

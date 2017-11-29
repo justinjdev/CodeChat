@@ -24,12 +24,16 @@
                 padding: 10px;
                 word-wrap: break-word;
                 white-space: pre-wrap;
-
+                
                 .message-sender{
                     color: $accent-color;
                 }
                 .message-text{
                     margin-left: 10px;
+                }
+                .code{
+                    background-color: blue;
+                    font-family: Monaco;
                 }
             }
 
@@ -49,7 +53,7 @@
             resize: none;
             background-color: $message-background;
             color: $main-text-color;
-            font-family: sans-serif;
+            // font-family: sans-serif;
             padding: 5px;
             box-shadow: none;
         }
@@ -71,7 +75,7 @@
                     background-color: $main-destructive;
                     border: 0;
                     color: $main-text-color;
-                    font-family: sans-serif;
+                    // font-family: sans-serif;
                     font-size: 14pt;
                 }
 
