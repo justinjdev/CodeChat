@@ -16,6 +16,7 @@ class Chennels extends Component {
 
     }
 
+
     componentDidMount() {
         this
             .props
