@@ -117,12 +117,10 @@ module.exports = class Socket {
                     }
                 })
                 socket.on('getRooms', async(room) => {
-                    this
-                        .getAllRooms(room)
-                        .then(allRooms => {
-                            console.log("ALL ROOMS:", allRooms)
-                            socket.emit('roomList', allRooms)
-                        })
+                    const allRooms = ['Lobby','Ada', 'Java', 'Python'] //TODO: include the rest of the rooms
+
+                    console.log("ALL ROOMS:", allRooms)
+                    socket.emit('roomList', allRooms)
                 })
                 socket.on('register', (resp, creds) => {
                     var uuid = generateUUID()
@@ -135,6 +133,10 @@ module.exports = class Socket {
                         .loginUser(loginCreds.email, loginCreds.password)
                         .then(user => {
                             console.log("this is the user yo!", user)
+                            user.length > 0 ? user = user : user = 'error'
+                            socket.emit('loginReply', user)
+                        }).catch(error=>{
+                            console.error("error with login")
                         })
                 })
             })
