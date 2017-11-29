@@ -105,27 +105,11 @@ class Register extends Component {
                     onChange=
                     {(event,newValue) => this.setState({password:newValue})}/>
                   <br/>
-<<<<<<< HEAD
-                  
-                  <AccountKit appId="148416749076090" version="v1.0" // Version must be in form v{major}.{minor}
-                    onResponse={(resp) => this.props.socket.emit('register', resp, {
-                    "first_name": this.state.first_name,
-                    "Username": this.state.Username,
-                    "last_name": this.state.last_name,
-                    "email": this.state.email,
-                    "password": this.state.password
-                  })} csrf="awzsrexdtcfvgybhjn" // Required for security
-                    loginType="EMAIL">
-                    {p => <RaisedButton {...p} label="Submit" primary={true}></RaisedButton>}
-                  </AccountKit>
-
-=======
                   <RaisedButton
                     label="Submit"
                     primary={true}
                     style={style}
                     onClick={() => this.register()}/>
->>>>>>> 06db7284b8557e83767a945cbea391fa197cde00
                   <RaisedButton
                    label="Clear"
                    primary={true}
