@@ -73,7 +73,8 @@ module.exports = class PostgresController {
                 })
                 .catch(error => {
                     reject(error)
-                    console.log(error)
+                    console.log("register pg error:",error)
+
                 })
         })
     }

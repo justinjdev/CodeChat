@@ -38,6 +38,7 @@ module.exports = class DBController {
                     resolve(user)
                 })
                 .catch(error => {
+                    console.log("register db error:",error)
                     reject(error)
                 });
             setTimeout(() => {
