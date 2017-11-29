@@ -33,6 +33,7 @@ class Processor:
         return self.__languages
 
     def get_funcs(self):
+        """returns all functions for outside reference"""
         return self.__funcs
 
     def write_file(self, code: str, path='test'):
@@ -74,11 +75,11 @@ class Processor:
         :param code: The code to be executed.
         :return: The output of passed code.
         """
-        fname = re.findall(r"procedure\s([a-z|A-Z|0-9]*)", code)[0]
-        fpath = self.write_file(code, os.path.join(fname, '.adb'))
+        fname = re.findall(r"procedure\s([a-z|A-Z|0-9]*)", code)[0].lower()
+        fpath = self.write_file(code, "".join([fname, '.adb']))
         output = subprocess.getoutput('gnatmake {}'.format(fpath))
         if 'error' not in output:
-            output += subprocess.getoutput('./{}'.format(fname))
+            output = subprocess.getoutput('./{}'.format(fname))
         self.cleanup(fname)
         return output
 
@@ -90,7 +91,7 @@ class Processor:
         :return: The output of passed code.
         """
         fname = re.findall(r"class\s([a-z|A-Z|0-9]*)", code)[0]
-        fpath = self.write_file(code, os.path.join(fname, '.java'))
+        fpath = self.write_file(code, "".join([fname, '.java']))
         output = subprocess.getoutput('javac {}'.format(fpath))
         if 'error' not in output:
             output += subprocess.getoutput('java {}'.format(fname))
@@ -112,18 +113,6 @@ class Processor:
                                 universal_newlines=True
                                 )
         self.cleanup(fpath)
-        print(output.stdout)
+        #print(output.stdout)
         return output.stdout
-
-    def process_pony(self, code: str):
-        fname = 'main.pony'
-        subprocess.Popen('mkdir ./test/', shell=True, executable='/bin/bash')
-        fpath = self.write_file(code, os.path.join('./test/', fname)
-        output = subprocess.run('cd ./test && ponyc && cd ..')
-        if 'Error' not in output:
-            output = subprocess.getoutput('./test/test')
-        #subprocess.Popen('cd ..', shell=True, executable='/bin/bash')
-        #self.cleanup('./test')
-        return output
-
 
