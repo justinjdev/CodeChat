@@ -19,12 +19,11 @@ class ActiveUsers extends Component {
         console.log('did mount')
         this.props.socket.on('userList', (users)=>{
             console.log("users:")
-            console.table(users)
             // for(let i in users){
             //     this.printMessage(JSON.parse(users[i]))
             // }
-            if(users != null)
-                console.table(users)
+            // if(users != null)
+            //     console.table(users)
         })
     }
 

@@ -39,14 +39,6 @@ class Chat extends Component {
     }
     componentDidMount() {
         console.log('did mount')
-        this
-            .props
-            .socket
-            .on("userList", (list) => {
-                if (list != null) {
-                    console.table(list)
-                }
-            })
 
         this
             .props
