@@ -23,7 +23,7 @@ constructor(props){
   "email":this.state.username,
   "password": sha256.hex(this.state.password)
   }
-  axios.post(apiBaseUrl+'login', payload)
+  //axios.post(apiBaseUrl+'login', payload)
   .then(function (response) {
   console.log(response);
   if(response.data.code === 200){
