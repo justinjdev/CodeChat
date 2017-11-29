@@ -116,7 +116,7 @@ module.exports = class Socket {
                         }
                     }
                 })
-                socket.on('getRooms', () => {
+                socket.on('getRooms', async () => {
                     let allRooms = await getAllRooms()
                     socket.emit('roomList', allRooms)
                 })
