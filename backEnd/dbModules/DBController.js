@@ -77,7 +77,7 @@ module.exports = class DBController {
     async loginUser(u_email, u_pass) {
         let loginUserAttempt
         try {
-            loginUserAttempt = await postgresController.loginUser(u_email, u_pass)
+            loginUserAttempt = await postgresController.get_user_name(u_email, u_pass)
             return loginUserAttempt
         } catch (error) {
             console.error(error)
