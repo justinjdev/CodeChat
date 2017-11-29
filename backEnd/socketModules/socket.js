@@ -72,6 +72,7 @@ module.exports = class Socket {
                 socket.on('message', (message, response) => {
                     const uuid = generateUUID()
                     message.id = uuid
+                    message.language = ''
                     dbcontroller.save(message)
                     console.log(message)
                     // remove invalid messages
@@ -126,7 +127,7 @@ module.exports = class Socket {
                     const uuid = generateUUID()
 
                     dbcontroller
-                        .registerUser(uuid, registerCreds.email, SHA256(registerCreds.password), registerCreds.Username, registerCreds.first_name, registerCreds.last_name, "")
+                        .registerUser(uuid, registerCreds.email, registerCreds.password, registerCreds.Username, registerCreds.first_name, registerCreds.last_name, "")
                         .then(reply => {
                             if(reply === 'success'){
                                 socket.emit('registerReply', user)

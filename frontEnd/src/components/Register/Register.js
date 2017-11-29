@@ -10,7 +10,6 @@ import './Register.css'
 import AccountKit from 'react-facebook-account-kit'
 const sha256 = require('js-sha256')
 
-
 class Register extends Component {
   constructor(props) {
     super(props)
@@ -29,16 +28,15 @@ class Register extends Component {
         if (reply === 'error') {
           console.log("invalid username or password")
         } else {
-          localStorage.setItem("username", reply[0].u_username)
           this
             .props
-            .signIn()
+            .getSignedIn()
 
         }
       })
   }
 
-  handleClick(event) {
+  register(event) {
     const payload = {
       "first_name": this.state.first_name,
       "last_name": this.state.last_name,
@@ -46,10 +44,11 @@ class Register extends Component {
       "email": this.state.email,
       "password": sha256.hex(this.state.password)
     }
+    console.log("payload:",payload)
     this
-    .props
-    .socket
-    .emit("registerRequest", payload)
+      .props
+      .socket
+      .emit("registerRequest", payload)
   }
 
   render() {
@@ -61,7 +60,7 @@ class Register extends Component {
             <div>
               <MuiThemeProvider>
                 <div>
-                  <AppBar title="Register"/>
+                  <AppBar title="Register" showMenuIconButton={false} />
                   <TextField
                     hintText="Enter your First Name"
                     floatingLabelText="First Name"
@@ -96,17 +95,11 @@ class Register extends Component {
                     onChange=
                     {(event,newValue) => this.setState({password:newValue})}/>
                   <br/>
-                  <AccountKit appId="148416749076090" version="v1.0" // Version must be in form v{major}.{minor}
-                    onResponse={(resp) => this.props.socket.emit('register', resp, {
-                    "first_name": this.state.first_name,
-                    "Username": this.state.Username,
-                    "last_name": this.state.last_name,
-                    "email": this.state.email,
-                    "password": this.state.password
-                  })} csrf="awzsrexdtcfvgybhjn" // Required for security
-                    loginType="EMAIL">
-                    {p => <RaisedButton {...p} label="Submit" primary={true}></RaisedButton>}
-                  </AccountKit>
+                  <RaisedButton
+                    label="Submit"
+                    primary={true}
+                    style={style}
+                    onClick={() => this.register()}/>
                   <RaisedButton
                     label="Clear"
                     primary={true}
