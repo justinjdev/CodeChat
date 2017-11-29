@@ -16,13 +16,8 @@ class Chennels extends Component {
 
     }
 
-    componentDidMount(){
-        this.props.socket.on('joinResult', (room) => {
-            let newState = this.state
-            newState.roomName = room.room
-            this.setState(newState)
-        })
-
+    componentWillMount(){
+        
         this.props.socket.on('roomList', (allRooms) => {
             console.log("get channels")
             console.table(allRooms)
@@ -31,12 +26,21 @@ class Chennels extends Component {
             // console.log(allRooms[i])
             // }
 
-            // let newState = this.state
-            // newState.allRooms = allRooms
-            // this.setState(newState)
+            let newState = this.state
+            newState.allRooms = allRooms
+            this.setState(newState)
         })
 
         this.props.socket.emit('getRooms')
+    }
+
+    componentDidMount(){
+        this.props.socket.on('joinResult', (room) => {
+            let newState = this.state
+            newState.roomName = room.room
+            this.setState(newState)
+        })
+
     }
 
     onChannelClick(event) {
@@ -64,37 +68,22 @@ class Chennels extends Component {
         return (
             <div className="channels">
                 <hr/>
-                <h4>Hardcoded Channels</h4>
+                <div className="centered-text">
+                    <h4>Text Channels</h4>
+                </div>
                 <ul className="channel-list">
-                    <li className="channel centered-text">
-                        <a onClick={this.onChannelClick}>ADA</a>
-                    </li>
-                    <li className="channel centered-text">
-                        <a onClick={this.onChannelClick}>C++</a>
-                    </li>
-                    <li className="channel centered-text">
-                        <a onClick={this.onChannelClick}>Java</a>
-                    </li>
-                    <li className="channel centered-text">
-                        <a onClick={this.onChannelClick}>Python</a>
-                    </li>
-                    <li className="channel centered-text">
-                        <a onClick={this.onChannelClick}>CodeChat Devs</a>
-                    </li>
-                    <li className="channel centered-text">
-                        <a onClick={this.onChannelClick}>SHACS Tutors</a>
-                    </li>
-                    <h4>Database Channels</h4>
-
-                    {// TODO: implement later
+                    {
                     this
                         .state
                         .allRooms
                         .map((roomname, index) => {
+                            // let highlightClass = ""
+                            // if(roomname == "Lobby") highlightClass += " active"
                             return <li className="channel centered-text" key={index}>
                                 <a onClick={this.onChannelClick}>{roomname}</a>
                             </li>
                         })}
+                <hr/>
                 </ul>
 
             </div>

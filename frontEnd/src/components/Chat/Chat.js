@@ -181,7 +181,7 @@ class Chat extends Component {
                             .state
                             .messagesList
                             .map((message, index) => {
-                                
+
                                 let textClass = "message-text"
                                 if(message.isCode)
                                     textClass += " code"
