@@ -16,35 +16,31 @@ class Chennels extends Component {
 
     }
 
+    componentDidMount(){
+        this.props.socket.on('joinResult', (room) => {
+            let newState = this.state
+            newState.roomName = room.room
+            this.setState(newState)
+        })
 
-    componentDidMount() {
-        this
-            .props
-            .socket
-            .on('joinResult', (room) => {
-                let newState = this.state
-                newState.roomName = room.room
-                this.setState(newState)
-            })
+        this.props.socket.on('roomList', (allRooms) => {
+            console.log("get channels")
+            console.log(allRooms)
 
-        this
-            .props
-            .socket
-            .on('roomList', (allRooms) => {
-                // console.log("get channels") console.log(allRooms) for(let i in allRooms){
-                // console.log(allRooms[i]) } let newState = this.state newState.allRooms =
-                // allRooms this.setState(newState)
-            })
+            // for(let i in allRooms){
+            // console.log(allRooms[i])
+            // }
 
-        this
-            .props
-            .socket
-            .emit('getRooms')
+            // let newState = this.state
+            // newState.allRooms = allRooms
+            // this.setState(newState)
+        })
 
+        this.props.socket.emit('getRooms')
     }
 
     onChannelClick(event) {
-        // event.preventDefault() event.stopPropagation()
+        
         console.log("current room: " + this.state.roomName)
         console.log("new room:", event.target.text)
 
@@ -59,20 +55,9 @@ class Chennels extends Component {
                 .classList
                 .remove("active")
         }
-        event
-            .target
-            .classList
-            .add('active')
+        event.target.classList.add('active')
 
-        this
-            .props
-            .socket
-            .emit('join', room)
-
-        // if(event.target.parentElement.classList.contains('channel')){     var elems =
-        // document.querySelector(".active")     if (elems !== null) {
-        // elems.classList.remove("active")     }
-        // event.target.classList.add('active') }
+        this.props.socket.emit('join', room)
     }
 
     render() {
