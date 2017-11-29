@@ -1,3 +1,5 @@
+import {resolve} from '../../../../../Library/Caches/typescript/2.6/node_modules/@types/bluebird';
+
 'use strict'
 
 const postgresControlFile = require('./postgresController') //connects to PSQL
@@ -31,24 +33,29 @@ module.exports = class DBController {
 
     //1) insert a user record
     async registerUser(u_id, u_email, u_password, u_username, u_firstname, u_lastname, u_bio) {
-        let registerUserAttempt
-        try {
-            registerUserAttempt = await postgresController.insert_New_User(u_id, u_email, u_password, u_username, u_firstname, u_lastname, u_bio)
-            return "Succsessfully added User"
-        } catch (error) {
-            console.error(error)
-        }
+        return new Promise((resolve, reject) => {
+            postgresController
+                .insert_New_User(u_id, u_email, u_password, u_username, u_firstname, u_lastname, u_bio)
+                .then(user => {
+                    resolve(user)
+                })
+                .catch(error => {
+                    reject(error)
+                })
+        })
     }
     //1) insert a user record
     async loginUser(u_email, u_pass) {
         return new Promise((resolve, reject) => {
-            postgresController.get_user_name(u_email, u_pass)
-            .then(user => {
-                console.log("db login:",user)
-                resolve(user)
-            }).catch(error => {
-                reject(error)
-            })
+            postgresController
+                .get_user_name(u_email, u_pass)
+                .then(user => {
+                    console.log("db login:", user)
+                    resolve(user)
+                })
+                .catch(error => {
+                    reject(error)
+                })
         })
     }
 

@@ -1,10 +1,10 @@
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
-//import axios from 'axios';
-import React, {Component} from 'react';
-import './SignPage.css';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import AppBar from 'material-ui/AppBar'
+import RaisedButton from 'material-ui/RaisedButton'
+import TextField from 'material-ui/TextField'
+//import axios from 'axios'
+import React, {Component} from 'react'
+import './SignPage.css'
 const sha256 = require('js-sha256')
 
 class Login extends Component {
@@ -89,13 +89,13 @@ class Login extends Component {
         </div>
       </div>
 
-    );
+    )
 
   }
 }
 
 const style = {
   margin: 20
-};
+}
 
-export default Login;
+export default Login

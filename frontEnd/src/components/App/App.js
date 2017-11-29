@@ -15,7 +15,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      register: true,
+      register: false,
       chatting: false
     }
     this.signIn = this
