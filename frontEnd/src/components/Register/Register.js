@@ -9,7 +9,6 @@ import './Register.css'
 import AccountKit from 'react-facebook-account-kit'
 const sha256 = require('js-sha256')
 
-
 class Register extends Component {
   constructor(props) {
     super(props)
@@ -28,16 +27,15 @@ class Register extends Component {
         if (reply === 'error') {
           console.log("invalid username or password")
         } else {
-          localStorage.setItem("username", reply[0].u_username)
           this
             .props
-            .signIn()
+            .getSignedIn()
 
         }
       })
   }
 
-  handleClick(event) {
+  register(event) {
     const payload = {
       "first_name": this.state.first_name,
       "last_name": this.state.last_name,
@@ -45,10 +43,11 @@ class Register extends Component {
       "email": this.state.email,
       "password": sha256.hex(this.state.password)
     }
+    console.log("payload:",payload)
     this
-    .props
-    .socket
-    .emit("registerRequest", payload)
+      .props
+      .socket
+      .emit("registerRequest", payload)
   }
 /*
   clearHandler(event) {
@@ -86,10 +85,10 @@ class Register extends Component {
                   <br/>
 
                   <TextField
-                    hintText="Username"
+                    hintText="username"
                     floatingLabelText="Codechat Alias"
                     onChange=
-                    {(event,newValue) => this.setState({Username:newValue})}/>
+                    {(event,newValue) => this.setState({username:newValue})}/>
                   <br/>
                   <TextField
                     hintText="Enter your Email"
@@ -105,6 +104,7 @@ class Register extends Component {
                     onChange=
                     {(event,newValue) => this.setState({password:newValue})}/>
                   <br/>
+<<<<<<< HEAD
                   
                   <AccountKit appId="148416749076090" version="v1.0" // Version must be in form v{major}.{minor}
                     onResponse={(resp) => this.props.socket.emit('register', resp, {
@@ -118,6 +118,13 @@ class Register extends Component {
                     {p => <RaisedButton {...p} label="Submit" primary={true}></RaisedButton>}
                   </AccountKit>
 
+=======
+                  <RaisedButton
+                    label="Submit"
+                    primary={true}
+                    style={style}
+                    onClick={() => this.register()}/>
+>>>>>>> 06db7284b8557e83767a945cbea391fa197cde00
                   <RaisedButton
                    label="Clear"
                    primary={true}

@@ -30,14 +30,13 @@ class MainPage extends Component {
 
                         </div>
 
-                        <div className="main col-xs-9">
+                        <div className="main col-xs-10">
                             <Chat socket={this.props.socket}/>
                         </div>
 
-                        <div className="right-sidebar col-xs-1">
-                            <p>Active</p>
+                        {/* <div className="right-sidebar col-xs-1">
                             <ActiveUsers socket={this.props.socket}/>
-                        </div>
+                        </div> */}
                         
                     </div>
 

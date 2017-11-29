@@ -119,7 +119,9 @@ class Chat extends Component {
             text: messageText,
             nick: this.state.nick,
             isCode: false,
-            isOutput: false
+            isOutput: false,
+            id: '',
+            language: ''
         }
 
         //   socket.emit('question', 'do you think so?', function (answer) {});
@@ -190,7 +192,7 @@ class Chat extends Component {
                                 
                                 return <li className="message" key={index}>
                                     <div className="message-sender">
-                                        {message.nick}
+                                        {message.nick + ' ' + (message.isOutput ? message.language : '')}
                                     </div>
                                     <div className={textClass}>
                                         {message.text}
