@@ -15,12 +15,9 @@ class Chennels extends Component {
             .bind(this)
 
     }
-<<<<<<< HEAD
-=======
     componentDidMount(){
 
     }
->>>>>>> b9e0850ea98ea3ee2e5a27d94f1a2880c642f572
 
     componentDidMount(){
         this.props.socket.on('joinResult', (room) => {
@@ -102,13 +99,8 @@ class Chennels extends Component {
                         <a onClick={this.onChannelClick}>SHACS Tutors</a>
                     </li>
                 <h4>Database Channels</h4>
-<<<<<<< HEAD
-                    
-                        {/* {
-=======
 
                         { // TODO: implement later
->>>>>>> b9e0850ea98ea3ee2e5a27d94f1a2880c642f572
                             this
                             .state
                             .allRooms
