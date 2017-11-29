@@ -10,7 +10,7 @@ module.exports = class Audio {
             .on('connection', function (socket) {
                 console.log("socket is connected:", socket.id)
                 socket.on('voice', function (blob) {
-                    socket.broadcast.emit('voice', blob)
+                    socket.emit('voice', blob)
                 })
             })
     }

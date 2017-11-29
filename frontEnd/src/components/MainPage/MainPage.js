@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 
 import './MainPage.css'
 import 'bootstrap-grid/dist/grid.min.css'
@@ -9,40 +9,40 @@ import Audio from '../Audio/Audio'
 // import logo from './../../img/logo.png'
 
 class MainPage extends Component {
-    
+
     render() {
         return (
             <div className="main-page container-fluid">
-                    <div className="header row centered-text">
-                            <h3>{"<CODE CHAT>"}</h3>
+                <div className="header row centered-text">
+                    <h3>{"<CODE CHAT>"}</h3>
+                </div>
+                <div className="content row">
+
+                    <div className="left-sidebar col-xs-2">
+                        <div className="profile-icon centered-text">
+                            {/* <img src={logo} alt="CodeChat" /> */}
+                            {/* <p>D.B.</p> */}
+                        </div>
+                        <hr/>
+                        <Channels socket={this.props.socket}/>
+                        <hr/>
+                        <Audio socket={this.props.socket}/>
+
                     </div>
-                    <div className="content row">
 
-                        <div className="left-sidebar col-xs-2">
-                            <div className="profile-icon centered-text">
-                                 {/* <img src={logo} alt="CodeChat"/>  */}
-                                 <p>D.B.</p> 
-                            </div>
-                            <hr/>
-                            <Channels socket={this.props.socket}/>
-                            <hr/>                            
-                            <Audio socket={this.props.socket}/>
+                    <div className="main col-xs-10">
+                        <Chat socket={this.props.socket}/>
+                    </div>
 
-                        </div>
-
-                        <div className="main col-xs-10">
-                            <Chat socket={this.props.socket}/>
-                        </div>
-
-                        {/* <div className="right-sidebar col-xs-1">
+                    {/* <div className="right-sidebar col-xs-1">
                             <ActiveUsers socket={this.props.socket}/>
                         </div> */}
-                        
-                    </div>
 
-                    <div className="footer row centered-text">
-                        <h3>{"</CODE CHAT>"}</h3>
-                    </div>
+                </div>
+
+                <div className="footer row centered-text">
+                    <h3>{"</CODE CHAT>"}</h3>
+                </div>
             </div>
         )
     }
