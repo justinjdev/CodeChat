@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 // import io from 'socket.io-client'
 
 import './Chat.css'
-import {userInfo} from 'os';
 
 // const socket = io('https://ezchatrooms.herokuapp.com/') //old test, maybe
 // remove it? const socket = io('localhost:8080') // local computer const socket
@@ -34,12 +33,15 @@ class Chat extends Component {
     }
     componentWillMount() {
         console.log("will mount")
-        this.nick = localStorage.getItem('username')
+        let nick = localStorage.getItem('username')
+        let state = this.state
+        state.nick = nick
+        this.setState(state)
+
         //get the messages from server and put in messagesList
     }
     componentDidMount() {
         console.log('did mount')
-
         this
             .props
             .socket
@@ -185,14 +187,16 @@ class Chat extends Component {
                             .map((message, index) => {
 
                                 let textClass = "message-text"
-                                if(message.isCode)
+                                if (message.isCode)
                                     textClass += " code"
-                                else if(message.isOutput)
+                                else if (message.isOutput)
                                     textClass += " output"
-                                
+
                                 return <li className="message" key={index}>
                                     <div className="message-sender">
-                                        {message.nick + ' ' + (message.isOutput ? message.language : '')}
+                                        {message.nick + ' ' + (message.isOutput
+                                            ? message.language
+                                            : '')}
                                     </div>
                                     <div className={textClass}>
                                         {message.text}
