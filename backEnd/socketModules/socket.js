@@ -41,7 +41,7 @@ module.exports = class Socket {
                 })
 
                 // this.listSocketsInRoom(io.sockets,io)
-                await this.getCachedMessages('Lobby', socket)
+                // await this.getCachedMessages('Lobby', socket)
                 // when they join, emit the message 'joinResult'
                 socket.emit('joinResult', {room: 'Lobby'}) //let the client know that it's defaulted to the lobby
 
@@ -127,7 +127,7 @@ module.exports = class Socket {
                     const uuid = generateUUID()
 
                     dbcontroller
-                        .registerUser(uuid, registerCreds.email, registerCreds.password, registerCreds.Username, registerCreds.first_name, registerCreds.last_name, "")
+                        .registerUser(uuid, registerCreds.email, registerCreds.password, registerCreds.username, registerCreds.first_name, registerCreds.last_name, "")
                         .then(reply => {
                             if(reply === 'success'){
                                 socket.emit('registerReply', user)
