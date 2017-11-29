@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import './Channels.css';
-import Audio from '../Audio/Audio'
 
 class Chennels extends Component {
     constructor(props){
         super(props)
 
         this.state = {
-            roomName:''
+            roomName:'',
+            allRooms: []
         }
 
         this.onChannelClick = this
@@ -15,16 +15,35 @@ class Chennels extends Component {
             .bind(this)
 
     }
+    componentDidMount(){
+        
+    }
 
     componentDidMount(){
         this.props.socket.on('joinResult', (room) => {
-            console.table(room)
             let newState = this.state
             newState.roomName = room.room
             this.setState(newState)
         })
 
+        this.props.socket.on('roomList', (allRooms) => {
+            console.log("get channels")
+            console.log(allRooms)
+
+            for(let i in allRooms){
+            console.log(allRooms[i])
+            }
+
+            let newState = this.state
+            newState.allRooms = allRooms
+            this.setState(newState)
+        })
+        
+        this.props.socket.emit('getRooms')
+
+
     }
+
 
     onChannelClick(event) {
         // event.preventDefault()
@@ -72,6 +91,14 @@ class Chennels extends Component {
                     <li className="channel centered-text">
                         <a onClick={this.onChannelClick}>Python</a>
                     </li>
+                    
+                        {
+                            this
+                            .state
+                            .allRooms
+                            .map((roomname, index) => {
+                                return <li className="channel centered-text" key={index}><a>{roomname}</a></li>
+                            })}
                 </ul>
                 <hr />
                 <ul className="channel-list">
@@ -84,10 +111,6 @@ class Chennels extends Component {
                     </li>
 
                     <hr/>
-
-                    <a>Audio Settings</a> 
-                     <Audio/> 
-
 
                 </ul>
             </div>

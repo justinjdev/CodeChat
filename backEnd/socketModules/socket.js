@@ -117,7 +117,8 @@ module.exports = class Socket {
                     }
                 })
                 socket.on('getRooms', () => {
-                    socket.emit('roomList', {rooms: this.actualRooms})
+                    let allRooms = await getAllRooms()
+                    socket.emit('roomList', allRooms)
                 })
                 socket.on('register', (resp, creds) => {
                     var uuid = generateUUID()
@@ -222,6 +223,18 @@ module.exports = class Socket {
         console.log(actualRooms)
         return (actualRooms)
     }
+
+    async getAllRooms(){
+        let rooms = await dbcontroller.return_all_channel_names()
+        // let allRooms = []
+    
+        // for(let i in rooms){
+        //     allRooms.push(i)
+        // }
+        
+        return (rooms)
+    }
+
 }
 
 function generateUUID() { // Public Domain/MIT
