@@ -117,7 +117,7 @@ module.exports = class Socket {
                     }
                 })
                 socket.on('getRooms', async () => {
-                    let allRooms = await getAllRooms()
+                    let allRooms = await this.getAllRooms()
                     socket.emit('roomList', allRooms)
                 })
                 socket.on('register', (resp, creds) => {
