@@ -28,39 +28,6 @@ module.exports = class DBController {
         })
     }
     async postgresTest() {
-        // let test1 try {     test1 = await this.registerUser('114', 'email@email.com',
-        // 'password', 'username', 'firstname', 'register user last name', 'this is a
-        // bio about me and other unimportant garbage') } catch (error) {
-        // console.log("test 1 error", error) } console.log("test1", test1)
-        // TODO: can implement now let test2 try {     test2 = await
-        // this.registerMessage('115', '32123',     '123', 'messagetext', 'TRUE',
-        // 'responding', '1267890', 'FALSE') } catch (error) {     console.log("test 2
-        // error", error) } console.log("test2", test2)      //successful insert let
-        // test3 try {     test3 = await this.registerChannel('67121', 'ada') } catch
-        // (error) {     console.log("test 3 error", error) } console.log("test3",
-        // test3)      //tested let test4 try {     test4 = await
-        // this.Insert_Users_In_Channel('4516', '123') } catch (error) {
-        // console.log("test 4 error", error) } console.log("test4", test4) let test12
-        // try {     test12 = await this.deleteUser_in_channel('1', '12')     return }
-        // catch (error) {     console.error('test 12 error', error) }
-        // console.error('test12', test12) let test11 try {     test11 = await
-        // this.deleteChannel('12')     return } catch (error) {     console.error('test
-        // 11 error', error) } console.error('test11', test11) let test10 try { test10 =
-        // await this.search_channel("YOLO") } catch (error) { console.error('test 10
-        // error', error) } console.error('test10', test10)
-
-        // TODO:failed let test9 try {     test9 = await this.change_userBio('4321', "yo
-        // I'm such a lord of swag") } catch (error) {     console.log("test 9 error",
-        // error) } console.log("test9", test9) let test8 try {     test8 = await
-        // this.change_channelName('3', 'Ada') } catch (error) {     console.log("test 8
-        // error", error) } console.log("test8", test8) let test7 try {     test7 =
-        // await     this.change_username('114', 'burris fails you') } catch (error) {
-        //   console.log("test 7 error", error) } console.log("test7", test7) let test6
-        // try {     test6 = await this.Get_Users_In_Channel('1') } catch (error) {
-        // console.log("test 6 error", error) } console.log("test6", test6) let test5
-        // try {     test5 = await this.Users_Email() } catch (error) {
-        // console.log("test 5 error", error) } console.log("test5", test5)
-
     }
 
     //1) insert a user record

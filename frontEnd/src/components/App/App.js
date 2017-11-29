@@ -15,8 +15,8 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      register: false,
-      chatting: true
+      register: true,
+      chatting: false
     }
     this.signIn = this
       .signIn
@@ -25,9 +25,9 @@ class App extends Component {
 
   getRegister() {
     const register = localStorage.getItem('registered')
-    let state = this.state
-    state.register = register
-    this.setState(state)
+    let newState = this.state
+    newState.register = register
+    this.setState(newState)
   }
 
   getSignedIn() { // this is dangerous. TODO: Change and fix
