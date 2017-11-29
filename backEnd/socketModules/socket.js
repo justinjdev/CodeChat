@@ -131,7 +131,11 @@ module.exports = class Socket {
                 })
                 socket.on('loginRequest', loginCreds => {
                     console.log("logging in user:", loginCreds)
-                    dbcontroller.loginUser(loginCreds.email, loginCreds.password)
+                    dbcontroller
+                        .loginUser(loginCreds.email, loginCreds.password)
+                        .then(user => {
+                            console.log("this is the user yo!", user)
+                        })
                 })
             })
     }
