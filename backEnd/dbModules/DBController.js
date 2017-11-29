@@ -1,5 +1,3 @@
-import { race } from '../../../../../Library/Caches/typescript/2.6/node_modules/@types/bluebird';
-
 'use strict'
 
 const postgresControlFile = require('./postgresController') //connects to PSQL
