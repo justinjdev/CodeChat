@@ -4,7 +4,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import AppBar from 'material-ui/AppBar'
 import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField'
-//import axios from 'axios'
 import SignPage from '../SignIn/SignPage'
 import './Register.css'
 import AccountKit from 'react-facebook-account-kit'
@@ -51,6 +50,16 @@ class Register extends Component {
       .socket
       .emit("registerRequest", payload)
   }
+/*
+  clearHandler(event) {
+
+    let state = this.state
+    state.first_name=''
+    state.last_name=''
+    state.email=''
+
+    this.setState(state)
+}*/
 
   render() {
 
@@ -96,16 +105,38 @@ class Register extends Component {
                     onChange=
                     {(event,newValue) => this.setState({password:newValue})}/>
                   <br/>
+<<<<<<< HEAD
+                  
+                  <AccountKit appId="148416749076090" version="v1.0" // Version must be in form v{major}.{minor}
+                    onResponse={(resp) => this.props.socket.emit('register', resp, {
+                    "first_name": this.state.first_name,
+                    "Username": this.state.Username,
+                    "last_name": this.state.last_name,
+                    "email": this.state.email,
+                    "password": this.state.password
+                  })} csrf="awzsrexdtcfvgybhjn" // Required for security
+                    loginType="EMAIL">
+                    {p => <RaisedButton {...p} label="Submit" primary={true}></RaisedButton>}
+                  </AccountKit>
+
+=======
                   <RaisedButton
                     label="Submit"
                     primary={true}
                     style={style}
                     onClick={() => this.register()}/>
+>>>>>>> 06db7284b8557e83767a945cbea391fa197cde00
                   <RaisedButton
-                    label="Clear"
-                    primary={true}
+                   label="Clear"
+                   primary={true}
                     style={style}
-                    onClick={(event) => this.handleClick(event)}/>
+                  //  onClick={(event) => this.handleClick(this)}
+                  onClick={this.clearHandler}
+
+                 //   className="clear"
+                   // type="reset"
+                    //onClick={this.state(props)}
+                    />
 
                 </div>
 
