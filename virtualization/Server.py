@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.6
+#!/usr/bin/python3.6
 """
     Author: Justin Jones
     Date: 11/27/2017
@@ -48,11 +48,11 @@ async def command_handler(websocket, path):
             logger.info("response sent")
 
         except KeyboardInterrupt:
-            print("Process quit via KBI\nBye...")
+            logger.info("Process quit via KBI\nBye...")
             websocket.close()
 
         except websockets.exceptions.ConnectionClosed:
-            print("Connection lost!")
+            logger.info("Connection lost!")
             raise
 
 logger = logging.getLogger('websockets')
@@ -60,7 +60,7 @@ def main():
     global logger
     logger.setLevel(logging.INFO)
     logger.addHandler(logging.StreamHandler())
-    start_server = websockets.serve(command_handler, '0.0.0.0', 3003)
+    start_server = websockets.serve(command_handler, 'localhost', 3003)
     asyncio.get_event_loop().run_until_complete(start_server)
     asyncio.get_event_loop().run_forever()
 
