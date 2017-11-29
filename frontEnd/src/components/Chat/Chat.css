@@ -17,12 +17,17 @@
         word-wrap: break-word;
         white-space: pre-wrap; }
         .chat .chat-window .messages-list .message .message-sender {
-          color: #56ccf2; }
+          color: #56ccf2;
+          margin-bottom: 5px; }
         .chat .chat-window .messages-list .message .message-text {
           margin-left: 10px; }
-        .chat .chat-window .messages-list .message .code {
-          background-color: blue;
-          font-family: Monaco; }
+        .chat .chat-window .messages-list .message .code, .chat .chat-window .messages-list .message .output {
+          font-family: Monaco;
+          border: 1px solid #1f1f1f;
+          border-radius: 5px;
+          background-color: #303030;
+          color: #aaaaaa;
+          padding: 10px; }
       .chat .chat-window .messages-list .local-user {
         text-align: right; }
   .chat .chat-input {
@@ -34,6 +39,7 @@
       resize: none;
       background-color: #3f3f3f;
       color: #f3f3f3;
+      font-family: Helvetica;
       padding: 5px;
       box-shadow: none; }
     .chat .chat-input .submit-buttons {
@@ -45,11 +51,12 @@
         background-color: #56ccf2;
         border: 0;
         color: #f3f3f3;
-        font-family: sans-serif;
+        font-family: Helvetica;
         font-size: 14pt; }
       .chat .chat-input .submit-buttons .clear {
         flex: 1;
         background-color: #f25670;
         border: 0;
         color: #f3f3f3;
+        font-family: Helvetica;
         font-size: 14pt; }
