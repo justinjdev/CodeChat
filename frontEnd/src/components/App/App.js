@@ -30,10 +30,9 @@ class App extends Component {
     this.setState(newState)
   }
 
-  getSignedIn() { // this is dangerous. TODO: Change and fix
-    const chatting = localStorage.getItem('chatting')
+  getSignedIn() {
     let state = this.state
-    state.chatting = chatting
+    state.register = true
     this.setState(state)
   }
 
