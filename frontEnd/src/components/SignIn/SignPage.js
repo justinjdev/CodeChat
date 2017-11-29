@@ -31,6 +31,7 @@ class Login extends Component {
       })
   }
 
+
   signIn(event) {
     console.log("pls sign in")
     let payload = {
@@ -53,13 +54,21 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="signpage">
-        <div className="body">
+
+       <div className="signpage">
+
+         <div className="body">
 
           <div>
+
             <MuiThemeProvider>
               <div>
-                <AppBar title="Sign-in"/>
+
+              <AppBar
+             title="Sign In" showMenuIconButton={false}
+           />
+
+
                 <TextField
                   hintText="Enter your Email"
                   floatingLabelText="Email"
@@ -87,7 +96,8 @@ class Login extends Component {
             </MuiThemeProvider>
           </div>
         </div>
-      </div>
+        </div>
+
 
     )
 

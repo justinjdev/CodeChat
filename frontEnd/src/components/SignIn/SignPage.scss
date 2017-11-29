@@ -15,11 +15,30 @@
           text-align: left;
           width: 800px;
       }
-        hr{
-            color: #56ccf2;
+        .hr{
+            margin: 0 auto;
+            height: 7vh;
+            background-color: $accent-color;
+            align-content: center;
+            text-align: center;
             margin: 0px 10px;
+            position: absolute;
+            top: 0;
+            width: 100%;
         }
     
+        .hr1{
+
+            align-content: center;
+            text-align: center;
+            margin: 100px;
+            top: 100;
+            font-size: 30px;
+            
+        }
+    
+
+
         ul{
             padding: 100;
             margin-top: 100;

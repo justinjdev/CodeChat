@@ -10,6 +10,7 @@ import './Register.css'
 import AccountKit from 'react-facebook-account-kit'
 const sha256 = require('js-sha256')
 
+
 class Register extends Component {
   constructor(props) {
     super(props)
