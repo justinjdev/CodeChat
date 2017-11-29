@@ -14,6 +14,12 @@ class Login extends Component {
       username: '',
       password: ''
     }
+    this
+      .props
+      .socket
+      .on('loginReply', reply => {
+        console.log(reply)
+      })
   }
 
   signIn(event) {
@@ -26,9 +32,7 @@ class Login extends Component {
       .props
       .socket
       .emit("loginRequest", payload)
-    // this
-    //   .props
-    //   .signIn()
+    // this   .props   .signIn()
   }
 
   saveUsername(e, text) {

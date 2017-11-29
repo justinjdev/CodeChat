@@ -133,6 +133,8 @@ module.exports = class Socket {
                         .loginUser(loginCreds.email, loginCreds.password)
                         .then(user => {
                             console.log("this is the user yo!", user)
+                            user.length > 0 ? user = user : user = 'We have an error'
+                            socket.emit('loginReply', user)
                         }).catch(error=>{
                             console.error("error with login")
                         })

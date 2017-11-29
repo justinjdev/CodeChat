@@ -281,7 +281,7 @@ module.exports = class PostgresController {
             client.any(`SELECT u_username FROM "${Users}" WHERE "u_email" = '${u_email}' AND "u_pass" = '${u_pass}'`)
             .then(data => {
                 console.log("postgres login:",data)
-                resolve(data[1])
+                resolve(data)
             }).catch(error => {
                 reject(error)
             })
