@@ -9,6 +9,7 @@ import SignPage from '../SignIn/SignPage';
 import './Register.css';
 import AccountKit from 'react-facebook-account-kit';
 
+
 class Register extends Component {
   constructor(props){
     super(props);
@@ -53,14 +54,11 @@ class Register extends Component {
    });
   }
 
-
-
   render(){
 
     return (
       <div className="register">
         
-
         <div className="register-body">
 
         <div className="centered">
@@ -72,8 +70,10 @@ class Register extends Component {
 
           <div>
           <AppBar
-             title="Register"
+             title="Register" showMenuIconButton={false}
            />
+
+
            <TextField
              hintText="Enter your First Name"
              floatingLabelText="First Name"
@@ -102,7 +102,7 @@ class Register extends Component {
              />
            <br/>
            <TextField
-             type = "password"
+             type = "Password"
              hintText="Enter your Password"
              floatingLabelText="Password"
              onChange = {(event,newValue) => this.setState({password:newValue})}
