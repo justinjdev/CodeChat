@@ -8,7 +8,7 @@
     margin: auto; }
   .main-page .header {
     height: 7vh;
-    background-color: #56ccf2;
+    background-color: #00bcd4;
     align-content: center;
     text-align: center; }
   .main-page .content {
@@ -20,7 +20,7 @@
         margin: 25px auto;
         width: 100px;
         height: 100px;
-        background-color: #56ccf2;
+        background-color: #00bcd4;
         border-radius: 50%;
         align-content: center; }
       .main-page .content .left-sidebar .tuple {
@@ -44,6 +44,6 @@
         background-color: #4d4d4d; }
     .main-page .content .footer {
       height: 7vh;
-      background-color: #56ccf2;
+      background-color: #00bcd4;
       text-align: center;
       align-content: center; }

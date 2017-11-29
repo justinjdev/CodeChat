@@ -26,7 +26,6 @@ class Login extends Component {
           this
             .props
             .signIn()
-
         }
       })
   }
