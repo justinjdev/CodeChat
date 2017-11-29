@@ -78,6 +78,19 @@ module.exports = class PostgresController {
                 })
         })
     }
+    loginUser(u_email, u_pass) {
+        return new Promise((resolve, reject) => {
+            client
+                .any(`Select u_username from "Users" where u_email = '${u_username}' and u_pass = '${u_pass}';`)
+                .then(res => {
+                    resolve(res)
+                })
+                .catch(error => {
+                    reject(error)
+                    console.log(error)
+                })
+        })
+    }
 
     // 2)insert message into DB, not finished. not tested
     insert_message(m_id, ch_id, u_id, m_text, isCode, m_response, m_time, hasInputs) {
@@ -214,7 +227,7 @@ module.exports = class PostgresController {
     // * FROM ${m_id} ORDER BY u_id,ch_id;`);         client .any(`SELECT
     // * FROM ${m_id} ORDER BY u_id,ch_id;`)             .then(data => {     if
     // (data.length > 0) {                     resolve(data) } else { reject(error)
-    //            }             })   }).catch(error => { reject(error)     }) }
+    //           }             })   }).catch(error => { reject(error)     }) }
     // 10)search funcition(specifiying category and then keywords) -incomplete- not
     // tested
     search_channel(keyword) {
@@ -245,7 +258,7 @@ module.exports = class PostgresController {
             })
         })
     }
-   
+
     //12)delete a user from a channel not tested
     delete_user_from_channel(ch_id, u_id) {
         return new Promise((resolve, reject) => {
