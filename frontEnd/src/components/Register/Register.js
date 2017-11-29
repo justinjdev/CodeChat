@@ -23,7 +23,7 @@ class Register extends Component {
 
   handleClick(event){
     var apiBaseUrl = "http://localhost:4000/api/";
-    console.log("values",this.state.first_name,this.state.last_name,this.state.email,this.state.password);
+    console.log("values",this.state.first_name,this.state.last_name, this.state.username, this.state.email,this.state.password);
     //To be done:check for empty values before hitting submit
     var self = this;
     var payload={
@@ -37,10 +37,10 @@ class Register extends Component {
    .then(function (response) {
      console.log(response);
      if(response.data.code === 200){
-       console.log("registration successfull");
+       console.log("registration successful");
        var loginscreen=[];
        loginscreen.push(<SignPage parentContext={this}/>);
-       var loginmessage = "Not Registered yet.Go to registration";
+       var loginmessage = "Not Registered yet. Go to registration";
        self.props.parentContext.setState({loginscreen:loginscreen,
        loginmessage:loginmessage,
        buttonLabel:"Register",
