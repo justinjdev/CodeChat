@@ -273,14 +273,14 @@ module.exports = class PostgresController {
             })
         })
     }
-    
+
     //13)get username from email and u_pass - not tested
     get_user_name(u_mail, u_pass){
         return new Promise((resolve, reject) => {
             console.log(`SELECT u_username FROM "${Users}" WHERE "u_mail" = '${u_mail}' AND "u_pass" = '${u_pass}`)
             client.any(`SELECT u_username FROM "${Users}" WHERE "u_mail" = '${u_mail}' AND "u_pass" = '${u_pass}`)
             .then(data => {
-                reslove(data)
+                resolve(data)
             }).catch(error => {
                 reject(error)
             })
@@ -289,11 +289,11 @@ module.exports = class PostgresController {
 
     //14)return all channel names
     return_all_channel_names(){
-        return new Promise((reslove, reject) => {
+        return new Promise((resolve, reject) => {
             console.log(`SELECT '${ch_name}' FROM "${Channel}"`)
             client.any(`SELECT '${ch_name}' FROM "${Channel}"`)
             .then(data => {
-                reslove(data)
+                resolve(data)
             }).catch(error => {
                 reject(error)
         })

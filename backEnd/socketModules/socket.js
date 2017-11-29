@@ -126,6 +126,7 @@ module.exports = class Socket {
                     dbcontroller.registerUser(uuid, creds.email, SHA256(creds.password), creds.Username, creds.first_name, creds.last_name, "")
                 })
                 socket.on('loginRequest', loginCreds => {
+                    console.log("logging in user:",loginCreds)
                     dbcontroller
                         .loginUser(loginCreds.email, loginCreds.password)
                 })

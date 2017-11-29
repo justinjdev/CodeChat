@@ -88,7 +88,7 @@ class Login extends Component {
                   label="Submit"
                   primary={true}
                   style={style}
-                  onClick={this.props.signIn}/>
+                  onClick={this.props.signIn && this.signIn}/>
                 <RaisedButton
                   label="Clear"
                   primary={true}
