@@ -71,7 +71,7 @@ module.exports = class Socket {
                 })
                 socket.on('message', (message, response) => {
                     const uuid = generateUUID()
-                    message.id = uuid
+                    message.id = uuid/100
                     message.language = ''
                     dbcontroller.save(message)
                     console.log(message)
@@ -127,7 +127,7 @@ module.exports = class Socket {
                     const uuid = generateUUID()
 
                     dbcontroller
-                        .registerUser(uuid, registerCreds.email, registerCreds.password, registerCreds.username, registerCreds.first_name, registerCreds.last_name, "")
+                        .registerUser(uuid/100, registerCreds.email, registerCreds.password, registerCreds.username, registerCreds.first_name, registerCreds.last_name, "")
                         .then(reply => {
                             if(reply === 'success'){
                                 socket.emit('registerReply', user)

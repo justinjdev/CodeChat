@@ -71,8 +71,8 @@ module.exports = class PostgresController {
 
             client
                 .any(`INSERT INTO "Users"("u_username", "u_pass", "u_email", "u_id", "u_firstname", "u_lastname", "u_bio") VALUES ('${u_username}', '${u_pass}', '${u_email}',  '${u_id}', '${u_firstname}', '${u_lastname}', '${u_bio}') returning u_username`)
-                .then(() => {
-                    resolve("Successful Insert of new user.")
+                .then((u_username) => {
+                    resolve("Successful Insert of new user.",u_username)
                 })
                 .catch(error => {
                     reject(error)

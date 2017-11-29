@@ -76,10 +76,10 @@ class Register extends Component {
                   <br/>
 
                   <TextField
-                    hintText="Username"
+                    hintText="username"
                     floatingLabelText="Codechat Alias"
                     onChange=
-                    {(event,newValue) => this.setState({Username:newValue})}/>
+                    {(event,newValue) => this.setState({username:newValue})}/>
                   <br/>
                   <TextField
                     hintText="Enter your Email"
