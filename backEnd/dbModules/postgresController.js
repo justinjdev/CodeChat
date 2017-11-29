@@ -11,6 +11,8 @@
 10) user search function (specify 1. a category (Message, User, Channel), 2. then keyword(s))
 11) delete a channel (when admin wants to delete a channel or a user wants to delete a private channel)
 12) delete a user from a channel (when a user leaves a channel)
+13) get username from email and u_pass
+14) return all channel names
 -------------------------------------------------------------------------------------------------------------*/
 
 'use strict'
@@ -270,6 +272,32 @@ module.exports = class PostgresController {
                 reject(error)
             })
         })
+    }
+    
+    //13)get username from email and u_pass - not tested
+    get_user_name(u_mail, u_pass){
+        return new Promise((resolve, reject) => {
+            console.log(`SELECT u_username FROM "${Users}" WHERE "u_mail" = '${u_mail}' AND "u_pass" = '${u_pass}`)
+            client.any(`SELECT u_username FROM "${Users}" WHERE "u_mail" = '${u_mail}' AND "u_pass" = '${u_pass}`)
+            .then(data => {
+                reslove(data)
+            }).catch(error => {
+                reject(error)
+            })
+        })
+    }
+
+    //14)return all channel names
+    return_all_channel_names(){
+        return new Promise((reslove, reject) => {
+            console.log(`SELECT '${ch_name}' FROM "${Channel}"`)
+            client.any(`SELECT '${ch_name}' FROM "${Channel}"`)
+            .then(data => {
+                reslove(data)
+            }).catch(error => {
+                reject(error)
+        })
+    })
     }
 
 }
