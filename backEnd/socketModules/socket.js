@@ -227,7 +227,7 @@ module.exports = class Socket {
         return (actualRooms)
     }
 
-    async getAllRooms(room) {
+    async getAllRooms() {
         let rooms = await dbcontroller.return_all_channel_names()
         // let allRooms = [] for(let i in rooms){     allRooms.push(i) }
         console.log("getting get all rooms")
