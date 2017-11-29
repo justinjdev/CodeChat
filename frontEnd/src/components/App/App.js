@@ -21,6 +21,10 @@ class App extends Component {
     this.signIn = this
       .signIn
       .bind(this)
+
+    this.getSignedIn = this
+      .getSignedIn
+      .bind(this)
   }
 
   getRegister() {
@@ -31,6 +35,7 @@ class App extends Component {
   }
 
   getSignedIn() {
+    console.log("signing in.")
     let state = this.state
     state.register = true
     this.setState(state)
@@ -53,7 +58,7 @@ class App extends Component {
       ? <MainPage {...this.props} socket={socket}/>
       : this.state.register
         ? <SignIn {...this.props} signIn={this.signIn} socket={socket}/>
-        : <Register {...this.props} signIn={this.signIn} socket={socket}/>)
+        : <Register {...this.props}getSignedIn={this.getSignedIn} socket={socket}/>)
   }
 }
 

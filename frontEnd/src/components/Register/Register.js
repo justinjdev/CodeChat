@@ -24,10 +24,11 @@ class Register extends Component {
       .props
       .socket
       .on('registerReply', reply => {
-        console.log(reply)
+        console.log("reply", reply)
         if (reply === 'error') {
           console.log("invalid username or password")
         } else {
+          console.log("get signed in now:")
           this
             .props
             .getSignedIn()
@@ -44,7 +45,7 @@ class Register extends Component {
       "email": this.state.email,
       "password": sha256.hex(this.state.password)
     }
-    console.log("payload:",payload)
+    // console.log("payload:",payload)
     this
       .props
       .socket
@@ -60,7 +61,7 @@ class Register extends Component {
             <div>
               <MuiThemeProvider>
                 <div>
-                  <AppBar title="Register" showMenuIconButton={false} />
+                  <AppBar title="Register" showMenuIconButton={false}/>
                   <TextField
                     hintText="Enter your First Name"
                     floatingLabelText="First Name"
