@@ -117,7 +117,7 @@ module.exports = class Socket {
                     }
                 })
                 socket.on('getRooms', () => {
-                    socket.emit('roomList', this.actualRooms)
+                    socket.emit('roomList', {rooms: this.actualRooms})
                 })
                 socket.on('register', (resp, creds) => {
                     var uuid = generateUUID()
