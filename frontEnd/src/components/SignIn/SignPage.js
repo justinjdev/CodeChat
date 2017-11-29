@@ -27,7 +27,7 @@ class Login extends Component {
       .then(function (response) {
         console.log(response);
         if (response.data.code === 200) {
-          console.log("Login successfull");
+          console.log("Login successful");
           // var uploadScreen=[]; uploadScreen.push(<UploadScreen
           // appContext={self.props.appContext}/>)
           // self.props.appContext.setState({loginPage:[],uploadScreen:uploadScreen})
@@ -51,7 +51,9 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="SignPage">
+      <div className="signpage">
+            <div className="body">
+
         <div>
           <MuiThemeProvider>
             <div>
@@ -89,6 +91,10 @@ class Login extends Component {
           </MuiThemeProvider>
         </div>
       </div>
+      </div>
+
+    
+
     );
 
   }
