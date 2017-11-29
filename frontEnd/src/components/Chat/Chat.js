@@ -15,7 +15,7 @@ class Chat extends Component {
             chatInput: '',
             room: 'Lobby',
             messagesList: [],
-            nick: 'Hoebert'
+            nick: 'Bobert'
         }
 
         this.submitHandler = this
@@ -75,8 +75,8 @@ class Chat extends Component {
             .props
             .socket
             .on('joinResult', (join) => {
+                // console.log("join:", join)
                 this.clearMessageList()
-
                 let state = this.state
                 state.room = join.room
                 this.setState(state)
@@ -86,15 +86,15 @@ class Chat extends Component {
                 this
                     .props
                     .socket
+                    .emit('nickReply', this.state.nick)
+                console.log("emitting nickname:", this.state.nick)
+
+                this
+                    .props
+                    .socket
                     .emit('getCache', this.state.room)
 
             })
-
-        this
-            .props
-            .socket
-            .emit('nickReply', this.state.nick)
-        console.log("emitting nickname:", this.state.nick)
 
         const textArea = document.querySelector('.input')
         const submitButton = document.querySelector('.submit')

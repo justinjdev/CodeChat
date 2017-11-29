@@ -13,11 +13,13 @@ class ActiveUsers extends Component {
             usersList: []
         }
 
-        
+
     }
     componentDidMount() {
         console.log('did mount')
         this.props.socket.on('userList', (users)=>{
+            console.log("users:")
+            console.table(users)
             // for(let i in users){
             //     this.printMessage(JSON.parse(users[i]))
             // }

@@ -9,11 +9,7 @@ module.exports = class Audio {
         io
             .on('connection', function (socket) {
                 console.log("socket is connected:", socket.id)
-                socket.on('chat message', function (msg) {
-                    io.emit('chat message', msg)
-                })
                 socket.on('voice', function (blob) {
-                    console.log(blob)
                     socket.broadcast.emit('voice', blob)
                 })
             })

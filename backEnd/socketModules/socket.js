@@ -25,8 +25,10 @@ module.exports = class Socket {
             .on('connection', async(socket) => {
                 console.log("NICKNAMES!!", this.nicknames)
                 socket.on('nickReply', nickname => {
+                    console.log("nickReply!")
                     let id = socket.id
-                    this.nicknames.id = nickname
+                    // console.log("ID:", id)
+                    this.nicknames[id] = nickname
                 })
 
                 console.log(socket.id, "connected")
@@ -63,11 +65,7 @@ module.exports = class Socket {
             *  joins a new room. Then emit joinResult to the room 'newRoom'.
             */
                 socket.on('join', async(room) => {
-                    console.log("😲 OMG JOINING!😲 ", room)
-                    socket.leave(room.previousRoom)
-                    socket.join(room.newRoom)
-                    await this.listSocketsInRoom()
-                    socket.emit('joinResult', {room: room.newRoom})
+                    this.changeRooms(room, socket)
                 })
                 socket.on('getCache', async room => {
                     await this.getCachedMessages(room, socket)
@@ -87,17 +85,25 @@ module.exports = class Socket {
                                 .parser
                                 .readInput(message)
                                 .then(res => {
-                                    console.log('response')
-                                    console.log(res)
-                                    if (res.newNick) {
+                                    // console.log('response') console.log(res)
+                                    if (res.newNick) { //change nicknames
                                         let id = socket.id
-                                        this.nicknames.id = res.newNick
+                                        console.log('ID:', id)
+                                        this.nicknames[id] = res.newNick
+                                        console.log(this.nicknames)
                                         socket.emit('nickRequest', res.newNick)
+                                    }
+                                    if (res.command) {
+                                        // console.log("res changeROOMS👍:", res)
+                                        this.changeRooms({
+                                            previousRoom: res.previousRoom,
+                                            newRoom: res.newRoom
+                                        }, socket)
                                     }
                                     response(res)
                                     socket
                                         .broadcast
-                                        .to(messages.room) // room name
+                                        .to(res.room) // room name
                                         .emit('message', res) // message name and res is the object being sent
                                 })
                         } else {
@@ -121,7 +127,13 @@ module.exports = class Socket {
                 })
             })
     }
-
+    async changeRooms(room, socketuser) {
+        // console.log("😲 OMG JOINING!😲 ", room)
+        socketuser.leave(room.previousRoom)
+        socketuser.join(room.newRoom)
+        await this.listSocketsInRoom()
+        socketuser.emit('joinResult', {room: room.newRoom})
+    }
     async getCachedMessages(roomName, socket) {
         // console.log("getting cached messages from ", roomName)
         let messages
@@ -147,7 +159,7 @@ module.exports = class Socket {
         let actualRooms
         try {
             actualRooms = await this.getRooms()
-            console.log("waitingggggg to list sockets in rooms")
+            // console.log("waitingggggg to list sockets in rooms")
         } catch (error) {
             console.log(error)
         }
@@ -175,11 +187,15 @@ module.exports = class Socket {
         }
     }
     async sendUserList(roomName, userList) {
-        this
-            .io
-            .sockets
-            . in(roomName) // room name
-            .emit('userList', this.nicknames[userList])
+        // console.log(userList) console.log("userlist:",this.nicknames)
+        for (let i of userList) {
+            console.log(this.nicknames[i])
+            this
+                .io
+                .sockets
+                . in(roomName) // room name
+                .emit('userList', this.nicknames[i])
+        }
     }
     async getRooms() {
         let clients = Object.keys(this.io.sockets.sockets)
