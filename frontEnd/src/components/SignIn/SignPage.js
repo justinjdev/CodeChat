@@ -19,6 +19,15 @@ class Login extends Component {
       .socket
       .on('loginReply', reply => {
         console.log(reply)
+        if (reply === 'error') {
+          console.log("invalid username or password")
+        } else {
+          localStorage.setItem("username", reply[0].u_username)
+          this
+            .props
+            .signIn()
+
+        }
       })
   }
 
@@ -32,7 +41,6 @@ class Login extends Component {
       .props
       .socket
       .emit("loginRequest", payload)
-    // this   .props   .signIn()
   }
 
   saveUsername(e, text) {
@@ -40,7 +48,6 @@ class Login extends Component {
     let state = this.state
     state.username = text
     this.setState(state)
-    localStorage.setItem("username", text)
     console.log("state:", this.state)
   }
 
