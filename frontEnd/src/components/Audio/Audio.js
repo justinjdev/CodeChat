@@ -182,16 +182,8 @@ class Audio extends Component {
                     value="Start Recording"
                     id="rbutton"
                     onClick={this.recclick}/>
-<<<<<<< HEAD
-                <input
-                    type="button"
-                    value="Enter VC"
-                    id="vcbutton"
-                    onClick={this.vcclick}/>
-                    </center>
-=======
                 <input type="button" value="Enter VC" id="vcbutton" onClick={this.vcclick}/>
->>>>>>> 3ff636770f5245eddb0bf0e644e725227edd32a7
+                </center>
             </div>
         )
     }
