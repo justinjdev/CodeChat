@@ -11,6 +11,8 @@
 10) user search function (specify 1. a category (Message, User, Channel), 2. then keyword(s))
 11) delete a channel (when admin wants to delete a channel or a user wants to delete a private channel)
 12) delete a user from a channel (when a user leaves a channel)
+13) get username from email and u_pass
+14) return all channel names
 -------------------------------------------------------------------------------------------------------------*/
 
 'use strict'
@@ -71,6 +73,19 @@ module.exports = class PostgresController {
                 .any(`INSERT INTO "Users"("u_username", "u_pass", "u_email", "u_id", "u_firstname", "u_lastname", "u_bio") VALUES ('${u_username}', '${u_pass}', '${u_email}',  '${u_id}', '${u_firstname}', '${u_lastname}', '${u_bio}') returning u_username`)
                 .then(() => {
                     resolve("Successful Insert of new user.")
+                })
+                .catch(error => {
+                    reject(error)
+                    console.log(error)
+                })
+        })
+    }
+    loginUser(u_email, u_pass) {
+        return new Promise((resolve, reject) => {
+            client
+                .any(`Select u_username from "Users" where u_email = '${u_username}' and u_pass = '${u_pass}';`)
+                .then(res => {
+                    resolve(res)
                 })
                 .catch(error => {
                     reject(error)
@@ -214,7 +229,7 @@ module.exports = class PostgresController {
     // * FROM ${m_id} ORDER BY u_id,ch_id;`);         client .any(`SELECT
     // * FROM ${m_id} ORDER BY u_id,ch_id;`)             .then(data => {     if
     // (data.length > 0) {                     resolve(data) } else { reject(error)
-    //            }             })   }).catch(error => { reject(error)     }) }
+    //           }             })   }).catch(error => { reject(error)     }) }
     // 10)search funcition(specifiying category and then keywords) -incomplete- not
     // tested
     search_channel(keyword) {
@@ -245,7 +260,7 @@ module.exports = class PostgresController {
             })
         })
     }
-   
+
     //12)delete a user from a channel not tested
     delete_user_from_channel(ch_id, u_id) {
         return new Promise((resolve, reject) => {
@@ -257,6 +272,32 @@ module.exports = class PostgresController {
                 reject(error)
             })
         })
+    }
+    
+    //13)get username from email and u_pass - not tested
+    get_user_name(u_mail, u_pass){
+        return new Promise((resolve, reject) => {
+            console.log(`SELECT u_username FROM "${Users}" WHERE "u_mail" = '${u_mail}' AND "u_pass" = '${u_pass}`)
+            client.any(`SELECT u_username FROM "${Users}" WHERE "u_mail" = '${u_mail}' AND "u_pass" = '${u_pass}`)
+            .then(data => {
+                reslove(data)
+            }).catch(error => {
+                reject(error)
+            })
+        })
+    }
+
+    //14)return all channel names
+    return_all_channel_names(){
+        return new Promise((reslove, reject) => {
+            console.log(`SELECT '${ch_name}' FROM "${Channel}"`)
+            client.any(`SELECT '${ch_name}' FROM "${Channel}"`)
+            .then(data => {
+                reslove(data)
+            }).catch(error => {
+                reject(error)
+        })
+    })
     }
 
 }

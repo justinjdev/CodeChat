@@ -89,7 +89,7 @@ module.exports = class Parser {
                     try {
                         messages = await this
                             .virtulization
-                            .virtulizeLanguage(argument)
+                            .language(argument)
                     } catch (error) {
                         console.error("ERROR in java case: ", error)
                     }
@@ -107,7 +107,7 @@ module.exports = class Parser {
                     try {
                         messages = await this
                             .virtulization
-                            .virtulizeLanguage(argument)
+                            .language(argument)
                     } catch (error) {
                         console.error("ERROR in cpp case: ", error)
                     }

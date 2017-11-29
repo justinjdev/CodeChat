@@ -117,12 +117,16 @@ module.exports = class Socket {
                     }
                 })
                 socket.on('getRooms', () => {
-                    socket.emit('roomList', this.actualRooms)
+                    socket.emit('roomList', {rooms: this.actualRooms})
                 })
                 socket.on('register', (resp, creds) => {
                     var uuid = generateUUID()
                     console.log("Registering new user: ", creds.Username, uuid)
                     dbcontroller.registerUser(uuid, creds.email, SHA256(creds.password), creds.Username, creds.first_name, creds.last_name, "")
+                })
+                socket.on('loginRequest', loginCreds => {
+                    dbcontroller
+                        .loginUser(loginCreds.email, loginCreds.password)
                 })
             })
     }
@@ -179,7 +183,6 @@ module.exports = class Socket {
                     } catch (emitError) {
                         console.error(emitError)
                     }
-
                     if (error)
                         throw error // Returns an array of client IDs like["Anw2LatarvGVVXEIAAAD"]
                     })

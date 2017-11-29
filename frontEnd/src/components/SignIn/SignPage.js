@@ -5,6 +5,7 @@ import TextField from 'material-ui/TextField';
 //import axios from 'axios';
 import React, {Component} from 'react';
 import './SignPage.css';
+const sha256 = require('js-sha256')
 
 class Login extends Component {
   constructor(props) {
@@ -18,7 +19,6 @@ class Login extends Component {
   handleClick(event) {
     var apiBaseUrl = "http://localhost:4000/api/";
     var self = this;
-    var sha256 = require('js-sha256');
     var payload = {
       "email": this.state.username,
       "password": sha256.hex(this.state.password)
@@ -27,7 +27,7 @@ class Login extends Component {
       .then(function (response) {
         console.log(response);
         if (response.data.code === 200) {
-          console.log("Login successfull");
+          console.log("Login successful");
           // var uploadScreen=[]; uploadScreen.push(<UploadScreen
           // appContext={self.props.appContext}/>)
           // self.props.appContext.setState({loginPage:[],uploadScreen:uploadScreen})
@@ -44,6 +44,14 @@ class Login extends Component {
       });
   }
 
+  signIn(event) {
+    let payload = {
+      "email": this.state.username,
+      "password": sha256.hex(this.state.password)
+    }
+    this.props.socket.emit("loginRequest",payload)
+  }
+
   saveUsername(e, text) {
     console.log(text)
     localStorage.setItem("username", text)
@@ -51,44 +59,48 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="SignPage">
-        <div>
-          <MuiThemeProvider>
-            <div>
-              <AppBar title="Sign-in"/>
-              <TextField
-                hintText="Enter your Email"
-                floatingLabelText="Email"
-                onChange=
-                {(event,newValue) => this.setState({username:newValue})}
-                onChange={this.saveUsername}/>
-              <br/>
-              <TextField
-                type="password"
-                hintText="Enter your Password"
-                floatingLabelText="Password"
-                onChange=
-                {(event,newValue) => this.setState({password:newValue})}/>
-              <br/> {/* <RaisedButton
+      <div className="signpage">
+        <div className="body">
+
+          <div>
+            <MuiThemeProvider>
+              <div>
+                <AppBar title="Sign-in"/>
+                <TextField
+                  hintText="Enter your Email"
+                  floatingLabelText="Email"
+                  onChange=
+                  {(event,newValue) => this.setState({username:newValue})}
+                  onChange={this.saveUsername}/>
+                <br/>
+                <TextField
+                  type="password"
+                  hintText="Enter your Password"
+                  floatingLabelText="Password"
+                  onChange=
+                  {(event,newValue) => this.setState({password:newValue})}/>
+                <br/> {/* <RaisedButton
                 label="Submit"
                 primary={true}
                 style={style}
                 onClick={(event) => this.handleClick(event)}/> */}
-              <RaisedButton
-                label="Submit"
-                primary={true}
-                style={style}
-                onClick={this.props.signIn}/>
-              <RaisedButton
-                label="Clear"
-                primary={true}
-                style={style}
-                onClick={(event) => this.handleClick(event)}/>
+                <RaisedButton
+                  label="Submit"
+                  primary={true}
+                  style={style}
+                  onClick={this.props.signIn}/>
+                <RaisedButton
+                  label="Clear"
+                  primary={true}
+                  style={style}
+                  onClick={(event) => this.handleClick(event)}/>
 
-            </div>
-          </MuiThemeProvider>
+              </div>
+            </MuiThemeProvider>
+          </div>
         </div>
       </div>
+
     );
 
   }

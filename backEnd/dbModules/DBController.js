@@ -45,46 +45,21 @@ module.exports = class DBController {
         // catch (error) {     console.error('test 12 error', error) }
         // console.error('test12', test12) let test11 try {     test11 = await
         // this.deleteChannel('12')     return } catch (error) {     console.error('test
-        // 11 error', error) } console.error('test11', test11) let test10 try {
-        // test10 = await this.search_channel("YOLO") } catch (error) {
-        // console.error('test 10 error', error) } console.error('test10', test10)
+        // 11 error', error) } console.error('test11', test11) let test10 try { test10 =
+        // await this.search_channel("YOLO") } catch (error) { console.error('test 10
+        // error', error) } console.error('test10', test10)
 
         // TODO:failed let test9 try {     test9 = await this.change_userBio('4321', "yo
         // I'm such a lord of swag") } catch (error) {     console.log("test 9 error",
-        // error) } console.log("test9", test9)
-
-        // let test8
-        // try {
-        //     test8 = await this.change_channelName('3', 'Ada')
-        // } catch (error) {
-        //     console.log("test 8 error", error)
-        // }
-        // console.log("test8", test8)
-
-        // let test7
-        // try {
-        //     test7 = await
-        //     this.change_username('114', 'burris fails you')
-        // } catch (error) {
-        //     console.log("test 7 error", error)
-        // }
-        // console.log("test7", test7)
-
-        // let test6
-        // try {
-        //     test6 = await this.Get_Users_In_Channel('1')
-        // } catch (error) {
-        //     console.log("test 6 error", error)
-        // }
-        // console.log("test6", test6)
-
-        // let test5
-        // try {
-        //     test5 = await this.Users_Email()
-        // } catch (error) {
-        //     console.log("test 5 error", error)
-        // }
-        // console.log("test5", test5)
+        // error) } console.log("test9", test9) let test8 try {     test8 = await
+        // this.change_channelName('3', 'Ada') } catch (error) {     console.log("test 8
+        // error", error) } console.log("test8", test8) let test7 try {     test7 =
+        // await     this.change_username('114', 'burris fails you') } catch (error) {
+        //   console.log("test 7 error", error) } console.log("test7", test7) let test6
+        // try {     test6 = await this.Get_Users_In_Channel('1') } catch (error) {
+        // console.log("test 6 error", error) } console.log("test6", test6) let test5
+        // try {     test5 = await this.Users_Email() } catch (error) {
+        // console.log("test 5 error", error) } console.log("test5", test5)
 
     }
 
@@ -94,6 +69,16 @@ module.exports = class DBController {
         try {
             registerUserAttempt = await postgresController.insert_New_User(u_id, u_email, u_password, u_username, u_firstname, u_lastname, u_bio)
             return "Succsessfully added User"
+        } catch (error) {
+            console.error(error)
+        }
+    }
+    //1) insert a user record
+    async loginUser(u_email, u_pass) {
+        let loginUserAttempt
+        try {
+            loginUserAttempt = await postgresController.loginUser(u_email, u_pass)
+            return loginUserAttempt
         } catch (error) {
             console.error(error)
         }
@@ -142,7 +127,7 @@ module.exports = class DBController {
         } catch (error) {
             console.error(error)
         }
-        return(checkEmail)
+        return (checkEmail)
     }
 
     //6) get the list of all usernames currently in a channel
@@ -154,7 +139,7 @@ module.exports = class DBController {
         } catch (error) {
             console.error(error)
         }
-        return(UsersInChannel)
+        return (UsersInChannel)
     }
 
     //7) change a username
