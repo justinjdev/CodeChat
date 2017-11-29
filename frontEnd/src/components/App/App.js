@@ -15,7 +15,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      register: false,
+      register: false, //if false, go to sign in page, if true, go to login page
       chatting: false
     }
     this.signIn = this
@@ -25,12 +25,31 @@ class App extends Component {
     this.getSignedIn = this
       .getSignedIn
       .bind(this)
+
+    this.switchToRegister = this
+      .switchToRegister
+      .bind(this)
+    this.switchToLogin = this
+      .switchToLogin
+      .bind(this)
   }
 
   getRegister() {
     const register = localStorage.getItem('registered')
     let newState = this.state
-    newState.register = register
+    newState.register = true
+    this.setState(newState)
+  }
+  switchToRegister() {
+    console.log("switching register to true")
+    let newState = this.state
+    newState.register = false
+    this.setState(newState)
+  }
+  switchToLogin() {
+    console.log("switching register to false")
+    let newState = this.state
+    newState.register = true
     this.setState(newState)
   }
 
@@ -57,8 +76,8 @@ class App extends Component {
     return (this.state.chatting
       ? <MainPage {...this.props} socket={socket}/>
       : this.state.register
-        ? <SignIn {...this.props} signIn={this.signIn} socket={socket}/>
-        : <Register {...this.props}getSignedIn={this.getSignedIn} socket={socket}/>)
+        ? <SignIn {...this.props} switchToRegister={this.switchToRegister} signIn={this.signIn} socket={socket}/>
+        : <Register {...this.props} switchToLogin={this.switchToRegister}  switchToLogin={this.getSignedIn} socket={socket}/>)
   }
 }
 

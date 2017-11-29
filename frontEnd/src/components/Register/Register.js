@@ -121,7 +121,9 @@ class Register extends Component {
                    // type="reset"
                     //onClick={this.state(props)}
                     />
-
+<p>If you already have an account, login
+                     <span onClick={this.props.switchToLogin}> here</span>
+                  </p>
                 </div>
 
               </MuiThemeProvider>

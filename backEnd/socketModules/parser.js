@@ -1,8 +1,7 @@
 'use strict'
 
 const VC = require('./virtualizationCommands')
-// const virtulization = new VC()
-// //connects to justin DBC()
+// const virtulization = new VC() //connects to justin DBC()
 
 module.exports = class Parser {
     constructor(io) {
@@ -90,10 +89,10 @@ module.exports = class Parser {
                         messages = await this
                             .virtulization
                             .language(argument)
+                        return message
                     } catch (error) {
                         console.error("ERROR in java case: ", error)
                     }
-                    // return (message)
                     break
                 }
             case 'cpp':
@@ -117,8 +116,8 @@ module.exports = class Parser {
                 // argument         return (message) message.code = true         message.text =
                 // argument         let messages         try {             messages = await
                 // virtulization.virtulizeLanguage(argument)         } catch (error) {
-                //   console.error("ERROR: ", error)         }         // return (message)
-                //   break     }
+                // console.error("ERROR: ", error)         }         // return (message)   break
+                //     }
             case 'bunny':
                 {
                     message.text = `

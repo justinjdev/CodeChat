@@ -30,7 +30,6 @@ class Login extends Component {
       })
   }
 
-
   signIn(event) {
     console.log("pls sign in")
     let payload = {
@@ -54,19 +53,16 @@ class Login extends Component {
   render() {
     return (
 
-       <div className="signpage">
+      <div className="signpage">
 
-         <div className="body">
+        <div className="body">
 
           <div>
 
             <MuiThemeProvider>
               <div>
 
-              <AppBar
-             title="Sign In" showMenuIconButton={false}
-           />
-
+                <AppBar title="Sign In" showMenuIconButton={false}/>
 
                 <TextField
                   hintText="Enter your Email"
@@ -90,13 +86,13 @@ class Login extends Component {
                   primary={true}
                   style={style}
                   onClick={(event) => this.handleClick(event)}/>
-
+                <p>If you don't have an account, register <span onClick={this.props.switchToRegister}>here</span>
+                </p>
               </div>
             </MuiThemeProvider>
           </div>
         </div>
-        </div>
-
+      </div>
 
     )
 
