@@ -3,18 +3,21 @@ import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 //import axios from 'axios';
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './SignPage.css';
 
 class Login extends Component {
-constructor(props){
-  super(props);
-  this.state={
-  username:'',
-  password:''
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      password: ''
+    }
   }
- }
-/*
+
+
+
+  /*
  handleClick(event){
   var apiBaseUrl = "http://localhost:4000/api/";
   var self = this;
@@ -46,44 +49,62 @@ constructor(props){
   });
   }
 */
-render() {
+
+saveUsername(e,text){
+  console.log(text)
+  localStorage.setItem("userInfo",text)
+}
+
+  render() {
     return (
       <div className="SignPage">
-      <div>
-        <MuiThemeProvider>
-          <div>
-          <AppBar
-             title="Sign-in"
-           />
-           <TextField
-             hintText="Enter your Email"
-             floatingLabelText="Email"
-             onChange = {(event,newValue) => this.setState({username:newValue})}
-             />
-           <br/>
-             <TextField
-               type="password"
-               hintText="Enter your Password"
-               floatingLabelText="Password"
-               onChange = {(event,newValue) => this.setState({password:newValue})}
-               />
-             <br/>
-             <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
-             <RaisedButton label="Clear" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
+        <div>
+          <MuiThemeProvider>
+            <div>
+              <AppBar title="Sign-in"/>
+              <TextField
+                hintText="Enter your Email"
+                floatingLabelText="Email"
+                onChange=
+                {(event,newValue) => this.setState({username:newValue})}
+                onChange=
+                {this.saveUsername}
+                />
+              <br/>
+              <TextField
+                type="password"
+                hintText="Enter your Password"
+                floatingLabelText="Password"
+                onChange=
+                {(event,newValue) => this.setState({password:newValue})}/>
+              <br/>
+              {/* <RaisedButton
+                label="Submit"
+                primary={true}
+                style={style}
+                onClick={(event) => this.handleClick(event)}/> */}
+              <RaisedButton
+                label="Submit"
+                primary={true}
+                style={style}
+                onClick={this.props.signIn}/>
+              <RaisedButton
+                label="Clear"
+                primary={true}
+                style={style}
+                onClick={(event) => this.handleClick(event)}/>
 
-         </div>
-         </MuiThemeProvider>
-      </div>
+            </div>
+          </MuiThemeProvider>
+        </div>
       </div>
     );
 
   }
 }
 
-
 const style = {
- margin: 20,
+  margin: 20
 };
-
 
 export default Login;

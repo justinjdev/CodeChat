@@ -15,7 +15,7 @@ class Chat extends Component {
             chatInput: '',
             room: 'Lobby',
             messagesList: [],
-            nick: 'Hoebert'
+            nick: 'Bobert'
         }
 
         this.submitHandler = this

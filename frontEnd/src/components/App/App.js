@@ -18,7 +18,11 @@ class App extends Component {
       register: false,
       chatting: true
     }
+    this.signIn = this
+      .signIn
+      .bind(this)
   }
+
   getRegister() {
     const register = localStorage.getItem('registered')
     let state = this.state
@@ -33,6 +37,13 @@ class App extends Component {
     this.setState(state)
   }
 
+  signIn() {
+    let state = this.state
+    console.log(this.state)
+    console.log(state)
+    // state.chatting = true
+    this.setState({chatting: true})
+  }
 
   render() {
     /**
@@ -42,8 +53,8 @@ class App extends Component {
     return (this.state.chatting
       ? <MainPage {...this.props} socket={socket}/>
       : this.state.register
-        ? <Register {...this.props} socket={socket}/>
-        : <SignIn {...this.props} socket={socket}/>)
+        ? <SignIn {...this.props} signIn={this.signIn} socket={socket}/>
+        : <Register {...this.props} signIn={this.signIn} socket={socket}/>)
   }
 }
 
