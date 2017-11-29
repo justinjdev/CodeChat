@@ -210,4 +210,16 @@ module.exports = class DBController {
             console.error(error)
         }
     }
+
+    async return_all_channel_names(){
+        let allChannels
+        try {
+            allChannels = await postgresController.return_all_channel_names()
+            // returns if succssessful in postgress
+        } catch (error) {
+            console.error(error)
+        }
+        return(allChannels)
+    }
+
 }
