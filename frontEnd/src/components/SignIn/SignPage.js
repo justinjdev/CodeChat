@@ -15,45 +15,39 @@ class Login extends Component {
     }
   }
 
+  handleClick(event) {
+    var apiBaseUrl = "http://localhost:4000/api/";
+    var self = this;
+    var sha256 = require('js-sha256');
+    var payload = {
+      "email": this.state.username,
+      "password": sha256.hex(this.state.password)
+    }
+    //axios.post(apiBaseUrl+'login', payload)
+      .then(function (response) {
+        console.log(response);
+        if (response.data.code === 200) {
+          console.log("Login successfull");
+          // var uploadScreen=[]; uploadScreen.push(<UploadScreen
+          // appContext={self.props.appContext}/>)
+          // self.props.appContext.setState({loginPage:[],uploadScreen:uploadScreen})
+        } else if (response.data.code === 204) {
+          console.log("Username password do not match");
+          alert("username password do not match")
+        } else {
+          console.log("Username does not exists");
+          alert("Username does not exist");
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
 
-
-  /*
- handleClick(event){
-  var apiBaseUrl = "http://localhost:4000/api/";
-  var self = this;
-  var sha256 = require('js-sha256');
-  var payload={
-  "email":this.state.username,
-  "password": sha256.hex(this.state.password)
+  saveUsername(e, text) {
+    console.log(text)
+    localStorage.setItem("userInfo", text)
   }
-  //axios.post(apiBaseUrl+'login', payload)
-  .then(function (response) {
-  console.log(response);
-  if(response.data.code === 200){
-  console.log("Login successfull");
-  //var uploadScreen=[];
-  //uploadScreen.push(<UploadScreen appContext={self.props.appContext}/>)
-  //self.props.appContext.setState({loginPage:[],uploadScreen:uploadScreen})
-  }
-  else if(response.data.code === 204){
-  console.log("Username password do not match");
-  alert("username password do not match")
-  }
-  else{
-  console.log("Username does not exists");
-  alert("Username does not exist");
-  }
-  })
-  .catch(function (error) {
-  console.log(error);
-  });
-  }
-*/
-
-saveUsername(e,text){
-  console.log(text)
-  localStorage.setItem("userInfo",text)
-}
 
   render() {
     return (
@@ -67,9 +61,7 @@ saveUsername(e,text){
                 floatingLabelText="Email"
                 onChange=
                 {(event,newValue) => this.setState({username:newValue})}
-                onChange=
-                {this.saveUsername}
-                />
+                onChange={this.saveUsername}/>
               <br/>
               <TextField
                 type="password"
@@ -77,8 +69,7 @@ saveUsername(e,text){
                 floatingLabelText="Password"
                 onChange=
                 {(event,newValue) => this.setState({password:newValue})}/>
-              <br/>
-              {/* <RaisedButton
+              <br/> {/* <RaisedButton
                 label="Submit"
                 primary={true}
                 style={style}
