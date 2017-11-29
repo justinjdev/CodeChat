@@ -133,12 +133,12 @@ class Audio extends Component {
             vcstate = false
             document
                 .getElementById("vcbutton")
-                .value = "Enter VC"
+                .value = "Enter Chat"
         } else { //enter VC
             vcstate = true
             document
                 .getElementById("vcbutton")
-                .value = "Leave VC"
+                .value = "Leave Chat"
         }
     }
     recchange(e) { //set gain.value to new value if mic is enabled, else display alert
@@ -157,35 +157,32 @@ class Audio extends Component {
                 <div className="centered-text">
                     <h4>Audio Chat</h4>
                 </div>
-                <span>
-                    RecordVolume:
-                </span>
-                <input className="slider"
-                    type="range"
-                    id="recordVolume"
-                    min="0"
-                    max="1"
-                    step="0.01"
-                    defaultValue="1"
-                    onChange={this.recchange} />
-                <span>
-                    PlaybackVolume:
-                </span>
-                <input className="slider"
-                    type="range"
-                    id="playbackVolume"
-                    min="0"
-                    max="1"
-                    step="0.01"
-                    defaultValue="1"
-                    onChange={this.pbchange}/>
-                    <center>
-                <input
-                    type="button"
-                    value="Start Recording"
-                    id="rbutton"
-                    onClick={this.recclick}/>
-                <input type="button" value="Enter VC" id="vcbutton" onClick={this.vcclick}/>
+                <center>
+                    Record Volume
+                    <input className="slider"
+                        type="range"
+                        id="recordVolume"
+                        min="0"
+                        max="1"
+                        step="0.01"
+                        defaultValue="1"
+                        onChange={this.recchange} />
+                    Playback Volume
+                    <input className="slider"
+                        type="range"
+                        id="playbackVolume"
+                        min="0"
+                        max="1"
+                        step="0.01"
+                        defaultValue="1"
+                        onChange={this.pbchange} />
+                    <input
+                        className="button"
+                        type="button"
+                        value="Start Recording"
+                        id="rbutton"
+                        onClick={this.recclick} />
+                    <input className="button" type="button" value="Enter Chat" id="vcbutton" onClick={this.vcclick} />
                 </center>
             </div>
         )

@@ -2,6 +2,9 @@
   background-color: #3a3a3a;
   height: 100vh;
   overflow: hidden; }
+  .main-page hr {
+    color: #5f5f5f;
+    margin: 10px 10px; }
   .main-page .col-xs-1, .main-page .col-xs-2, .main-page .col-xs-8, .main-page .col-xs-9 {
     padding: 0; }
   .main-page .centered-text {
@@ -13,7 +16,7 @@
       overflow-y: auto; } }
   .main-page .header {
     height: 7vh;
-    background-color: #56ccf2;
+    background-color: #00bcd4;
     align-content: center;
     text-align: center; }
   .main-page .content {
@@ -22,11 +25,7 @@
       height: 100%;
       background-color: #4d4d4d; }
       .main-page .content .left-sidebar .profile-icon {
-        margin: 25px auto;
-        width: 100px;
-        height: 100px;
-        background-color: #56ccf2;
-        border-radius: 50%;
+        background-color: #00bcd4;
         align-content: center; }
     .main-page .content .main {
       height: 100%; }
@@ -35,6 +34,6 @@
       background-color: #4d4d4d; }
   .main-page .footer {
     height: 7vh;
-    background-color: #56ccf2;
+    background-color: #00bcd4;
     text-align: center;
     align-content: center; }
