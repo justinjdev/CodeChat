@@ -58,9 +58,18 @@ class Register extends Component {
   render(){
 
     return (
-      <div className="Register">
+      <div className="register">
+        
+
+        <div className="register-body">
+
+        <div className="centered">
+
+
       <div>
         <MuiThemeProvider>       
+
+
           <div>
           <AppBar
              title="Register"
@@ -111,9 +120,16 @@ class Register extends Component {
            <RaisedButton label="Clear" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
 
           </div>
+
          </MuiThemeProvider>
+
+      </div>      
+      </div>      
       </div>
+
+      
       </div>
+
     );
 
     }
