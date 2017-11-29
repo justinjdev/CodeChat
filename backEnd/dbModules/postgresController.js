@@ -275,10 +275,10 @@ module.exports = class PostgresController {
     }
 
     //13)get username from email and u_pass - not tested
-    get_user_name(u_mail, u_pass){
+    get_user_name(u_email, u_pass){
         return new Promise((resolve, reject) => {
-            console.log(`SELECT u_username FROM "${Users}" WHERE "u_mail" = '${u_mail}' AND "u_pass" = '${u_pass}`)
-            client.any(`SELECT u_username FROM "${Users}" WHERE "u_mail" = '${u_mail}' AND "u_pass" = '${u_pass}`)
+            console.log(`SELECT u_username FROM "${Users}" WHERE "u_email" = '${u_email}' AND "u_pass" = '${u_pass}'`)
+            client.any(`SELECT u_username FROM "${Users}" WHERE "u_email" = '${u_email}' AND "u_pass" = '${u_pass}'`)
             .then(data => {
                 resolve(data)
             }).catch(error => {
