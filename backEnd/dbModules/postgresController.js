@@ -66,9 +66,6 @@ module.exports = class PostgresController {
     //1) insert a New User record (registers with website) not tested
     insert_New_User(u_id, u_email, u_pass, u_username, u_firstname, u_lastname, u_bio) {
         return new Promise((resolve, reject) => {
-
-            console.log(`INSERT INTO "Users"("u_username", "u_pass", "u_email", "u_id", "u_firstname", "u_lastname", "u_bio") VALUES ('${u_username}', '${u_pass}', '${u_email}',  '${u_id}', '${u_firstname}', '${u_lastname}', '${u_bio}') returning u_username`)
-
             client
                 .any(`INSERT INTO "Users"("u_username", "u_pass", "u_email", "u_id", "u_firstname", "u_lastname", "u_bio") VALUES ('${u_username}', '${u_pass}', '${u_email}',  '${u_id}', '${u_firstname}', '${u_lastname}', '${u_bio}') returning u_username`)
                 .then((u_username) => {
