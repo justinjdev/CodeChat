@@ -1,3 +1,5 @@
+import { race } from '../../../../../Library/Caches/typescript/2.6/node_modules/@types/bluebird';
+
 'use strict'
 
 const postgresControlFile = require('./postgresController') //connects to PSQL
@@ -41,16 +43,8 @@ module.exports = class DBController {
                     reject(error)
                 });
             setTimeout(() => {
-                this
-                    .loginUser(u_email, u_password)
-                    .then(user => {
-                        resolve('success')
-                    })
-                    .catch(error => {
-                        console.error("error with login")
-                        reject('error with register')
-                    })
-            }, 500)
+                resolve('success')
+            })
         })
     }
     //1) insert a user record
