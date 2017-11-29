@@ -116,7 +116,7 @@ module.exports = class Socket {
                         }
                     }
                 })
-                socket.on('getRooms', () => {
+                socket.on('getRooms', async () => {
                     let allRooms = await getAllRooms()
                     socket.emit('roomList', allRooms)
                 })
@@ -126,6 +126,7 @@ module.exports = class Socket {
                     dbcontroller.registerUser(uuid, creds.email, SHA256(creds.password), creds.Username, creds.first_name, creds.last_name, "")
                 })
                 socket.on('loginRequest', loginCreds => {
+                    console.log("logging in user:",loginCreds)
                     dbcontroller
                         .loginUser(loginCreds.email, loginCreds.password)
                 })
@@ -226,11 +227,11 @@ module.exports = class Socket {
     async getAllRooms(){
         let rooms = await dbcontroller.return_all_channel_names()
         // let allRooms = []
-    
+
         // for(let i in rooms){
         //     allRooms.push(i)
         // }
-        
+
         return (rooms)
     }
 

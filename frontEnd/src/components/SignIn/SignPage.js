@@ -9,52 +9,35 @@ const sha256 = require('js-sha256')
 
 class Login extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       username: '',
       password: ''
     }
   }
 
-  handleClick(event) {
-    var apiBaseUrl = "http://localhost:4000/api/";
-    var self = this;
-    var payload = {
-      "email": this.state.username,
-      "password": sha256.hex(this.state.password)
-    }
-    //axios.post(apiBaseUrl+'login', payload)
-      .then(function (response) {
-        console.log(response);
-        if (response.data.code === 200) {
-          console.log("Login successful");
-          // var uploadScreen=[]; uploadScreen.push(<UploadScreen
-          // appContext={self.props.appContext}/>)
-          // self.props.appContext.setState({loginPage:[],uploadScreen:uploadScreen})
-        } else if (response.data.code === 204) {
-          console.log("Username password do not match");
-          alert("username password do not match")
-        } else {
-          console.log("Username does not exists");
-          alert("Username does not exist");
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
-
   signIn(event) {
+    console.log("pls sign in")
     let payload = {
       "email": this.state.username,
       "password": sha256.hex(this.state.password)
     }
-    this.props.socket.emit("loginRequest",payload)
+    this
+      .props
+      .socket
+      .emit("loginRequest", payload)
+    this
+      .props
+      .signIn()
   }
 
   saveUsername(e, text) {
     console.log(text)
+    let state = this.state
+    state.username = text
+    this.setState(state)
     localStorage.setItem("username", text)
+    console.log("state:", this.state)
   }
 
   render() {
@@ -69,9 +52,7 @@ class Login extends Component {
                 <TextField
                   hintText="Enter your Email"
                   floatingLabelText="Email"
-                  onChange=
-                  {(event,newValue) => this.setState({username:newValue})}
-                  onChange={this.saveUsername}/>
+                  onChange={(event, newValue) => this.saveUsername(event, newValue)}/>
                 <br/>
                 <TextField
                   type="password"
@@ -88,7 +69,7 @@ class Login extends Component {
                   label="Submit"
                   primary={true}
                   style={style}
-                  onClick={this.props.signIn}/>
+                  onClick={() => this.signIn()}/>
                 <RaisedButton
                   label="Clear"
                   primary={true}

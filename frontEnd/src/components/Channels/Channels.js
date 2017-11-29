@@ -78,6 +78,7 @@ class Chennels extends Component {
         return (
             <div className="channels">
                 <hr />
+                <h4>Hardcoded Channels</h4>
                 <ul className="channel-list">
                     <li className="channel centered-text">
                         <a onClick={this.onChannelClick}>ADA</a>
@@ -91,28 +92,23 @@ class Chennels extends Component {
                     <li className="channel centered-text">
                         <a onClick={this.onChannelClick}>Python</a>
                     </li>
+                    <li className="channel centered-text">
+                        <a onClick={this.onChannelClick}>CodeChat Devs</a>
+                    </li>
+                    <li className="channel centered-text">
+                        <a onClick={this.onChannelClick}>SHACS Tutors</a>
+                    </li>
+                <h4>Database Channels</h4>
                     
                         {
                             this
                             .state
                             .allRooms
                             .map((roomname, index) => {
-                                return <li className="channel centered-text" key={index}><a>{roomname}</a></li>
+                                return <li className="channel centered-text" key={index}><a onClick={this.onChannelClick}>{roomname}</a></li>
                             })}
                 </ul>
-                <hr />
-                <ul className="channel-list">
-
-                <li className="channel centered-text">
-                        <a onClick={this.onChannelClick}>CodeChat Devs</a>
-                    </li>
-                    <li className="channel centered-text">
-                        <a onClick={this.onChannelClick}>SHACS Tutors</a>
-                    </li>
-
-                    <hr/>
-
-                </ul>
+                
             </div>
         );
     }
