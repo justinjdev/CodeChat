@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
-import io from 'socket.io-client'
+// import io from 'socket.io-client'
 
 import './Audio.css'
 
 // const socket = io('https://ezchatrooms.herokuapp.com/') //old test, maybe
 // remove it?
 
-const socket = io('localhost:8080') // local computer
+// const socket = io('localhost:8080') // local computer
 // const socket = io('104.131.129.223:8080') // server
 
 let mediaRecorder //records audio
@@ -66,14 +66,14 @@ class Audio extends Component {
                     mediaRecorder.onstop = function (e) { //when stopped (by interval or by user), send voice to server
                         let blob = new Blob(chunks, {'type': 'audio/ogg codecs=opus'}) //store buffer in blob, use opus codec
                         chunks = [] //empty buffer
-                        socket.emit('voice', blob) //send blob to server
+                        this.props.socket.emit('voice', blob) //send blob to server
                     }
                 })
                 .catch(function (err) { ///user does not accept or error
                     mic = false
                 })
         }
-        socket
+        this.props.socket
             .on('voice', function (buff) {
                 if (vcstate) {
                     let blob = new Blob([buff], {'type': 'audio/ogg codecs=opus'}) //convert buffer back into blob
@@ -154,21 +154,24 @@ class Audio extends Component {
     render() {
         return (
             <div className="Audiochat">
+                <div className="centered-text">
+                    <h4>Audio Chat</h4>
+                </div>
                 <span>
                     RecordVolume:
                 </span>
-                <input
+                <input className="slider"
                     type="range"
                     id="recordVolume"
                     min="0"
                     max="1"
                     step="0.01"
                     defaultValue="1"
-                    onChange={this.recchange}/>
+                    onChange={this.recchange} />
                 <span>
                     PlaybackVolume:
                 </span>
-                <input
+                <input className="slider"
                     type="range"
                     id="playbackVolume"
                     min="0"

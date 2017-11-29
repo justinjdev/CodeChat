@@ -27,8 +27,7 @@ module.exports = class DBController {
             }
         })
     }
-    async postgresTest() {
-    }
+    async postgresTest() {}
 
     //1) insert a user record
     async registerUser(u_id, u_email, u_password, u_username, u_firstname, u_lastname, u_bio) {
@@ -42,13 +41,15 @@ module.exports = class DBController {
     }
     //1) insert a user record
     async loginUser(u_email, u_pass) {
-        let loginUserAttempt
-        try {
-            loginUserAttempt = await postgresController.get_user_name(u_email, u_pass)
-            return loginUserAttempt
-        } catch (error) {
-            console.error(error)
-        }
+        return new Promise((resolve, reject) => {
+            postgresController.get_user_name(u_email, u_pass)
+            .then(user => {
+                console.log("db login:",user)
+                resolve(user)
+            }).catch(error => {
+                reject(error)
+            })
+        })
     }
 
     //2) insert a Message record
@@ -169,24 +170,17 @@ module.exports = class DBController {
 
     //12) delete a user from a channel
     async deleteUser_in_channel(ch_id, u_id) {
-        let delUserInChannel
-        try {
-            delUserInChannel = await postgresController.delete_user_from_channel(ch_id, u_id)
-            // returns if succssessful in postgress
-        } catch (error) {
-            console.error(error)
-        }
+        return new Promise((resolve, reject) => {
+            postgresController.delete_user_from_channel(ch_id, u_id)
+        })
     }
 
-    async return_all_channel_names(){
-        let allChannels
-        try {
-            allChannels = await postgresController.return_all_channel_names()
+    async return_all_channel_names() {
+        return new Promise((resolve, reject) => {
+            postgresController.return_all_channel_names()
             // returns if succssessful in postgress
-        } catch (error) {
-            console.error(error)
-        }
-        return(allChannels)
+        })
+
     }
 
 }

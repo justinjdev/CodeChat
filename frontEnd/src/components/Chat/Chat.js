@@ -61,7 +61,9 @@ class Chat extends Component {
             .props
             .socket
             .on('nickRequest', (nick) => {
-                this.state.nick = nick
+                let newState = this.state
+                newState.nick = nick
+                this.setState(newState)
                 console.log("new nickname:", nick)
             })
 
@@ -179,11 +181,18 @@ class Chat extends Component {
                             .state
                             .messagesList
                             .map((message, index) => {
+
+                                let textClass = "message-text"
+                                if(message.isCode)
+                                    textClass += " code"
+                                else if(message.isOutput)
+                                    textClass += " output"
+                                
                                 return <li className="message" key={index}>
                                     <div className="message-sender">
                                         {message.nick}
                                     </div>
-                                    <div className="message-text">
+                                    <div className={textClass}>
                                         {message.text}
                                     </div>
                                 </li>

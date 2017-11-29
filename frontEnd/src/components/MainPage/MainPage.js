@@ -19,12 +19,11 @@ class MainPage extends Component {
 
                         <div className="left-sidebar col-xs-2">
                             <div className="profile-icon centered-text">
+                                <img src="./logo.png" alt="CodeChat"/>
                                 <p>D.B.</p>
                             </div>
                             <Channels socket={this.props.socket}/>
-                            <center><p>Audio Settings</p></center>
-
-                            <Audio/>
+                            <Audio socket={this.props.socket}/>
                         </div>
 
                         <div className="main col-xs-9">

@@ -24,12 +24,21 @@
                 padding: 10px;
                 word-wrap: break-word;
                 white-space: pre-wrap;
-
+                
                 .message-sender{
                     color: $accent-color;
+                    margin-bottom: 5px;
                 }
                 .message-text{
                     margin-left: 10px;
+                }
+                .code, .output{
+                    font-family: Monaco;
+                    border: 1px solid $code-border-color;
+                    border-radius: 5px;
+                    background-color: $code-background;
+                    color: $code-text-color;
+                    padding: 10px;
                 }
             }
 
@@ -49,7 +58,7 @@
             resize: none;
             background-color: $message-background;
             color: $main-text-color;
-            font-family: sans-serif;
+            font-family: Helvetica;
             padding: 5px;
             box-shadow: none;
         }
@@ -63,7 +72,8 @@
                     background-color: $main-accent;
                     border: 0;
                     color: $main-text-color;
-                    font-family: sans-serif;
+                    font-family: Helvetica;
+            
                     font-size: 14pt;
                 }
                 .clear{
@@ -71,7 +81,8 @@
                     background-color: $main-destructive;
                     border: 0;
                     color: $main-text-color;
-                    font-family: sans-serif;
+                    font-family: Helvetica;
+            
                     font-size: 14pt;
                 }
 

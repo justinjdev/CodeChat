@@ -17,6 +17,21 @@ class Login extends Component {
       username: '',
       password: ''
     }
+    this
+      .props
+      .socket
+      .on('loginReply', reply => {
+        console.log(reply)
+        if (reply === 'error') {
+          console.log("invalid username or password")
+        } else {
+          localStorage.setItem("username", reply[0].u_username)
+          this
+            .props
+            .signIn()
+
+        }
+      })
   }
 
 
@@ -30,9 +45,6 @@ class Login extends Component {
       .props
       .socket
       .emit("loginRequest", payload)
-    this
-      .props
-      .signIn()
   }
 
   saveUsername(e, text) {
@@ -40,7 +52,6 @@ class Login extends Component {
     let state = this.state
     state.username = text
     this.setState(state)
-    localStorage.setItem("username", text)
     console.log("state:", this.state)
   }
 
@@ -72,11 +83,7 @@ class Login extends Component {
                   floatingLabelText="Password"
                   onChange=
                   {(event,newValue) => this.setState({password:newValue})}/>
-                <br/> {/* <RaisedButton
-                label="Submit"
-                primary={true}
-                style={style}
-                onClick={(event) => this.handleClick(event)}/> */}
+                <br/>
                 <RaisedButton
                   label="Submit"
                   primary={true}

@@ -1,5 +1,5 @@
 .channels hr {
-  color: #919191;
+  color: #f3f3f3;
   margin: 10px 10px; }
 
 .channels .active {
@@ -18,7 +18,7 @@
     display: flex; }
     .channels .channel-list .channel a {
       text-decoration: none;
-      color: #F3F3F3;
+      color: #f3f3f3;
       line-height: 250%;
       width: 100%;
       height: 100%; }
