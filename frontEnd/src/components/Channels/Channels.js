@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './Channels.css';
 
 class Chennels extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
 
         this.state = {
-            roomName:'',
+            roomName: '',
             allRooms: []
         }
 
@@ -37,24 +37,23 @@ class Chennels extends Component {
         })
 
         this.props.socket.emit('getRooms')
-
-
     }
-
 
     onChannelClick(event) {
         
         console.log("current room: " + this.state.roomName)
-        console.log("new room:",event.target.text)
+        console.log("new room:", event.target.text)
 
         let room = {
             previousRoom: this.state.roomName,
             newRoom: event.target.text
         }
-        
+
         var elems = document.querySelector(".active")
         if (elems !== null) {
-            elems.classList.remove("active")
+            elems
+                .classList
+                .remove("active")
         }
         event.target.classList.add('active')
 
@@ -64,7 +63,7 @@ class Chennels extends Component {
     render() {
         return (
             <div className="channels">
-                <hr />
+                <hr/>
                 <h4>Hardcoded Channels</h4>
                 <ul className="channel-list">
                     <li className="channel centered-text">
@@ -85,18 +84,21 @@ class Chennels extends Component {
                     <li className="channel centered-text">
                         <a onClick={this.onChannelClick}>SHACS Tutors</a>
                     </li>
-                <h4>Database Channels</h4>
-                    
-                        {
-                            this
-                            .state
-                            .allRooms
-                            .map((roomname, index) => {
-                                return <li className="channel centered-text" key={index}><a onClick={this.onChannelClick}>{roomname}</a></li>
-                            })}
+                    <h4>Database Channels</h4>
+
+                    {// TODO: implement later
+                    this
+                        .state
+                        .allRooms
+                        .map((roomname, index) => {
+                            return <li className="channel centered-text" key={index}>
+                                <a onClick={this.onChannelClick}>{roomname}</a>
+                            </li>
+                        })}
                 </ul>
 
             </div>
         );
     }
-} export default Chennels;
+}
+export default Chennels;
