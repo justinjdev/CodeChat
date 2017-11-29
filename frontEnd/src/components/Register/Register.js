@@ -61,7 +61,7 @@ class Register extends Component {
             <div>
               <MuiThemeProvider>
                 <div>
-                  <AppBar title="Register"/>
+                  <AppBar title="Register" showMenuIconButton={false} />
                   <TextField
                     hintText="Enter your First Name"
                     floatingLabelText="First Name"
