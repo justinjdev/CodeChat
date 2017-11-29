@@ -41,16 +41,8 @@ module.exports = class DBController {
                     reject(error)
                 });
             setTimeout(() => {
-                this
-                    .loginUser(u_email, u_password)
-                    .then(user => {
-                        resolve('success')
-                    })
-                    .catch(error => {
-                        console.error("error with login")
-                        reject('error with register')
-                    })
-            }, 500)
+                resolve('success')
+            },500)
         })
     }
     //1) insert a user record

@@ -126,7 +126,7 @@ module.exports = class Socket {
                     const uuid = generateUUID()
 
                     dbcontroller.registerUser(Math.floor(uuid / 100), registerCreds.email, registerCreds.password, registerCreds.username, registerCreds.first_name, registerCreds.last_name, "").then(reply => {
-                        if (reply === 'success') {
+                        if (reply != 'error') {
                             socket.emit('registerReply', user)
                         }
                     }).catch(error => {
