@@ -26,9 +26,9 @@ class Login extends Component {
       .props
       .socket
       .emit("loginRequest", payload)
-    this
-      .props
-      .signIn()
+    // this
+    //   .props
+    //   .signIn()
   }
 
   saveUsername(e, text) {
@@ -60,11 +60,7 @@ class Login extends Component {
                   floatingLabelText="Password"
                   onChange=
                   {(event,newValue) => this.setState({password:newValue})}/>
-                <br/> {/* <RaisedButton
-                label="Submit"
-                primary={true}
-                style={style}
-                onClick={(event) => this.handleClick(event)}/> */}
+                <br/>
                 <RaisedButton
                   label="Submit"
                   primary={true}
