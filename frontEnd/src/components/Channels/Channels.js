@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './Channels.css';
 
+
 class Chennels extends Component {
     constructor(props) {
         super(props)
@@ -67,7 +68,6 @@ class Chennels extends Component {
     render() {
         return (
             <div className="channels">
-                <hr/>
                 <div className="centered-text">
                     <h4>Text Channels</h4>
                 </div>
@@ -83,7 +83,6 @@ class Chennels extends Component {
                                 <a onClick={this.onChannelClick}>{roomname}</a>
                             </li>
                         })}
-                <hr/>
                 </ul>
 
             </div>

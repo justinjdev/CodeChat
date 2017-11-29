@@ -1,9 +1,5 @@
-.channels hr {
-  color: #f3f3f3;
-  margin: 10px 10px; }
-
 .channels .active {
-  background-color: #56ccf2; }
+  background-color: #00bcd4; }
 
 .channels .channel-list {
   padding: 0;

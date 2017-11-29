@@ -17,7 +17,7 @@
         word-wrap: break-word;
         white-space: pre-wrap; }
         .chat .chat-window .messages-list .message .message-sender {
-          color: #56ccf2;
+          color: #00bcd4;
           margin-bottom: 5px; }
         .chat .chat-window .messages-list .message .message-text {
           margin-left: 10px; }
@@ -48,7 +48,7 @@
       flex-direction: column; }
       .chat .chat-input .submit-buttons .submit {
         flex: 1;
-        background-color: #56ccf2;
+        background-color: #00bcd4;
         border: 0;
         color: #f3f3f3;
         font-family: Helvetica;
