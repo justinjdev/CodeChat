@@ -14,7 +14,7 @@ constructor(props){
   password:''
   }
  }
-/*
+
  handleClick(event){
   var apiBaseUrl = "http://localhost:4000/api/";
   var self = this;
@@ -45,7 +45,7 @@ constructor(props){
   console.log(error);
   });
   }
-*/
+
 render() {
     return (
       <div className="SignPage">
