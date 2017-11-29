@@ -44,7 +44,7 @@ module.exports = class DBController {
                 });
             setTimeout(() => {
                 resolve('success')
-            })
+            },500)
         })
     }
     //1) insert a user record
