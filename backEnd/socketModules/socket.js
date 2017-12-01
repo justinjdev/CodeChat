@@ -66,7 +66,6 @@ module.exports = class Socket {
                 })
                 socket.on('getCache', async room => {
                     await this.getCachedMessages(room, socket)
-
                 })
                 socket.on('message', (message, response) => {
                     const uuid = generateUUID()

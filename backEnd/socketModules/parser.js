@@ -86,7 +86,7 @@ module.exports = class Parser {
                     try {
                         serverRes = await this
                             .virtulization
-                            .language(argument)
+                            .language(message)
                         return serverRes
                     } catch (error) {
                         console.error("ERROR in java case: ", error)
