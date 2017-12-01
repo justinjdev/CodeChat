@@ -114,5 +114,7 @@ class Processor:
                                 )
         self.cleanup(fpath)
         #print(output.stdout)
+        if output.stdout == "":
+            return output.stderr
         return output.stdout
 
