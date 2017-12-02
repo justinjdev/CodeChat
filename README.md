@@ -3,7 +3,7 @@ CodeChat is a collaborative learning project intended to bring new coders into c
 
 - [x] Currently hosted at www.codechat.me
 
-We are currently allowing registration and chat, however there is no persistent code execution for the time being.
+We are currently allowing registration and chat, however there is no code execution until we find a permanent server to call home.
 
 
 ## Why CodeChat?
