@@ -15,6 +15,6 @@ We are currently allowing registration and chat, however there is no persistent 
 
 CodeChat is a web application build with React (Facebook, Instagram) that supports in-line code execution to foster a collaborative learning environment.
 
-![register](https://github.com/NachoChef/CodeChat/master/images/register.png)
+![register](https://github.com/NachoChef/CodeChat/blob/master/images/register.png?raw=true)
 
-![login](https://github.com/NachoChef/CodeChat/master/images/login.png)
+![login](https://github.com/NachoChef/CodeChat/blob/master/images/login.png?raw=true)
