@@ -1,9 +1,9 @@
 ### CodeChat  
 CodeChat is a collaborative learning project intended to bring new coders into contact with people who can answer their questions. 
 
-[x] Currently hosted at www.codechat.me
+- [x] Currently hosted at www.codechat.me
 
-We are currently allowing registration, however there is no persistent code execution for the time being.
+We are currently allowing registration and chat, however there is no persistent code execution for the time being.
 
 
 ## Why CodeChat?
