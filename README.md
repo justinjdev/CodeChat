@@ -1,3 +1,5 @@
+![logo](https://github.com/NachoChef/CodeChat/blob/master/cc_logo_300x300.png?raw=true)
+
 ### CodeChat  
 CodeChat is a collaborative learning project intended to bring new coders into contact with people who can answer their questions. 
 
