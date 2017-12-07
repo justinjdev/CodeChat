@@ -1,13 +1,13 @@
 ![logo](https://github.com/NachoChef/CodeChat/blob/master/cc_logo_300x300.png?raw=true)
-
+***
 ### CodeChat  
 CodeChat is a collaborative learning project intended to bring new coders into contact with people who can answer their questions. 
 
-- [x] Currently hosted at www.codechat.me
+- [ ] Currently not online.
 
-We are currently allowing registration and chat, however there is no code execution until we find a permanent server to call home.
+~~We are currently allowing registration and chat, however there is no code execution until we find a permanent server to call home.~~
 
-
+***
 ## Why CodeChat?
 - Have you ever asked a question on help forums only to get answers that don't work?
 - Have you ever experienced the snarky attitudes that seem to permeate most code-help sites?
