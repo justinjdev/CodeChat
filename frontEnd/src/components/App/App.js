@@ -8,15 +8,16 @@ import Audio from '../Audio/Audio'
 
 import io from 'socket.io-client'
 
-const socket = io('104.131.129.223:8080') // servers
-// const socket = io('localhost:8080') // servers
+// const socket = io('104.131.129.223:8080') // servers
+const socket = io.connect('https://localhost:8080', {secure: true, reconnect: true});
+
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
       register: false, //if false, go to sign in page, if true, go to login page
-      chatting: false
+      chatting: true
     }
     this.signIn = this
       .signIn
