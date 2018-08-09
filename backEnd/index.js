@@ -1,11 +1,24 @@
 'use strict'
+const fs = require('fs')
 const express = require('express')
 const app = express()
-const http = require('https')
+const https = require('https')
+
+/**
+ * HTTPS from.
+ * https://github.com/socketio/socket.io-client/issues/982
+ **/
+const options = {
+    key: fs.readFileSync('./file.pem'),
+    cert: fs.readFileSync('./file.crt')
+  }
 
 app.set('port', process.env.PORT || 8080)
 
-let server = app.listen(app.get('port'), () => {
+
+const server = https.createServer(options, app)
+
+server.listen(app.get('port'), () => {
     console.log('Node app is running on port', app.get('port'))
 })
 
